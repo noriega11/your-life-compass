@@ -15,7 +15,16 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppVaultRouteImport } from './routes/app.vault'
 import { Route as AppTrajectoryRouteImport } from './routes/app.trajectory'
+import { Route as AppSpendingRouteImport } from './routes/app.spending'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRetirementRouteImport } from './routes/app.retirement'
+import { Route as AppRecommendedRouteImport } from './routes/app.recommended'
+import { Route as AppQuestsRouteImport } from './routes/app.quests'
+import { Route as AppProgressRouteImport } from './routes/app.progress'
+import { Route as AppGuardrailsRouteImport } from './routes/app.guardrails'
+import { Route as AppCoachRouteImport } from './routes/app.coach'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -47,9 +56,54 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppVaultRoute = AppVaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppTrajectoryRoute = AppTrajectoryRouteImport.update({
   id: '/trajectory',
   path: '/trajectory',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSpendingRoute = AppSpendingRouteImport.update({
+  id: '/spending',
+  path: '/spending',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRetirementRoute = AppRetirementRouteImport.update({
+  id: '/retirement',
+  path: '/retirement',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRecommendedRoute = AppRecommendedRouteImport.update({
+  id: '/recommended',
+  path: '/recommended',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppQuestsRoute = AppQuestsRouteImport.update({
+  id: '/quests',
+  path: '/quests',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProgressRoute = AppProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppGuardrailsRoute = AppGuardrailsRouteImport.update({
+  id: '/guardrails',
+  path: '/guardrails',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCoachRoute = AppCoachRouteImport.update({
+  id: '/coach',
+  path: '/coach',
   getParentRoute: () => AppRoute,
 } as any)
 
@@ -59,7 +113,16 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/coach': typeof AppCoachRoute
+  '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/quests': typeof AppQuestsRoute
+  '/app/recommended': typeof AppRecommendedRoute
+  '/app/retirement': typeof AppRetirementRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
+  '/app/vault': typeof AppVaultRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,7 +130,16 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/coach': typeof AppCoachRoute
+  '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/quests': typeof AppQuestsRoute
+  '/app/recommended': typeof AppRecommendedRoute
+  '/app/retirement': typeof AppRetirementRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
+  '/app/vault': typeof AppVaultRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -77,7 +149,16 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/coach': typeof AppCoachRoute
+  '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/progress': typeof AppProgressRoute
+  '/app/quests': typeof AppQuestsRoute
+  '/app/recommended': typeof AppRecommendedRoute
+  '/app/retirement': typeof AppRetirementRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
+  '/app/vault': typeof AppVaultRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -88,10 +169,34 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/signup'
+    | '/app/coach'
+    | '/app/guardrails'
+    | '/app/progress'
+    | '/app/quests'
+    | '/app/recommended'
+    | '/app/retirement'
+    | '/app/settings'
+    | '/app/spending'
     | '/app/trajectory'
+    | '/app/vault'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/signup' | '/app/trajectory' | '/app'
+  to:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/signup'
+    | '/app/coach'
+    | '/app/guardrails'
+    | '/app/progress'
+    | '/app/quests'
+    | '/app/recommended'
+    | '/app/retirement'
+    | '/app/settings'
+    | '/app/spending'
+    | '/app/trajectory'
+    | '/app/vault'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -99,7 +204,16 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/signup'
+    | '/app/coach'
+    | '/app/guardrails'
+    | '/app/progress'
+    | '/app/quests'
+    | '/app/recommended'
+    | '/app/retirement'
+    | '/app/settings'
+    | '/app/spending'
     | '/app/trajectory'
+    | '/app/vault'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -155,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/vault': {
+      id: '/app/vault'
+      path: '/vault'
+      fullPath: '/app/vault'
+      preLoaderRoute: typeof AppVaultRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/trajectory': {
       id: '/app/trajectory'
       path: '/trajectory'
@@ -162,16 +283,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTrajectoryRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/spending': {
+      id: '/app/spending'
+      path: '/spending'
+      fullPath: '/app/spending'
+      preLoaderRoute: typeof AppSpendingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/retirement': {
+      id: '/app/retirement'
+      path: '/retirement'
+      fullPath: '/app/retirement'
+      preLoaderRoute: typeof AppRetirementRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/recommended': {
+      id: '/app/recommended'
+      path: '/recommended'
+      fullPath: '/app/recommended'
+      preLoaderRoute: typeof AppRecommendedRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/quests': {
+      id: '/app/quests'
+      path: '/quests'
+      fullPath: '/app/quests'
+      preLoaderRoute: typeof AppQuestsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/progress': {
+      id: '/app/progress'
+      path: '/progress'
+      fullPath: '/app/progress'
+      preLoaderRoute: typeof AppProgressRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/guardrails': {
+      id: '/app/guardrails'
+      path: '/guardrails'
+      fullPath: '/app/guardrails'
+      preLoaderRoute: typeof AppGuardrailsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/coach': {
+      id: '/app/coach'
+      path: '/coach'
+      fullPath: '/app/coach'
+      preLoaderRoute: typeof AppCoachRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppCoachRoute: typeof AppCoachRoute
+  AppGuardrailsRoute: typeof AppGuardrailsRoute
+  AppProgressRoute: typeof AppProgressRoute
+  AppQuestsRoute: typeof AppQuestsRoute
+  AppRecommendedRoute: typeof AppRecommendedRoute
+  AppRetirementRoute: typeof AppRetirementRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppSpendingRoute: typeof AppSpendingRoute
   AppTrajectoryRoute: typeof AppTrajectoryRoute
+  AppVaultRoute: typeof AppVaultRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppCoachRoute: AppCoachRoute,
+  AppGuardrailsRoute: AppGuardrailsRoute,
+  AppProgressRoute: AppProgressRoute,
+  AppQuestsRoute: AppQuestsRoute,
+  AppRecommendedRoute: AppRecommendedRoute,
+  AppRetirementRoute: AppRetirementRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppSpendingRoute: AppSpendingRoute,
   AppTrajectoryRoute: AppTrajectoryRoute,
+  AppVaultRoute: AppVaultRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
