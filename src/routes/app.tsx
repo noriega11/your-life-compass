@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Logo } from "@/components/Logo";
 import { MOCK_USER } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 
@@ -41,12 +42,9 @@ function AppLayout() {
     <div className="min-h-screen bg-background text-foreground flex">
       {/* Sidebar — desktop */}
       <aside className="hidden lg:flex w-64 shrink-0 flex-col border-r border-border bg-sidebar p-4 sticky top-0 h-screen">
-        <Link to="/" className="flex items-center gap-2 px-2 py-3 mb-4">
-          <div className="h-7 w-7 rounded-lg bg-lime grid place-items-center">
-            <span className="font-display text-lime-foreground text-lg">L</span>
-          </div>
-          <span className="font-display text-lg">LONGEVA</span>
-        </Link>
+        <div className="px-2 py-3 mb-4">
+          <Logo size="md" />
+        </div>
         <nav className="flex-1 space-y-0.5">
           {NAV.map((n) => (
             <Link
@@ -72,10 +70,9 @@ function AppLayout() {
         {/* Top bar */}
         <header className="sticky top-0 z-20 backdrop-blur-xl bg-background/70 border-b border-border">
           <div className="px-5 lg:px-8 h-14 flex items-center justify-between">
-            <Link to="/app" className="flex lg:hidden items-center gap-2">
-              <div className="h-6 w-6 rounded-md bg-lime" />
-              <span className="font-display text-lg">LONGEVA</span>
-            </Link>
+            <div className="flex lg:hidden">
+              <Logo size="sm" to="/app" />
+            </div>
             <div className="hidden lg:block" />
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs">
