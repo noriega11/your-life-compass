@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
 import { Counter } from "@/components/Counter";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Logo } from "@/components/Logo";
 import { useState } from "react";
 import optimized70 from "@/assets/future-self-optimized-70.jpg";
 import current70 from "@/assets/future-self-current-70.jpg";
@@ -52,12 +53,7 @@ function Nav() {
   return (
     <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-background/60 border-b border-border">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-lg bg-lime grid place-items-center">
-            <span className="font-display text-lime-foreground text-lg">L</span>
-          </div>
-          <span className="font-display text-xl tracking-tight">LONGEVA</span>
-        </Link>
+        <Logo size="md" />
         <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           <a href="#how" className="hover:text-foreground">How it works</a>
           <a href="#pricing" className="hover:text-foreground">Pricing</a>
@@ -572,12 +568,7 @@ function Footer() {
     <footer className="py-16">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 items-start">
         <div>
-          <Link to="/" className="flex items-center gap-2 mb-4">
-            <div className="h-7 w-7 rounded-lg bg-lime grid place-items-center">
-              <span className="font-display text-lime-foreground text-lg">L</span>
-            </div>
-            <span className="font-display text-xl">LONGEVA</span>
-          </Link>
+          <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
             Live your longest life — one decision at a time.
           </p>

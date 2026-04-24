@@ -12,6 +12,7 @@ import {
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
 import { Counter } from "@/components/Counter";
 import { WhyThis } from "@/components/WhyThis";
+import { Logo } from "@/components/Logo";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PROVIDERS } from "@/lib/mockData";
@@ -102,7 +103,7 @@ function Onboarding() {
     <div className="min-h-screen bg-background text-foreground">
       <div className="fixed top-0 inset-x-0 z-30 backdrop-blur-xl bg-background/70 border-b border-border">
         <div className="max-w-3xl mx-auto px-6 h-14 flex items-center gap-4">
-          <p className="font-display text-lg">LONGEVA</p>
+          <Logo size="sm" />
           <div className="flex-1 h-1 bg-muted rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-lime"
