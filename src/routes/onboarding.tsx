@@ -12,6 +12,7 @@ import {
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
 import { Counter } from "@/components/Counter";
 import { WhyThis } from "@/components/WhyThis";
+import { Logo } from "@/components/Logo";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { PROVIDERS } from "@/lib/mockData";
