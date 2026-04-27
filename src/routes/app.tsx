@@ -50,6 +50,7 @@ function AppLayout() {
             <Link
               key={n.to}
               to={n.to}
+              search={{}}
               activeOptions={{ exact: !!n.exact }}
               className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors data-[status=active]:bg-sidebar-accent data-[status=active]:text-foreground"
             >
@@ -101,6 +102,7 @@ function AppLayout() {
               <Link
                 key={n.to}
                 to={n.to}
+                search={{}}
                 activeOptions={{ exact: !!n.exact }}
                 className="flex flex-col items-center gap-1 py-2 rounded-lg text-[10px] text-muted-foreground data-[status=active]:text-lime"
               >
