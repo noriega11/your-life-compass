@@ -76,7 +76,7 @@ export function Logo({
   }[size];
 
   return (
-    <Link to={to} search={{}} className={`inline-flex items-center ${dims.gap} group`}>
+    <Link to={to} search={() => ({})} className={`inline-flex items-center ${dims.gap} group`}>
       <span className="text-foreground transition-transform duration-500 group-hover:rotate-[8deg]">
         <LogoMark className={dims.mark} />
       </span>
