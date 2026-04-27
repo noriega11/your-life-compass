@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Heart, Wallet, Brain, Shield, Activity, Sparkles, Check,
-  Lock, Eye, Database, Smartphone, ChevronDown, Clock, TrendingDown, AlertCircle,
+  Lock, Eye, Database, Smartphone, ChevronDown, TrendingDown, AlertCircle,
+  CreditCard, Watch, ScanFace, CalendarDays, Target, Zap, Apple, Bell, Repeat, LineChart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
@@ -38,6 +39,12 @@ function Landing() {
       <PreviewBand />
       <ThreeCrises />
       <HowItWorks />
+      <BodyAgeScan />
+      <WearablesModule />
+      <AgingPrediction />
+      <WalletIntegrations />
+      <RoutinesCalendar />
+      <AccountabilityModule />
       <DataSources />
       <FutureSelf />
       <ImpactBand />
