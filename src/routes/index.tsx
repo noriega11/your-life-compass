@@ -490,6 +490,486 @@ function Explainability() {
   );
 }
 
+/* ────────────────────────────────────────────────────────────
+ * Body Age Scan
+ * ──────────────────────────────────────────────────────────── */
+function BodyAgeScan() {
+  return (
+    <section className="py-32">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5 order-2 lg:order-1">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Body Age Scan · 60 sec</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            Your face knows your <em className="text-lime not-italic">real</em> age.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+            A 60-second selfie scan reads 38 facial biomarkers — skin elasticity, periorbital fat,
+            micro-circulation — and returns your biological age. Runs on-device. Photo never leaves your phone.
+          </p>
+          <div className="grid grid-cols-3 gap-3 mt-8">
+            {[
+              { k: "Real age", v: "34" },
+              { k: "Body age", v: "31.4", accent: true },
+              { k: "Δ vs peers", v: "−2.6" },
+            ].map((m) => (
+              <div key={m.k} className="rounded-2xl border border-border bg-card p-4">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{m.k}</p>
+                <p className={`font-display text-3xl tabular-nums mt-1 ${m.accent ? "text-lime" : ""}`}>{m.v}</p>
+              </div>
+            ))}
+          </div>
+          <ul className="mt-8 space-y-2.5 text-sm">
+            {[
+              "On-device CoreML / TFLite — photo never uploaded",
+              "Re-scan monthly to watch your age trend reverse",
+              "Powers your LifeScore + personalized routines",
+            ].map((it) => (
+              <li key={it} className="flex items-start gap-2.5">
+                <ScanFace className="h-4 w-4 text-lime mt-0.5 shrink-0" />{it}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="lg:col-span-7 order-1 lg:order-2 relative">
+          <div className="relative rounded-[2rem] overflow-hidden border border-border bg-card shadow-card">
+            <img
+              src="https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=1400&q=85&auto=format&fit=crop"
+              alt="Body age facial scan in progress"
+              loading="lazy"
+              className="w-full aspect-[5/4] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
+            <div className="absolute inset-x-8 inset-y-12 border-2 border-lime/70 rounded-[40%/45%] animate-pulse" />
+            <div className="absolute top-5 left-5 flex flex-col gap-2">
+              <span className="px-3 py-1.5 rounded-full bg-background/90 backdrop-blur text-[11px] font-mono text-foreground border border-border">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-lime mr-1.5 animate-pulse" />
+                On-device · BioClock v3.2
+              </span>
+              <span className="px-3 py-1.5 rounded-full bg-background/90 backdrop-blur text-[11px] font-mono text-muted-foreground border border-border">
+                38 / 38 biomarkers
+              </span>
+            </div>
+            <div className="absolute bottom-5 right-5 rounded-2xl bg-background/95 backdrop-blur p-4 border border-border shadow-card min-w-[180px]">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Body age</p>
+              <p className="font-display text-4xl text-lime tabular-nums">31.4</p>
+              <p className="text-[10px] text-muted-foreground">−2.6 yrs vs chronological</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Wearables
+ * ──────────────────────────────────────────────────────────── */
+function WearablesModule() {
+  const devices = [
+    { name: "Apple Watch", metric: "HRV · 62 ms", img: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=900&q=85&auto=format&fit=crop" },
+    { name: "Oura Ring", metric: "Sleep · 87", img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=900&q=85&auto=format&fit=crop" },
+    { name: "Whoop 4.0", metric: "Recovery · 74%", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=85&auto=format&fit=crop" },
+    { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1559757175-7cb036e0d465?w=900&q=85&auto=format&fit=crop" },
+  ];
+  return (
+    <section className="py-32 bg-card/40 border-y border-border">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
+          <div className="max-w-2xl">
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wearables · always on</p>
+            <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+              Your body, in one stream.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mt-4">
+              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device — then translate
+              the noise into one number you actually act on.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {["Apple Health", "Google Fit", "Oura", "Whoop", "Garmin", "Fitbit", "Withings", "Dexcom"].map((b) => (
+              <span key={b} className="px-3 py-1.5 text-xs rounded-full border border-border bg-background font-mono">
+                {b}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {devices.map((d, i) => (
+            <motion.div
+              key={d.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="rounded-3xl overflow-hidden bg-background border border-border group"
+            >
+              <div className="aspect-[4/3] overflow-hidden bg-muted">
+                <img src={d.img} alt={d.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              </div>
+              <div className="p-5 flex items-center justify-between">
+                <div>
+                  <p className="font-medium">{d.name}</p>
+                  <p className="text-xs text-muted-foreground font-mono mt-0.5">{d.metric}</p>
+                </div>
+                <Watch className="h-4 w-4 text-lime" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Aging Prediction
+ * ──────────────────────────────────────────────────────────── */
+function AgingPrediction() {
+  const drivers = [
+    { name: "Sleep consistency", weight: 28, dir: "+1.4 yrs", positive: true },
+    { name: "VO₂ max trend", weight: 22, dir: "+1.1 yrs", positive: true },
+    { name: "Ultra-processed food %", weight: 19, dir: "−0.8 yrs", positive: false },
+    { name: "Social connection", weight: 16, dir: "+0.6 yrs", positive: true },
+    { name: "Glucose variability", weight: 15, dir: "−0.5 yrs", positive: false },
+  ];
+  return (
+    <section className="py-32">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-7 relative">
+          <div className="relative rounded-[2rem] overflow-hidden border border-border bg-card shadow-card">
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=85&auto=format&fit=crop"
+              alt="Aging trajectory analytics dashboard"
+              loading="lazy"
+              className="w-full aspect-[5/4] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+            <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-background/95 backdrop-blur-xl border border-border p-6 shadow-card">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Aging drivers · live</p>
+                <span className="text-[10px] font-mono text-muted-foreground">Kairos v4.1 · 84% conf.</span>
+              </div>
+              <div className="space-y-2.5">
+                {drivers.map((d) => (
+                  <div key={d.name}>
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-foreground">{d.name}</span>
+                      <span className={`font-mono ${d.positive ? "text-lime" : "text-destructive"}`}>{d.dir}</span>
+                    </div>
+                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                      <div
+                        className={d.positive ? "h-full bg-lime" : "h-full bg-destructive/70"}
+                        style={{ width: `${d.weight * 2.5}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="lg:col-span-5">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Aging Prediction Engine</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            Today's habits. <em className="text-lime not-italic">Tomorrow's age.</em>
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+            We continuously analyze your last 90 days of behavior — sleep, movement, food, stress, social —
+            and project your biological age curve to 90. Every driver shown. Every weight explainable.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-8">
+            <Stat icon={LineChart} label="Drivers tracked" value="120+" />
+            <Stat icon={Sparkles} label="Re-forecast" value="Daily" />
+            <Stat icon={Target} label="Confidence" value="80%+" />
+            <Stat icon={Brain} label="Models" value="4 ensembled" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stat({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-4">
+      <Icon className="h-4 w-4 text-lime mb-2" />
+      <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p className="font-display text-2xl mt-0.5">{value}</p>
+    </div>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Wallet Integrations
+ * ──────────────────────────────────────────────────────────── */
+function WalletIntegrations() {
+  return (
+    <section className="py-32 bg-card/40 border-y border-border overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wallets · Cards · Banks</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            One swipe. Every consequence visible.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-4">
+            Connect Apple Pay, Google Pay, your debit cards and bank accounts. Every purchase scored
+            in real time across health, wealth, mind and the planet — with guardrails before you tap.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-6">
+          <div className="lg:col-span-5 relative rounded-[2rem] overflow-hidden border border-border bg-background p-8 sm:p-10">
+            <p className="text-xs font-mono uppercase tracking-wider text-lime mb-2">The LONGEVA Card</p>
+            <h3 className="font-display text-3xl mb-3">Your guardrails, in titanium.</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+              Tap-to-pay anywhere. Earns LONGV when you spend on what extends your life. Three-tier
+              guardrails block the worst before checkout.
+            </p>
+            <div className="relative aspect-[1.586] rounded-2xl bg-gradient-to-br from-foreground via-foreground to-foreground/80 dark:from-card dark:to-background p-6 shadow-glow-lime overflow-hidden">
+              <div className="absolute inset-0 opacity-30 bg-radial-lime" />
+              <div className="relative flex flex-col h-full justify-between text-background dark:text-foreground">
+                <div className="flex items-start justify-between">
+                  <span className="font-display text-xl tracking-tight">longeva</span>
+                  <CreditCard className="h-5 w-5 opacity-60" />
+                </div>
+                <div>
+                  <p className="font-mono text-sm tracking-[0.2em] opacity-90">•••• •••• •••• 8412</p>
+                  <div className="flex justify-between items-end mt-2">
+                    <span className="text-[10px] font-mono opacity-60">M. CHEN</span>
+                    <span className="text-[10px] font-mono opacity-60">12 / 29</span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-lime/40 blur-3xl" />
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 rounded-[2rem] overflow-hidden border border-border bg-background p-8">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <p className="text-xs font-mono uppercase tracking-wider text-lime">Live · last hour</p>
+                <h3 className="font-display text-2xl mt-1">Every tap, scored.</h3>
+              </div>
+              <div className="flex gap-1.5">
+                {["AP", "GP", "VS", "MC"].map((b) => (
+                  <span key={b} className="h-7 w-7 grid place-items-center rounded-lg border border-border bg-card font-mono text-[10px]">{b}</span>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-2">
+              {[
+                { merchant: "Whole Foods Market", amount: "$84.20", impact: "good", note: "+1.2 healthspan hrs", method: "Apple Pay" },
+                { merchant: "DoorDash · Late-night", amount: "$34.10", impact: "blocked", note: "Blocked · −2.1 hrs", method: "LONGEVA Card" },
+                { merchant: "Equinox", amount: "$215.00", impact: "good", note: "+6.4 healthspan hrs · 80 LONGV", method: "Google Pay" },
+                { merchant: "Total Wine · 3rd this wk", amount: "$58.00", impact: "nudged", note: "Reduced order by $22", method: "Visa ••8412" },
+                { merchant: "Trader Joe's", amount: "$62.40", impact: "good", note: "+0.9 hrs · routed $5 → IRA", method: "Apple Pay" },
+              ].map((t) => (
+                <div key={t.merchant} className="flex items-center gap-4 p-3 rounded-xl hover:bg-card transition">
+                  <div className={`h-9 w-9 rounded-xl grid place-items-center shrink-0 ${
+                    t.impact === "good" ? "bg-lime/15 text-lime" :
+                    t.impact === "blocked" ? "bg-destructive/15 text-destructive" :
+                    "bg-warning/20 text-warning"
+                  }`}>
+                    {t.impact === "good" ? <Check className="h-4 w-4" /> : t.impact === "blocked" ? <Shield className="h-4 w-4" /> : <Bell className="h-4 w-4" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">{t.merchant}</p>
+                    <p className="text-[11px] text-muted-foreground font-mono truncate">{t.method} · {t.note}</p>
+                  </div>
+                  <p className={`font-mono text-sm tabular-nums shrink-0 ${t.impact === "blocked" ? "line-through text-muted-foreground" : ""}`}>{t.amount}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 pt-5 border-t border-border flex items-center justify-between text-xs">
+              <span className="text-muted-foreground font-mono">Auto-routed today</span>
+              <span className="font-mono text-lime">+$47 → IRA · +210 LONGV</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Routines + Calendar
+ * ──────────────────────────────────────────────────────────── */
+function RoutinesCalendar() {
+  const week = ["M", "T", "W", "T", "F", "S", "S"];
+  const blocks = [
+    { time: "06:30", title: "Zone-2 cardio", tag: "Health", color: "lime" },
+    { time: "09:00", title: "Deep-work block", tag: "Mind", color: "muted" },
+    { time: "12:30", title: "Protein-forward lunch", tag: "Health", color: "lime" },
+    { time: "17:00", title: "Strength · push day", tag: "Health", color: "lime" },
+    { time: "21:30", title: "Wind-down · breathwork", tag: "Mind", color: "muted" },
+  ];
+  return (
+    <section className="py-32">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines + Calendar</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            Your week, <em className="text-lime not-italic">built around</em> your forecast.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+            Two-way sync with Google, Apple and Outlook calendars. We slot in movement, recovery,
+            meals and reflection in the gaps you actually have — and adapt when meetings move.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-8">
+            <Stat icon={CalendarDays} label="Calendars" value="3 synced" />
+            <Stat icon={Repeat} label="Auto-adapt" value="Real-time" />
+            <Stat icon={Apple} label="Meal plans" value="Per macro" />
+            <Stat icon={Zap} label="Streak" value="12 days" />
+          </div>
+        </div>
+
+        <div className="lg:col-span-7">
+          <div className="relative rounded-[2rem] border border-border bg-card p-6 sm:p-8 shadow-card overflow-hidden">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <p className="text-xs font-mono uppercase tracking-wider text-lime">This week</p>
+                <p className="font-display text-2xl">Metabolic Spring · day 34/90</p>
+              </div>
+              <div className="flex gap-1.5">
+                {week.map((d, i) => (
+                  <span
+                    key={i}
+                    className={`h-9 w-9 grid place-items-center rounded-xl text-xs font-mono ${
+                      i === 2 ? "bg-lime text-lime-foreground font-semibold" : "bg-background border border-border text-muted-foreground"
+                    }`}
+                  >
+                    {d}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute left-[60px] top-0 bottom-0 w-px bg-border" />
+              <div className="space-y-2">
+                {blocks.map((b) => (
+                  <div key={b.time} className="flex items-stretch gap-4">
+                    <span className="font-mono text-[11px] text-muted-foreground w-[44px] pt-3 text-right">{b.time}</span>
+                    <span className={`relative h-3 w-3 rounded-full mt-3.5 shrink-0 ${b.color === "lime" ? "bg-lime ring-4 ring-lime/20" : "bg-foreground/40"}`} />
+                    <div className="flex-1 rounded-xl border border-border bg-background p-3 flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium">{b.title}</p>
+                        <p className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mt-0.5">{b.tag}</p>
+                      </div>
+                      <button className="text-[10px] font-mono text-lime hover:underline">Why?</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6 pt-5 border-t border-border flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5 text-lime" />Google · Apple · Outlook</span>
+              <span className="flex items-center gap-1.5"><Bell className="h-3.5 w-3.5 text-lime" />Smart reminders</span>
+              <span className="flex items-center gap-1.5"><Repeat className="h-3.5 w-3.5 text-lime" />Adapts to meetings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Accountability
+ * ──────────────────────────────────────────────────────────── */
+function AccountabilityModule() {
+  const goals = [
+    { name: "Retirement at 60", current: 142, target: 1620, unit: "K" },
+    { name: "Emergency fund", current: 18, target: 25, unit: "K" },
+    { name: "Cap delivery $/wk", current: 64, target: 80, unit: "", inverse: true },
+  ];
+  return (
+    <section className="py-32 bg-card/40 border-y border-border">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5">
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Accountability</p>
+            <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+              Goals you'll <em className="text-lime not-italic">actually</em> hit.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+              Every transaction logged against your financial and longevity goals. Weekly reviews
+              from Kairos. Streaks, pacts, and gentle nudges before you drift.
+            </p>
+            <ul className="mt-8 space-y-2.5 text-sm">
+              {[
+                "Auto-categorized spending tied to each goal",
+                "Pacts with friends — opt-in social accountability",
+                "Weekly Sunday review with course-corrections",
+                "LONGV rewards redeemable for IRA top-ups",
+              ].map((it) => (
+                <li key={it} className="flex items-start gap-2.5">
+                  <Target className="h-4 w-4 text-lime mt-0.5 shrink-0" />{it}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-7 grid gap-4">
+            <div className="rounded-3xl border border-border bg-background p-7">
+              <div className="flex items-center justify-between mb-5">
+                <p className="font-display text-xl">Active goals</p>
+                <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">Updated 2 min ago</span>
+              </div>
+              <div className="space-y-5">
+                {goals.map((g) => {
+                  const pct = Math.min(100, (g.current / g.target) * 100);
+                  return (
+                    <div key={g.name}>
+                      <div className="flex justify-between text-sm mb-1.5">
+                        <span className="font-medium">{g.name}</span>
+                        <span className="font-mono text-muted-foreground">
+                          ${g.current}{g.unit} <span className="opacity-50">/ ${g.target}{g.unit}</span>
+                        </span>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${pct}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className={`h-full ${pct > 90 && g.inverse ? "bg-warning" : "bg-lime"}`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-border bg-background p-7">
+              <div className="flex items-center justify-between mb-5">
+                <p className="font-display text-xl">Consumption journal · today</p>
+                <span className="px-2.5 py-1 rounded-full bg-lime/15 text-lime text-[10px] font-mono uppercase tracking-wider">on track</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {[
+                  { k: "Calories", v: "1,840", sub: "of 2,100" },
+                  { k: "Protein", v: "128g", sub: "+18g vs goal" },
+                  { k: "Steps", v: "9,420", sub: "of 10k" },
+                  { k: "Spend", v: "$72", sub: "of $120/d" },
+                ].map((m) => (
+                  <div key={m.k} className="rounded-xl border border-border bg-card p-3">
+                    <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{m.k}</p>
+                    <p className="font-display text-2xl tabular-nums mt-0.5">{m.v}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono mt-0.5">{m.sub}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Pricing() {
   const tiers = [
     { name: "Free", price: "$0", desc: "See your forecast and start.", features: ["LifeScore + Body Age", "Daily action", "Basic guardrails"], cta: "Start free", highlight: false },
