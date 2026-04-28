@@ -47,6 +47,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "LONGEVA — Live your longest life" },
+      { name: "description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },
+      { property: "og:description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },
+      { name: "twitter:description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d48042f6-11aa-4723-ad96-91e50ce6940f/id-preview-f8a518cb--18afd389-f594-4598-91b5-d0236c8dc43c.lovable.app-1777319914359.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d48042f6-11aa-4723-ad96-91e50ce6940f/id-preview-f8a518cb--18afd389-f594-4598-91b5-d0236c8dc43c.lovable.app-1777319914359.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
