@@ -157,7 +157,14 @@ function Nav() {
       {mobileOpen && (
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl max-h-[80vh] overflow-y-auto">
           <div className="max-w-7xl mx-auto px-6 py-5 space-y-5">
-            <div>
+            <div className="grid gap-2 text-sm">
+              {topLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <div className="border-t border-border pt-4">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">Features</p>
               <div className="grid gap-1">
                 {features.map((f) => (
@@ -168,7 +175,7 @@ function Nav() {
               </div>
             </div>
             <div className="border-t border-border pt-4 grid gap-2 text-sm">
-              {topLinks.map((l) => (
+              {tailLinks.map((l) => (
                 <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
                   {l.label}
                 </a>
