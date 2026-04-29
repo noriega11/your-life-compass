@@ -57,40 +57,73 @@ function Landing() {
 }
 
 function Nav() {
+  const [open, setOpen] = useState(false);
+  const links = [
+    { href: "#how", label: "Cómo funciona" },
+    { href: "#scan", label: "Body Scan" },
+    { href: "#wearables", label: "Wearables" },
+    { href: "#prediction", label: "Predicción" },
+    { href: "#wallet", label: "Compras" },
+    { href: "#routines", label: "Rutinas" },
+    { href: "#pricing", label: "Precios" },
+    { href: "#faq", label: "FAQ" },
+  ];
   return (
-    <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-background/60 border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Logo size="md" />
-        <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#how" className="hover:text-foreground">How it works</a>
-          <a href="#pricing" className="hover:text-foreground">Pricing</a>
-          <a href="#faq" className="hover:text-foreground">FAQ</a>
+    <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-background/80 border-b border-border">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+        <a href="#top" className="shrink-0"><Logo size="md" /></a>
+        <div className="hidden lg:flex items-center gap-6 text-sm text-muted-foreground">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
+              {l.label}
+            </a>
+          ))}
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/login">Sign in</Link>
+          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+            <Link to="/login">Entrar</Link>
           </Button>
           <Button variant="lime" size="sm" asChild>
-            <Link to="/signup">See your forecast</Link>
+            <Link to="/signup">Ver mi pronóstico</Link>
           </Button>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            className="lg:hidden h-9 w-9 grid place-items-center rounded-lg border border-border"
+            aria-label="Abrir menú"
+            aria-expanded={open}
+          >
+            <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+          </button>
         </div>
       </div>
+      {open && (
+        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+            {links.map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
 
 function Hero() {
   return (
-    <section className="relative pt-28 pb-20 overflow-hidden bg-gradient-hero">
-      <div className="relative max-w-7xl mx-auto px-6">
+    <section id="top" className="relative pt-28 pb-16 overflow-hidden bg-gradient-hero">
+      <div className="relative max-w-6xl mx-auto px-6">
         {/* Top headline block */}
-        <div className="max-w-4xl mx-auto text-center mb-14">
+        <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-6 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
             La primera plataforma LifeFi · Tu pronóstico en 12 minutos
@@ -100,7 +133,7 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
+            className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] leading-[0.98] text-balance"
           >
             Vive más años,
             <br />
@@ -111,9 +144,9 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
+            className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto text-pretty"
           >
-            LONGEVA convierte tus hábitos diarios, tus compras y tus biomarcadores
+            LONGEVA convierte tus hábitos, tus compras y tus biomarcadores
             en un pronóstico claro de vida. Después te ayuda a mejorarlo,
             una decisión pequeña a la vez.
           </motion.p>
@@ -122,12 +155,12 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mt-9 flex flex-wrap gap-3 justify-center"
+            className="mt-7 flex flex-wrap gap-3 justify-center"
           >
-            <Button variant="lime" size="xl" asChild>
+            <Button variant="lime" size="lg" asChild>
               <Link to="/signup">Ver mi pronóstico <ArrowRight className="h-4 w-4" /></Link>
             </Button>
-            <Button variant="glass" size="xl" asChild>
+            <Button variant="glass" size="lg" asChild>
               <a href="#how">Cómo funciona</a>
             </Button>
           </motion.div>
@@ -136,7 +169,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55 }}
-            className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
             <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Cifrado de extremo a extremo</span>
             <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> Sin anuncios, nunca</span>
@@ -144,51 +177,51 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Visual block: human photo + floating LifeScore card */}
+        {/* Visual block: human photo + side metrics (no overlap) */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="relative max-w-6xl mx-auto"
+          className="relative max-w-5xl mx-auto grid md:grid-cols-5 gap-4 items-stretch"
         >
-          <div className="relative rounded-[28px] overflow-hidden border border-border shadow-card aspect-[16/9] bg-card">
+          <div className="md:col-span-3 rounded-3xl overflow-hidden border border-border shadow-card bg-card">
             <img
               src={heroHuman}
               alt="Familia disfrutando una mañana saludable juntos"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover aspect-[4/3]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-
-            {/* Floating LifeScore */}
-            <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:bottom-8 flex items-end justify-between sm:block">
-              <div className="rounded-2xl bg-card/90 backdrop-blur-xl border border-border p-4 sm:p-5 shadow-card max-w-xs">
-                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
-                <p className="font-display text-4xl tabular-nums leading-none">782</p>
-                <p className="text-xs text-muted-foreground mt-2">+12 esta semana · 758 a 806 con 80% de confianza</p>
-              </div>
-            </div>
-
-            {/* Floating chips top-right */}
-            <div className="hidden md:flex absolute top-6 right-6 flex-col gap-2 items-end">
-              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
-                <Heart className="h-3.5 w-3.5 text-lime" /> Esperanza saludable +7 años
-              </span>
-              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
-                <Wallet className="h-3.5 w-3.5 text-lime" /> Brecha de retiro: cerrable
-              </span>
-              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
-                <Brain className="h-3.5 w-3.5 text-lime" /> 3 acciones para hoy
-              </span>
-            </div>
           </div>
 
-          {/* Small orb floats off the corner on desktop */}
-          <div className="hidden lg:block absolute -right-8 -top-10">
-            <LifeScoreOrb value={782} low={758} high={806} size={180} />
+          {/* Side metrics column, never on top of the photo */}
+          <div className="md:col-span-2 flex flex-col gap-3">
+            <div className="rounded-2xl bg-card border border-border p-5 shadow-soft">
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
+              <p className="font-display text-5xl tabular-nums leading-none">782</p>
+              <p className="text-xs text-muted-foreground mt-2">+12 esta semana · rango 758 a 806 con 80% de confianza</p>
+            </div>
+            <div className="grid grid-cols-1 gap-2.5">
+              <MiniChip icon={Heart} label="Esperanza saludable" value="+7 años" />
+              <MiniChip icon={Wallet} label="Brecha de retiro" value="Cerrable" />
+              <MiniChip icon={Brain} label="Acciones para hoy" value="3 listas" />
+            </div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function MiniChip({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card px-4 py-3 flex items-center justify-between gap-3 shadow-soft">
+      <div className="flex items-center gap-2.5 min-w-0">
+        <span className="h-8 w-8 rounded-lg bg-lime/15 grid place-items-center shrink-0">
+          <Icon className="h-4 w-4 text-lime" />
+        </span>
+        <p className="text-sm text-muted-foreground truncate">{label}</p>
+      </div>
+      <p className="text-sm font-medium tabular-nums whitespace-nowrap">{value}</p>
+    </div>
   );
 }
 
