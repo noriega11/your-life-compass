@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 /**
- * LONGEVA mark — a modern, geometric "longevity arc".
+ * LONGEVA mark, a modern, geometric "longevity arc".
  * Three stacked arcs = forecast confidence bands.
  * Vertical stroke = the present moment intersecting the trajectory.
  * Designed to read crisply at 20px and feel sculptural at 120px.
@@ -21,7 +21,7 @@ export function LogoMark({
       className={className}
       aria-hidden="true"
     >
-      {/* Outer arc — projected trajectory */}
+      {/* Outer arc, projected trajectory */}
       <path
         d="M3.5 24 A 14 14 0 0 1 28.5 24"
         stroke="currentColor"
@@ -29,7 +29,7 @@ export function LogoMark({
         strokeLinecap="round"
         opacity="0.35"
       />
-      {/* Middle arc — confidence band */}
+      {/* Middle arc, confidence band */}
       <path
         d="M7 24 A 9 9 0 0 1 25 24"
         stroke="currentColor"
@@ -37,14 +37,14 @@ export function LogoMark({
         strokeLinecap="round"
         opacity="0.6"
       />
-      {/* Inner arc — primary forecast */}
+      {/* Inner arc, primary forecast */}
       <path
         d="M10.5 24 A 5.5 5.5 0 0 1 21.5 24"
         stroke="currentColor"
         strokeWidth={strokeWidth}
         strokeLinecap="round"
       />
-      {/* The present — vertical pulse */}
+      {/* The present, vertical pulse */}
       <line
         x1="16"
         y1="6"
@@ -54,7 +54,7 @@ export function LogoMark({
         strokeWidth={strokeWidth}
         strokeLinecap="round"
       />
-      {/* Accent dot — peak */}
+      {/* Accent dot, peak */}
       <circle cx="16" cy="6" r="1.6" fill="var(--lime)" />
     </svg>
   );

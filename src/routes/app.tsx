@@ -40,7 +40,7 @@ function AppLayout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex">
-      {/* Sidebar — desktop */}
+      {/* Sidebar, desktop */}
       <aside className="hidden lg:flex w-64 shrink-0 flex-col border-r border-border bg-sidebar p-4 sticky top-0 h-screen">
         <div className="px-2 py-3 mb-4">
           <Logo size="md" />
@@ -95,7 +95,7 @@ function AppLayout() {
           <Outlet />
         </main>
 
-        {/* Bottom tabs — mobile */}
+        {/* Bottom tabs, mobile */}
         <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 backdrop-blur-xl bg-background/90 border-t border-border">
           <div className="grid grid-cols-5 gap-1 p-2">
             {NAV.slice(0, 5).map((n) => (

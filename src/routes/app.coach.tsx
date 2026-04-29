@@ -48,7 +48,7 @@ function Coach() {
     {
       id: "0",
       role: "kairos",
-      text: "Morning, Maya. I reviewed your last 7 days. One thing stood out — want me to walk you through it?",
+      text: "Morning, Maya. I reviewed your last 7 days. One thing stood out, want me to walk you through it?",
     },
   ]);
   const [input, setInput] = useState("");

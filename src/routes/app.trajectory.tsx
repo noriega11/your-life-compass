@@ -49,9 +49,9 @@ function Trajectory() {
     <div className="max-w-6xl mx-auto space-y-12">
       <header>
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your life forecast</p>
-        <h1 className="font-display text-5xl text-balance">This is where you're headed — and where you could be.</h1>
+        <h1 className="font-display text-5xl text-balance">This is where you're headed, and where you could be.</h1>
         <p className="text-muted-foreground mt-3 max-w-2xl">
-          Two paths, side by side. Toggle habits to see how your trajectory bends. Confidence shading shows our 80% range — never false precision.
+          Two paths, side by side. Toggle habits to see how your trajectory bends. Confidence shading shows our 80% range, never false precision.
         </p>
       </header>
 
@@ -129,7 +129,7 @@ function Trajectory() {
         <div className="flex items-start justify-between mb-6">
           <div>
             <h2 className="font-display text-2xl">Your future self at {age}</h2>
-            <p className="text-xs text-muted-foreground mt-1">Generated with your scan + projected biological aging. Not a prediction — a possibility.</p>
+            <p className="text-xs text-muted-foreground mt-1">Generated with your scan + projected biological aging. Not a prediction, a possibility.</p>
           </div>
           <div className="flex gap-1.5">
             {[50, 70, 90].map((a) => (

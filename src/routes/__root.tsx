@@ -32,22 +32,22 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "LONGEVA — Live your longest life" },
+      { title: "LONGEVA, Live your longest life" },
       {
         name: "description",
         content:
-          "LONGEVA shows how long you'll live, how healthy you'll stay, and whether you'll have enough to retire — then helps you improve all three.",
+          "LONGEVA shows how long you'll live, how healthy you'll stay, and whether you'll have enough to retire, then helps you improve all three.",
       },
       { name: "author", content: "LONGEVA" },
-      { property: "og:title", content: "LONGEVA — Live your longest life" },
+      { property: "og:title", content: "LONGEVA, Live your longest life" },
       {
         property: "og:description",
         content:
-          "Your life forecast in 12 minutes. AI coach, smart guardrails, and longevity rewards — based on what you actually buy and do.",
+          "Your life forecast in 12 minutes. AI coach, smart guardrails, and longevity rewards, based on what you actually buy and do.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "LONGEVA — Live your longest life" },
+      { name: "twitter:title", content: "LONGEVA, Live your longest life" },
       { name: "description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },
       { property: "og:description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },
       { name: "twitter:description", content: "LONGEVA forecasts your lifespan, healthspan, and retirement readiness, then helps you improve them." },

@@ -21,11 +21,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA — Live your longest life" },
+      { title: "LONGEVA, Live your longest life" },
       {
         name: "description",
         content:
-          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire — then improve all three.",
+          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire, then improve all three.",
       },
     ],
   }),
@@ -332,7 +332,7 @@ function DataSources() {
             Your full picture, never sold.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-            Money, body, and behavior — pulled together so we can show you the real trajectory.
+            Money, body, and behavior, pulled together so we can show you the real trajectory.
             Every signal is encrypted, every connection is revocable, and your data is never sold
             or used for advertising.
           </p>
@@ -534,8 +534,8 @@ function BodyAgeScan() {
             Your face knows your <em className="text-lime not-italic">real</em> age.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            A 60-second selfie scan reads 38 facial biomarkers — skin elasticity, periorbital fat,
-            micro-circulation — and returns your biological age. Runs on-device. Photo never leaves your phone.
+            A 60-second selfie scan reads 38 facial biomarkers, skin elasticity, periorbital fat,
+            micro-circulation, and returns your biological age. Runs on-device. Photo never leaves your phone.
           </p>
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
@@ -551,7 +551,7 @@ function BodyAgeScan() {
           </div>
           <ul className="mt-8 space-y-2.5 text-sm">
             {[
-              "On-device CoreML / TFLite — photo never uploaded",
+              "On-device CoreML / TFLite, photo never uploaded",
               "Re-scan monthly to watch your age trend reverse",
               "Powers your LifeScore + personalized routines",
             ].map((it) => (
@@ -612,7 +612,7 @@ function WearablesModule() {
               Your body, in one stream.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device — then translate
+              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device, then translate
               the noise into one number you actually act on.
             </p>
           </div>
@@ -705,7 +705,7 @@ function AgingPrediction() {
             Today's habits. <em className="text-lime not-italic">Tomorrow's age.</em>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            We continuously analyze your last 90 days of behavior — sleep, movement, food, stress, social —
+            We continuously analyze your last 90 days of behavior, sleep, movement, food, stress, social -
             and project your biological age curve to 90. Every driver shown. Every weight explainable.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
@@ -744,7 +744,7 @@ function WalletIntegrations() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
             Connect Apple Pay, Google Pay, your debit cards and bank accounts. Every purchase scored
-            in real time across health, wealth, mind and the planet — with guardrails before you tap.
+            in real time across health, wealth, mind and the planet, with guardrails before you tap.
           </p>
         </div>
 
@@ -844,7 +844,7 @@ function RoutinesCalendar() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
             Two-way sync with Google, Apple and Outlook calendars. We slot in movement, recovery,
-            meals and reflection in the gaps you actually have — and adapt when meetings move.
+            meals and reflection in the gaps you actually have, and adapt when meetings move.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={CalendarDays} label="Calendars" value="3 synced" />
@@ -931,7 +931,7 @@ function AccountabilityModule() {
             <ul className="mt-8 space-y-2.5 text-sm">
               {[
                 "Auto-categorized spending tied to each goal",
-                "Pacts with friends — opt-in social accountability",
+                "Pacts with friends, opt-in social accountability",
                 "Weekly Sunday review with course-corrections",
                 "LONGV rewards redeemable for IRA top-ups",
               ].map((it) => (
@@ -1049,7 +1049,7 @@ function Pricing() {
 
 function FAQ() {
   const items = [
-    { q: "How is my data used?", a: "Your data trains models for YOU only — never sold, never used for advertising. Federated learning improves the system without exposing your raw data. You can export or delete everything in one click." },
+    { q: "How is my data used?", a: "Your data trains models for YOU only, never sold, never used for advertising. Federated learning improves the system without exposing your raw data. You can export or delete everything in one click." },
     { q: "What if the AI is wrong?", a: "Every recommendation has a 'This doesn't fit me' button that retrains the model on your context. We publish accuracy and fairness audits per model in your AI Transparency settings." },
     { q: "Can I export everything?", a: "Yes. One-tap GDPR-grade export of every transaction, signal, and AI rationale. You own your data." },
     { q: "How do you make money?", a: "Subscriptions, card interchange, opt-in merchant cashback, and B2B2C contracts with insurers + employers. Never ads. Never data sales." },
@@ -1088,7 +1088,7 @@ function Footer() {
         <div>
           <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Live your longest life — one decision at a time.
+            Live your longest life, one decision at a time.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-6 text-sm">

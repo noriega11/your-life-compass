@@ -178,7 +178,7 @@ function StepNorthStar({ data, setData }: StepProps) {
       <StepHeader
         kicker="Step 1 · Your North Star"
         title="What are you building toward?"
-        intro="We tie every recommendation back to this. Be specific — we'll do the rest."
+        intro="We tie every recommendation back to this. Be specific, we'll do the rest."
       />
       <div className="space-y-6">
         <div>
@@ -285,7 +285,7 @@ function StepConnect({ data, setData, category }: StepProps & { category: "banks
     ? {
         kicker: "Step 3 · Connect your money",
         title: "Read-only. Encrypted. Revocable.",
-        intro: "We never move your money. We read transactions to understand your habits — that's it.",
+        intro: "We never move your money. We read transactions to understand your habits, that's it.",
       }
     : {
         kicker: "Step 4 · Connect your body",

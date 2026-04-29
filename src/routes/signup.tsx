@@ -26,7 +26,7 @@ function SignupPage() {
       toast.error(error.message);
       return;
     }
-    toast.success("Account created — let's build your forecast.");
+    toast.success("Account created, let's build your forecast.");
     navigate({ to: "/onboarding" });
   };
 

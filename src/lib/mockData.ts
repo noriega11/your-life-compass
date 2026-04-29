@@ -1,5 +1,5 @@
 // Seeded mock data for the LONGEVA demo.
-// All numbers below feed Recharts and the explainability panels — they are
+// All numbers below feed Recharts and the explainability panels, they are
 // shaped to look realistic (not clinically accurate).
 
 export const MOCK_USER = {
@@ -24,7 +24,7 @@ export const TODAY_ACTIONS = [
     id: "a1",
     category: "Health",
     title: "Walk 20 min before your 11am meeting",
-    outcome: "Lowers glucose variability — +0.04 healthy years",
+    outcome: "Lowers glucose variability, +0.04 healthy years",
     longv: 40,
     duration: 20,
     why: {
@@ -43,7 +43,7 @@ export const TODAY_ACTIONS = [
   {
     id: "a2",
     category: "Wealth",
-    title: "Skip one delivery order this week — auto-route to IRA",
+    title: "Skip one delivery order this week, auto-route to IRA",
     outcome: "Adds $2,400 to retirement at 67",
     longv: 60,
     duration: 1,
@@ -63,7 +63,7 @@ export const TODAY_ACTIONS = [
     id: "a3",
     category: "Mind",
     title: "8 minutes of breathwork before bed",
-    outcome: "Improves sleep depth — protects healthspan",
+    outcome: "Improves sleep depth, protects healthspan",
     longv: 25,
     duration: 8,
     why: {
