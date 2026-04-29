@@ -867,7 +867,7 @@ function RoutinesCalendar() {
     { time: "21:30", title: "Wind-down · breathwork", tag: "Mind", color: "muted" },
   ];
   return (
-    <section className="py-32">
+    <section id="routines" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines + Calendar</p>
