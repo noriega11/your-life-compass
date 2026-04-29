@@ -1008,7 +1008,7 @@ function AccountabilityModule() {
     { name: "Cap delivery $/wk", current: 64, target: 80, unit: "", inverse: true },
   ];
   return (
-    <section className="py-32 bg-card/40 border-y border-border">
+    <section id="accountability" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
