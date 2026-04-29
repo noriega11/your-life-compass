@@ -326,7 +326,7 @@ function HowItWorks() {
     { n: "04", icon: TrendingDown, title: "Compound", body: "Every small decision compounds. Watch your forecast bend upward." },
   ];
   return (
-    <section id="how" className="py-32 bg-card/40 border-y border-border">
+    <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-20 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">How LONGEVA works</p>
@@ -603,7 +603,6 @@ function BodyAgeScan() {
               className="w-full aspect-[5/4] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
-            <div className="absolute inset-x-8 inset-y-12 border-2 border-lime/70 rounded-[40%/45%] animate-pulse" />
             <div className="absolute top-5 left-5 flex flex-col gap-2">
               <span className="px-3 py-1.5 rounded-full bg-background/90 backdrop-blur text-[11px] font-mono text-foreground border border-border">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-lime mr-1.5 animate-pulse" />
@@ -1041,7 +1040,7 @@ function Pricing() {
     { name: "Plus", price: "$39", desc: "For households + pros.", features: ["Everything in Core", "Household sharing (4)", "LONGEVA Card", "Premium merchant graph", "Priority human review"], cta: "Choose Plus", highlight: false },
   ];
   return (
-    <section id="pricing" className="py-32">
+    <section id="pricing" className="py-28 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Pricing</p>
@@ -1089,7 +1088,7 @@ function FAQ() {
   ];
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="py-32 bg-card/40 border-y border-border">
+    <section id="faq" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-3xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3 text-center">FAQ</p>
         <h2 className="font-display text-5xl text-center mb-12 text-balance">Things people ask first.</h2>
