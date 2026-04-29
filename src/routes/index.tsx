@@ -69,7 +69,10 @@ function Nav() {
     { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
   ];
   const topLinks = [
+    { href: "#about", label: "About" },
     { href: "#how", label: "How it works" },
+  ];
+  const tailLinks = [
     { href: "#pricing", label: "Pricing" },
     { href: "#faq", label: "FAQ" },
   ];
@@ -343,7 +346,7 @@ function ThreeCrises() {
     },
   ];
   return (
-    <section className="py-32">
+    <section id="about" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why now</p>
