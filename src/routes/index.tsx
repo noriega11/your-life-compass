@@ -559,7 +559,7 @@ function Explainability() {
  * ──────────────────────────────────────────────────────────── */
 function BodyAgeScan() {
   return (
-    <section className="py-32">
+    <section id="scan" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5 order-2 lg:order-1">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Body Age Scan · 60 sec</p>
@@ -636,7 +636,7 @@ function WearablesModule() {
     { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1559757175-7cb036e0d465?w=900&q=85&auto=format&fit=crop" },
   ];
   return (
-    <section className="py-32 bg-card/40 border-y border-border">
+    <section id="wearables" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
           <div className="max-w-2xl">
@@ -697,7 +697,7 @@ function AgingPrediction() {
     { name: "Glucose variability", weight: 15, dir: "−0.5 yrs", positive: false },
   ];
   return (
-    <section className="py-32">
+    <section id="prediction" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 relative">
           <div className="relative rounded-[2rem] overflow-hidden border border-border bg-card shadow-card">
@@ -768,7 +768,7 @@ function Stat({ icon: Icon, label, value }: { icon: React.ComponentType<{ classN
  * ──────────────────────────────────────────────────────────── */
 function WalletIntegrations() {
   return (
-    <section className="py-32 bg-card/40 border-y border-border overflow-hidden">
+    <section id="wallet" className="py-28 bg-card/40 border-y border-border overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wallets · Cards · Banks</p>
