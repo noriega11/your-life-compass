@@ -82,57 +82,53 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="relative min-h-screen pt-32 pb-24 flex items-center grain overflow-hidden">
-      <img
-        src={heroBg}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-100"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7">
+    <section className="relative pt-28 pb-20 overflow-hidden bg-gradient-hero">
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Top headline block */}
+        <div className="max-w-4xl mx-auto text-center mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card/40 backdrop-blur text-xs text-muted-foreground mb-6"
+            transition={{ delay: 0.05 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            Your forecast in 12 minutes · No data sold
+            La primera plataforma LifeFi · Tu pronóstico en 12 minutos
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="font-display text-6xl sm:text-7xl lg:text-8xl leading-[0.95] text-balance"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Live your <em className="text-lime not-italic">longest</em> life.
+            Vive más años,
+            <br />
+            <em className="text-lime not-italic">y vívelos bien.</em>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl text-pretty"
+            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
           >
-            LONGEVA shows you how long you'll live, how healthy you'll stay, and whether you'll
-            have enough to retire — then helps you improve all three, one small decision at a time.
+            LONGEVA convierte tus hábitos diarios, tus compras y tus biomarcadores
+            en un pronóstico claro de vida. Después te ayuda a mejorarlo,
+            una decisión pequeña a la vez.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mt-9 flex flex-wrap gap-3"
+            className="mt-9 flex flex-wrap gap-3 justify-center"
           >
             <Button variant="lime" size="xl" asChild>
-              <Link to="/signup">See your forecast <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">Ver mi pronóstico <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="xl" asChild>
-              <a href="#how">How it works</a>
+              <a href="#how">Cómo funciona</a>
             </Button>
           </motion.div>
 
@@ -140,21 +136,56 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55 }}
-            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground"
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
-            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Cifrado de extremo a extremo</span>
+            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> Sin anuncios, nunca</span>
+            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> Tus datos son tuyos</span>
           </motion.div>
         </div>
 
+        {/* Visual block: human photo + floating LifeScore card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="lg:col-span-5 flex justify-center"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="relative max-w-6xl mx-auto"
         >
-          <LifeScoreOrb value={782} low={758} high={806} size={340} />
+          <div className="relative rounded-[28px] overflow-hidden border border-border shadow-card aspect-[16/9] bg-card">
+            <img
+              src={heroHuman}
+              alt="Familia disfrutando una mañana saludable juntos"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+
+            {/* Floating LifeScore */}
+            <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:bottom-8 flex items-end justify-between sm:block">
+              <div className="rounded-2xl bg-card/90 backdrop-blur-xl border border-border p-4 sm:p-5 shadow-card max-w-xs">
+                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
+                <p className="font-display text-4xl tabular-nums leading-none">782</p>
+                <p className="text-xs text-muted-foreground mt-2">+12 esta semana · 758 a 806 con 80% de confianza</p>
+              </div>
+            </div>
+
+            {/* Floating chips top-right */}
+            <div className="hidden md:flex absolute top-6 right-6 flex-col gap-2 items-end">
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Heart className="h-3.5 w-3.5 text-lime" /> Esperanza saludable +7 años
+              </span>
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Wallet className="h-3.5 w-3.5 text-lime" /> Brecha de retiro: cerrable
+              </span>
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Brain className="h-3.5 w-3.5 text-lime" /> 3 acciones para hoy
+              </span>
+            </div>
+          </div>
+
+          {/* Small orb floats off the corner on desktop */}
+          <div className="hidden lg:block absolute -right-8 -top-10">
+            <LifeScoreOrb value={782} low={758} high={806} size={180} />
+          </div>
         </motion.div>
       </div>
     </section>
