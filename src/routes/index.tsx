@@ -57,55 +57,115 @@ function Landing() {
 }
 
 function Nav() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { href: "#how", label: "Cómo funciona" },
-    { href: "#scan", label: "Body Scan" },
-    { href: "#wearables", label: "Wearables" },
-    { href: "#prediction", label: "Predicción" },
-    { href: "#wallet", label: "Compras" },
-    { href: "#routines", label: "Rutinas" },
-    { href: "#pricing", label: "Precios" },
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
+
+  const features = [
+    { href: "#scan", icon: ScanFace, label: "Body Age Scan", desc: "60-sec selfie to biological age" },
+    { href: "#wearables", icon: Watch, label: "Wearables", desc: "HRV, sleep, glucose, recovery" },
+    { href: "#prediction", icon: LineChart, label: "Aging Prediction", desc: "Kairos engine, 120+ drivers" },
+    { href: "#wallet", icon: CreditCard, label: "Smart Spending", desc: "Score, nudge, block at checkout" },
+    { href: "#routines", icon: CalendarDays, label: "Routines & Calendar", desc: "Adaptive weekly plan" },
+    { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
+  ];
+  const topLinks = [
+    { href: "#how", label: "How it works" },
+    { href: "#pricing", label: "Pricing" },
     { href: "#faq", label: "FAQ" },
   ];
+
   return (
     <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-background/80 border-b border-border">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
         <a href="#top" className="shrink-0"><Logo size="md" /></a>
-        <div className="hidden lg:flex items-center gap-6 text-sm text-muted-foreground">
-          {links.map((l) => (
+
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
+          <div
+            className="relative"
+            onMouseEnter={() => setFeaturesOpen(true)}
+            onMouseLeave={() => setFeaturesOpen(false)}
+          >
+            <button
+              type="button"
+              className="flex items-center gap-1 hover:text-foreground transition-colors py-2"
+              aria-haspopup="true"
+              aria-expanded={featuresOpen}
+              onFocus={() => setFeaturesOpen(true)}
+            >
+              Features
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${featuresOpen ? "rotate-180" : ""}`} />
+            </button>
+            {featuresOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px]">
+                <div className="rounded-2xl border border-border bg-card shadow-card p-3 grid grid-cols-2 gap-1">
+                  {features.map((f) => (
+                    <a
+                      key={f.href}
+                      href={f.href}
+                      onClick={() => setFeaturesOpen(false)}
+                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors group"
+                    >
+                      <span className="h-9 w-9 rounded-lg bg-lime/15 grid place-items-center shrink-0">
+                        <f.icon className="h-4 w-4 text-lime" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium text-foreground">{f.label}</span>
+                        <span className="block text-xs text-muted-foreground mt-0.5">{f.desc}</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          {topLinks.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
               {l.label}
             </a>
           ))}
         </div>
+
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-            <Link to="/login">Entrar</Link>
+            <Link to="/login">Sign in</Link>
           </Button>
           <Button variant="lime" size="sm" asChild>
-            <Link to="/signup">Ver mi pronóstico</Link>
+            <Link to="/signup">See my forecast</Link>
           </Button>
           <button
             type="button"
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => setMobileOpen((o) => !o)}
             className="lg:hidden h-9 w-9 grid place-items-center rounded-lg border border-border"
-            aria-label="Abrir menú"
-            aria-expanded={open}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
           >
-            <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+            <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen ? "rotate-180" : ""}`} />
           </button>
         </div>
       </div>
-      {open && (
-        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl">
-          <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
-                {l.label}
-              </a>
-            ))}
+
+      {mobileOpen && (
+        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl max-h-[80vh] overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-6 py-5 space-y-5">
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">Features</p>
+              <div className="grid gap-1">
+                {features.map((f) => (
+                  <a key={f.href} href={f.href} onClick={() => setMobileOpen(false)} className="flex items-center gap-3 py-2 text-sm">
+                    <f.icon className="h-4 w-4 text-lime" /> {f.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border pt-4 grid gap-2 text-sm">
+              {topLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
+                  {l.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}
