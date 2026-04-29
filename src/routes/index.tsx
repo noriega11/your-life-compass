@@ -69,7 +69,10 @@ function Nav() {
     { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
   ];
   const topLinks = [
+    { href: "#about", label: "About" },
     { href: "#how", label: "How it works" },
+  ];
+  const tailLinks = [
     { href: "#pricing", label: "Pricing" },
     { href: "#faq", label: "FAQ" },
   ];
@@ -81,6 +84,11 @@ function Nav() {
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
+          {topLinks.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
+              {l.label}
+            </a>
+          ))}
           <div
             className="relative"
             onMouseEnter={() => setFeaturesOpen(true)}
@@ -119,7 +127,7 @@ function Nav() {
               </div>
             )}
           </div>
-          {topLinks.map((l) => (
+          {tailLinks.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
               {l.label}
             </a>
@@ -149,7 +157,14 @@ function Nav() {
       {mobileOpen && (
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl max-h-[80vh] overflow-y-auto">
           <div className="max-w-7xl mx-auto px-6 py-5 space-y-5">
-            <div>
+            <div className="grid gap-2 text-sm">
+              {topLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
+                  {l.label}
+                </a>
+              ))}
+            </div>
+            <div className="border-t border-border pt-4">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">Features</p>
               <div className="grid gap-1">
                 {features.map((f) => (
@@ -160,7 +175,7 @@ function Nav() {
               </div>
             </div>
             <div className="border-t border-border pt-4 grid gap-2 text-sm">
-              {topLinks.map((l) => (
+              {tailLinks.map((l) => (
                 <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
                   {l.label}
                 </a>
@@ -175,39 +190,39 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="top" className="relative pt-28 pb-16 overflow-hidden bg-gradient-hero">
-      <div className="relative max-w-6xl mx-auto px-6">
-        {/* Top headline block */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
+    <section id="top" className="relative pt-28 pb-20 lg:pt-32 lg:pb-28 overflow-hidden bg-gradient-hero">
+      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* LEFT — message column */}
+        <div className="lg:col-span-6 max-w-xl">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-6 shadow-soft"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            The first LifeFi platform · Your forecast in 12 minutes
+            The first LifeFi platform · Forecast in 12 minutes
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] leading-[0.98] text-balance"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Live longer,
+            Live longer.
             <br />
-            <em className="text-lime not-italic">live them well.</em>
+            <em className="text-lime not-italic">Live them well.</em>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto text-pretty"
+            className="mt-6 text-base sm:text-lg text-muted-foreground text-pretty"
           >
             LONGEVA turns your habits, your spending and your biomarkers
-            into a clear life forecast. Then it helps you improve it,
+            into a clear life forecast, then helps you improve it
             one small decision at a time.
           </motion.p>
 
@@ -215,7 +230,7 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mt-7 flex flex-wrap gap-3 justify-center"
+            className="mt-8 flex flex-wrap gap-3"
           >
             <Button variant="lime" size="lg" asChild>
               <Link to="/signup">See my forecast <ArrowRight className="h-4 w-4" /></Link>
@@ -229,7 +244,7 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
+            className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
             <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
             <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
@@ -237,32 +252,112 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Visual block: human photo + side metrics (no overlap) */}
+        {/* RIGHT — visual column with anchored floating cards (no face overlap) */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7 }}
-          className="relative max-w-5xl mx-auto grid md:grid-cols-5 gap-4 items-stretch"
+          className="lg:col-span-6 relative"
         >
-          <div className="md:col-span-3 rounded-3xl overflow-hidden border border-border shadow-card bg-card">
-            <img
-              src={heroHuman}
-              alt="A family enjoying a healthy morning together"
-              className="w-full h-full object-cover aspect-[4/3]"
-            />
+          {/* Decorative ambient ring */}
+          <div className="absolute -inset-4 -z-10 rounded-[40px] bg-radial-lime opacity-40 blur-2xl" aria-hidden="true" />
+
+          {/* Photo frame with safe inner gutters for floating chips */}
+          <div className="relative pl-0 sm:pl-10 lg:pl-14 pr-0 sm:pr-4 pb-12 lg:pb-16">
+            <div className="relative rounded-3xl overflow-hidden border border-border shadow-card bg-card">
+              <img
+                src={heroHuman}
+                alt="A family enjoying a healthy morning together"
+                className="w-full h-full object-cover aspect-[4/5] sm:aspect-[5/6]"
+              />
+              {/* soft bottom gradient for chip legibility */}
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/40 to-transparent pointer-events-none" />
+            </div>
+
+            {/* LifeScore card — anchored to bottom-left, OUTSIDE the photo edge */}
+            <motion.div
+              initial={{ opacity: 0, y: 12, x: -8 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ delay: 0.65 }}
+              className="hidden sm:block absolute bottom-2 left-0 lg:left-2 w-[230px] rounded-2xl bg-card border border-border p-5 shadow-card"
+            >
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
+              <div className="flex items-baseline gap-2">
+                <p className="font-display text-5xl tabular-nums leading-none">782</p>
+                <span className="text-xs font-mono text-lime">+12</span>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+                Range 758–806 · 80% confidence
+              </p>
+              {/* tiny sparkline */}
+              <svg viewBox="0 0 100 24" className="w-full mt-3 h-6 text-lime">
+                <polyline
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  points="0,18 12,15 24,17 36,12 48,13 60,9 72,10 84,6 100,4"
+                />
+              </svg>
+            </motion.div>
+
+            {/* Stat pill — anchored top-right OUTSIDE the photo */}
+            <motion.div
+              initial={{ opacity: 0, y: -8, x: 8 }}
+              animate={{ opacity: 1, y: 0, x: 0 }}
+              transition={{ delay: 0.55 }}
+              className="hidden sm:flex absolute top-4 right-0 lg:-right-2 items-center gap-2.5 rounded-full bg-card border border-border pl-2 pr-4 py-2 shadow-soft"
+            >
+              <span className="h-7 w-7 rounded-full bg-lime/15 grid place-items-center">
+                <Heart className="h-3.5 w-3.5 text-lime" />
+              </span>
+              <div className="leading-tight">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Healthy lifespan</p>
+                <p className="text-sm font-medium">+7 yrs projected</p>
+              </div>
+            </motion.div>
+
+            {/* Today's actions — anchored mid-right OUTSIDE the photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.75 }}
+              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-4 w-[200px] rounded-2xl bg-card border border-border p-4 shadow-card"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Today</p>
+                <span className="text-[10px] font-mono text-muted-foreground">3 / 3</span>
+              </div>
+              <ul className="space-y-2 text-xs">
+                {[
+                  { t: "20-min Zone-2 walk", done: true },
+                  { t: "Skip 1 delivery order", done: true },
+                  { t: "Wind-down by 22:30", done: false },
+                ].map((a) => (
+                  <li key={a.t} className="flex items-center gap-2">
+                    <span className={`h-3.5 w-3.5 rounded-full grid place-items-center shrink-0 ${a.done ? "bg-lime" : "border border-border"}`}>
+                      {a.done && <Check className="h-2.5 w-2.5 text-lime-foreground" strokeWidth={3} />}
+                    </span>
+                    <span className={a.done ? "line-through text-muted-foreground" : ""}>{a.t}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
 
-          {/* Side metrics column, never on top of the photo */}
-          <div className="md:col-span-2 flex flex-col gap-3">
-            <div className="rounded-2xl bg-card border border-border p-5 shadow-soft">
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
-              <p className="font-display text-5xl tabular-nums leading-none">782</p>
-              <p className="text-xs text-muted-foreground mt-2">+12 this week · range 758 to 806 at 80% confidence</p>
+          {/* Mobile-only compact stats row (replaces hidden floating cards) */}
+          <div className="sm:hidden mt-5 grid grid-cols-3 gap-2">
+            <div className="rounded-xl border border-border bg-card p-3 text-center">
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Score</p>
+              <p className="font-display text-xl mt-0.5">782</p>
             </div>
-            <div className="grid grid-cols-1 gap-2.5">
-              <MiniChip icon={Heart} label="Healthy lifespan" value="+7 yrs" />
-              <MiniChip icon={Wallet} label="Retirement gap" value="Closeable" />
-              <MiniChip icon={Brain} label="Today's actions" value="3 ready" />
+            <div className="rounded-xl border border-border bg-card p-3 text-center">
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Lifespan</p>
+              <p className="font-display text-xl mt-0.5">+7y</p>
+            </div>
+            <div className="rounded-xl border border-border bg-card p-3 text-center">
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Today</p>
+              <p className="font-display text-xl mt-0.5">3/3</p>
             </div>
           </div>
         </motion.div>
@@ -343,7 +438,7 @@ function ThreeCrises() {
     },
   ];
   return (
-    <section className="py-32">
+    <section id="about" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why now</p>
