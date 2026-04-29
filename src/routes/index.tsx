@@ -1095,9 +1095,49 @@ function AccountabilityModule() {
 
 function Pricing() {
   const tiers = [
-    { name: "Free", price: "$0", desc: "See your forecast and start.", features: ["LifeScore + Body Age", "Daily action", "Basic guardrails"], cta: "Start free", highlight: false },
-    { name: "Core", price: "$19", desc: "The full longevity loop.", features: ["Everything in Free", "AI Coach (Kairos)", "All guardrails", "Auto-Save retirement", "Future Self"], cta: "Choose Core", highlight: true },
-    { name: "Plus", price: "$39", desc: "For households + pros.", features: ["Everything in Core", "Household sharing (4)", "LONGEVA Card", "Premium merchant graph", "Priority human review"], cta: "Choose Plus", highlight: false },
+    {
+      name: "Free",
+      price: "$0",
+      desc: "See your forecast and start the loop.",
+      features: [
+        "LifeScore + Body Age scan",
+        "1 daily action",
+        "Basic spending guardrails (nudge only)",
+        "Read-only wallet & wearables sync",
+      ],
+      cta: "Start free",
+      highlight: false,
+    },
+    {
+      name: "Core",
+      price: "$19",
+      desc: "The full longevity loop.",
+      features: [
+        "Everything in Free",
+        "AI Coach (Kairos) · unlimited",
+        "All 3 guardrail tiers (nudge, delay, block)",
+        "Auto-Save retirement routing",
+        "Future Self projections to 90",
+        "LONGV rewards on every healthy purchase",
+      ],
+      cta: "Choose Core",
+      highlight: true,
+    },
+    {
+      name: "Plus",
+      price: "$39",
+      desc: "Households + power users.",
+      features: [
+        "Everything in Core",
+        "Household sharing (up to 4)",
+        "LONGEVA Card · titanium, 1.5% LONGV back",
+        "Premium merchant graph (curated longevity)",
+        "Priority human longevity coach review",
+        "Insurance & retirement credit redemptions",
+      ],
+      cta: "Choose Plus",
+      highlight: false,
+    },
   ];
   return (
     <section id="pricing" className="py-28 scroll-mt-20">
@@ -1105,7 +1145,7 @@ function Pricing() {
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Pricing</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Aligned with your outcomes.</h2>
-          <p className="text-muted-foreground mt-4">Never ads. Never data sales. Cancel any time.</p>
+          <p className="text-muted-foreground mt-4">No ads. No data sales. Cancel any time.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
           {tiers.map((t) => (
@@ -1133,6 +1173,37 @@ function Pricing() {
               </Button>
             </div>
           ))}
+        </div>
+
+        {/* Revenue model transparency */}
+        <div className="mt-14 rounded-3xl border border-border bg-card p-7 sm:p-9">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <div className="max-w-md">
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-2">How we make money</p>
+              <h3 className="font-display text-2xl mb-2">Incentives aligned with your healthspan.</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We earn only when you live longer and better. Four streams, all opt-in, all visible.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3 flex-1 max-w-xl">
+              {[
+                { icon: Sparkles, t: "Subscriptions", d: "Core & Plus monthly plans" },
+                { icon: CreditCard, t: "Card interchange", d: "LONGEVA Card swipe fees" },
+                { icon: Apple, t: "Opt-in merchant cashback", d: "Curated longevity brands only" },
+                { icon: Shield, t: "B2B2C contracts", d: "Insurers & employers, never your data" },
+              ].map((r) => (
+                <div key={r.t} className="rounded-xl border border-border bg-background p-4 flex items-start gap-3">
+                  <span className="h-8 w-8 rounded-lg bg-lime/15 grid place-items-center shrink-0">
+                    <r.icon className="h-4 w-4 text-lime" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{r.t}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{r.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
