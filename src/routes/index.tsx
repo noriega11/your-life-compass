@@ -186,7 +186,7 @@ function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-6 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            La primera plataforma LifeFi · Tu pronóstico en 12 minutos
+            The first LifeFi platform · Your forecast in 12 minutes
           </motion.div>
 
           <motion.h1
@@ -195,9 +195,9 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] leading-[0.98] text-balance"
           >
-            Vive más años,
+            Live longer,
             <br />
-            <em className="text-lime not-italic">y vívelos bien.</em>
+            <em className="text-lime not-italic">live them well.</em>
           </motion.h1>
 
           <motion.p
@@ -206,9 +206,9 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto text-pretty"
           >
-            LONGEVA convierte tus hábitos, tus compras y tus biomarcadores
-            en un pronóstico claro de vida. Después te ayuda a mejorarlo,
-            una decisión pequeña a la vez.
+            LONGEVA turns your habits, your spending and your biomarkers
+            into a clear life forecast. Then it helps you improve it,
+            one small decision at a time.
           </motion.p>
 
           <motion.div
@@ -218,10 +218,10 @@ function Hero() {
             className="mt-7 flex flex-wrap gap-3 justify-center"
           >
             <Button variant="lime" size="lg" asChild>
-              <Link to="/signup">Ver mi pronóstico <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">See my forecast <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="lg" asChild>
-              <a href="#how">Cómo funciona</a>
+              <a href="#how">How it works</a>
             </Button>
           </motion.div>
 
@@ -231,9 +231,9 @@ function Hero() {
             transition={{ delay: 0.55 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Cifrado de extremo a extremo</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> Sin anuncios, nunca</span>
-            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> Tus datos son tuyos</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
+            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
+            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
           </motion.div>
         </div>
 
@@ -247,7 +247,7 @@ function Hero() {
           <div className="md:col-span-3 rounded-3xl overflow-hidden border border-border shadow-card bg-card">
             <img
               src={heroHuman}
-              alt="Familia disfrutando una mañana saludable juntos"
+              alt="A family enjoying a healthy morning together"
               className="w-full h-full object-cover aspect-[4/3]"
             />
           </div>
@@ -255,14 +255,14 @@ function Hero() {
           {/* Side metrics column, never on top of the photo */}
           <div className="md:col-span-2 flex flex-col gap-3">
             <div className="rounded-2xl bg-card border border-border p-5 shadow-soft">
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
               <p className="font-display text-5xl tabular-nums leading-none">782</p>
-              <p className="text-xs text-muted-foreground mt-2">+12 esta semana · rango 758 a 806 con 80% de confianza</p>
+              <p className="text-xs text-muted-foreground mt-2">+12 this week · range 758 to 806 at 80% confidence</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
-              <MiniChip icon={Heart} label="Esperanza saludable" value="+7 años" />
-              <MiniChip icon={Wallet} label="Brecha de retiro" value="Cerrable" />
-              <MiniChip icon={Brain} label="Acciones para hoy" value="3 listas" />
+              <MiniChip icon={Heart} label="Healthy lifespan" value="+7 yrs" />
+              <MiniChip icon={Wallet} label="Retirement gap" value="Closeable" />
+              <MiniChip icon={Brain} label="Today's actions" value="3 ready" />
             </div>
           </div>
         </motion.div>
