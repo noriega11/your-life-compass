@@ -15,7 +15,7 @@ import optimized70 from "@/assets/future-self-optimized-70.jpg";
 import current70 from "@/assets/future-self-current-70.jpg";
 import optimized90 from "@/assets/future-self-optimized-90.jpg";
 import current90 from "@/assets/future-self-current-90.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroHuman from "@/assets/hero-human.jpg";
 
 export const Route = createFileRoute("/")({
   component: Landing,
