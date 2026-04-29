@@ -17,7 +17,7 @@ interface Props {
 }
 
 /**
- * Reusable explainability panel — every AI output in LONGEVA gets one.
+ * Reusable explainability panel, every AI output in LONGEVA gets one.
  * Click "Why this?" to see the top signals, weights, confidence, and model
  * version. This is a non-negotiable part of the product.
  */

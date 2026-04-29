@@ -72,9 +72,9 @@
   --ink: oklch(0.16 0.03 250);
   --paper: oklch(0.99 0.004 90);
 
-  --background: oklch(0.985 0.004 90);          /* warm paper */
-  --foreground: oklch(0.16 0.03 250);           /* deep ink — 14:1 contrast */
-  --card: oklch(1 0 0);
+  --background: oklch(1 0 0);                   /* pure white for max contrast */
+  --foreground: oklch(0.14 0.025 250);          /* near-black ink, 16:1 contrast */
+  --card: oklch(0.995 0.002 90);                /* faint warm tint to separate from bg */
   --card-foreground: oklch(0.16 0.03 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.16 0.03 250);
@@ -87,11 +87,11 @@
   --lime: oklch(0.74 0.19 130);                 /* #8FCB2C */
   --lime-foreground: oklch(0.16 0.03 250);
 
-  --secondary: oklch(0.96 0.005 90);
-  --secondary-foreground: oklch(0.16 0.03 250);
-  --muted: oklch(0.95 0.006 90);
-  --muted-foreground: oklch(0.42 0.02 250);     /* AA on white: 6.7:1 */
-  --accent: oklch(0.95 0.01 165);
+  --secondary: oklch(0.97 0.004 90);
+  --secondary-foreground: oklch(0.14 0.025 250);
+  --muted: oklch(0.97 0.004 90);
+  --muted-foreground: oklch(0.40 0.02 250);     /* AA on white: 7.2:1 */
+  --accent: oklch(0.96 0.012 165);
   --accent-foreground: oklch(0.16 0.03 250);
 
   --destructive: oklch(0.55 0.22 25);
@@ -118,7 +118,7 @@
   --sidebar-border: oklch(0.16 0.03 250 / 8%);
   --sidebar-ring: oklch(0.42 0.10 165 / 50%);
 
-  --gradient-hero: radial-gradient(ellipse at top, oklch(0.96 0.03 165 / 0.6) 0%, transparent 60%), linear-gradient(180deg, oklch(0.99 0.004 90) 0%, oklch(0.97 0.005 90) 100%);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% 0%, oklch(0.95 0.04 165 / 0.5) 0%, transparent 70%), linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.99 0.004 90) 100%);
   --gradient-lime: linear-gradient(135deg, oklch(0.78 0.20 130) 0%, oklch(0.68 0.18 145) 100%);
   --gradient-radial-lime: radial-gradient(circle at center, oklch(0.74 0.19 130 / 25%) 0%, transparent 70%);
   --shadow-glow-lime: 0 0 50px -12px oklch(0.42 0.10 165 / 30%);

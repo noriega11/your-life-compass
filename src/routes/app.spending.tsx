@@ -39,7 +39,7 @@ function Spending() {
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your spending impact</p>
         <h1 className="font-display text-5xl text-balance">How your money shapes your life.</h1>
         <p className="text-muted-foreground mt-3 max-w-2xl">
-          Every transaction scored on four axes — metabolic, mental, financial, environmental. Read-only. Never sold.
+          Every transaction scored on four axes, metabolic, mental, financial, environmental. Read-only. Never sold.
         </p>
       </header>
 
@@ -80,7 +80,7 @@ function Spending() {
           <Stat
             label="Healthspan effect"
             value={`${totalHealthHours > 0 ? "+" : ""}${totalHealthHours.toFixed(1)} hrs`}
-            hint={totalHealthHours > 0 ? "Net positive this week" : "Net negative — rebalance suggested"}
+            hint={totalHealthHours > 0 ? "Net positive this week" : "Net negative, rebalance suggested"}
             tone={totalHealthHours > 0 ? "good" : "warn"}
           />
           <Stat label="Blocked / nudged" value="3" hint="Saved $87 + 4.6 healthspan hrs" />

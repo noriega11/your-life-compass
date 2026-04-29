@@ -15,17 +15,17 @@ import optimized70 from "@/assets/future-self-optimized-70.jpg";
 import current70 from "@/assets/future-self-current-70.jpg";
 import optimized90 from "@/assets/future-self-optimized-90.jpg";
 import current90 from "@/assets/future-self-current-90.jpg";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroHuman from "@/assets/hero-human.jpg";
 
 export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA — Live your longest life" },
+      { title: "LONGEVA, Live your longest life" },
       {
         name: "description",
         content:
-          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire — then improve all three.",
+          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire, then improve all three.",
       },
     ],
   }),
@@ -82,57 +82,53 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="relative min-h-screen pt-32 pb-24 flex items-center grain overflow-hidden">
-      <img
-        src={heroBg}
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-100"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7">
+    <section className="relative pt-28 pb-20 overflow-hidden bg-gradient-hero">
+      <div className="relative max-w-7xl mx-auto px-6">
+        {/* Top headline block */}
+        <div className="max-w-4xl mx-auto text-center mb-14">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card/40 backdrop-blur text-xs text-muted-foreground mb-6"
+            transition={{ delay: 0.05 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            Your forecast in 12 minutes · No data sold
+            La primera plataforma LifeFi · Tu pronóstico en 12 minutos
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
-            className="font-display text-6xl sm:text-7xl lg:text-8xl leading-[0.95] text-balance"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Live your <em className="text-lime not-italic">longest</em> life.
+            Vive más años,
+            <br />
+            <em className="text-lime not-italic">y vívelos bien.</em>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.25 }}
-            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-xl text-pretty"
+            className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty"
           >
-            LONGEVA shows you how long you'll live, how healthy you'll stay, and whether you'll
-            have enough to retire — then helps you improve all three, one small decision at a time.
+            LONGEVA convierte tus hábitos diarios, tus compras y tus biomarcadores
+            en un pronóstico claro de vida. Después te ayuda a mejorarlo,
+            una decisión pequeña a la vez.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="mt-9 flex flex-wrap gap-3"
+            className="mt-9 flex flex-wrap gap-3 justify-center"
           >
             <Button variant="lime" size="xl" asChild>
-              <Link to="/signup">See your forecast <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">Ver mi pronóstico <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="xl" asChild>
-              <a href="#how">How it works</a>
+              <a href="#how">Cómo funciona</a>
             </Button>
           </motion.div>
 
@@ -140,21 +136,56 @@ function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55 }}
-            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground"
+            className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
-            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Cifrado de extremo a extremo</span>
+            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> Sin anuncios, nunca</span>
+            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> Tus datos son tuyos</span>
           </motion.div>
         </div>
 
+        {/* Visual block: human photo + floating LifeScore card */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="lg:col-span-5 flex justify-center"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="relative max-w-6xl mx-auto"
         >
-          <LifeScoreOrb value={782} low={758} high={806} size={340} />
+          <div className="relative rounded-[28px] overflow-hidden border border-border shadow-card aspect-[16/9] bg-card">
+            <img
+              src={heroHuman}
+              alt="Familia disfrutando una mañana saludable juntos"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+
+            {/* Floating LifeScore */}
+            <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:bottom-8 flex items-end justify-between sm:block">
+              <div className="rounded-2xl bg-card/90 backdrop-blur-xl border border-border p-4 sm:p-5 shadow-card max-w-xs">
+                <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
+                <p className="font-display text-4xl tabular-nums leading-none">782</p>
+                <p className="text-xs text-muted-foreground mt-2">+12 esta semana · 758 a 806 con 80% de confianza</p>
+              </div>
+            </div>
+
+            {/* Floating chips top-right */}
+            <div className="hidden md:flex absolute top-6 right-6 flex-col gap-2 items-end">
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Heart className="h-3.5 w-3.5 text-lime" /> Esperanza saludable +7 años
+              </span>
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Wallet className="h-3.5 w-3.5 text-lime" /> Brecha de retiro: cerrable
+              </span>
+              <span className="rounded-full bg-card/90 backdrop-blur-xl border border-border px-3 py-1.5 text-xs flex items-center gap-1.5 shadow-soft">
+                <Brain className="h-3.5 w-3.5 text-lime" /> 3 acciones para hoy
+              </span>
+            </div>
+          </div>
+
+          {/* Small orb floats off the corner on desktop */}
+          <div className="hidden lg:block absolute -right-8 -top-10">
+            <LifeScoreOrb value={782} low={758} high={806} size={180} />
+          </div>
         </motion.div>
       </div>
     </section>
@@ -301,7 +332,7 @@ function DataSources() {
             Your full picture, never sold.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-            Money, body, and behavior — pulled together so we can show you the real trajectory.
+            Money, body, and behavior, pulled together so we can show you the real trajectory.
             Every signal is encrypted, every connection is revocable, and your data is never sold
             or used for advertising.
           </p>
@@ -503,8 +534,8 @@ function BodyAgeScan() {
             Your face knows your <em className="text-lime not-italic">real</em> age.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            A 60-second selfie scan reads 38 facial biomarkers — skin elasticity, periorbital fat,
-            micro-circulation — and returns your biological age. Runs on-device. Photo never leaves your phone.
+            A 60-second selfie scan reads 38 facial biomarkers, skin elasticity, periorbital fat,
+            micro-circulation, and returns your biological age. Runs on-device. Photo never leaves your phone.
           </p>
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
@@ -520,7 +551,7 @@ function BodyAgeScan() {
           </div>
           <ul className="mt-8 space-y-2.5 text-sm">
             {[
-              "On-device CoreML / TFLite — photo never uploaded",
+              "On-device CoreML / TFLite, photo never uploaded",
               "Re-scan monthly to watch your age trend reverse",
               "Powers your LifeScore + personalized routines",
             ].map((it) => (
@@ -581,7 +612,7 @@ function WearablesModule() {
               Your body, in one stream.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device — then translate
+              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device, then translate
               the noise into one number you actually act on.
             </p>
           </div>
@@ -674,7 +705,7 @@ function AgingPrediction() {
             Today's habits. <em className="text-lime not-italic">Tomorrow's age.</em>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            We continuously analyze your last 90 days of behavior — sleep, movement, food, stress, social —
+            We continuously analyze your last 90 days of behavior, sleep, movement, food, stress, social -
             and project your biological age curve to 90. Every driver shown. Every weight explainable.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
@@ -713,7 +744,7 @@ function WalletIntegrations() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
             Connect Apple Pay, Google Pay, your debit cards and bank accounts. Every purchase scored
-            in real time across health, wealth, mind and the planet — with guardrails before you tap.
+            in real time across health, wealth, mind and the planet, with guardrails before you tap.
           </p>
         </div>
 
@@ -813,7 +844,7 @@ function RoutinesCalendar() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
             Two-way sync with Google, Apple and Outlook calendars. We slot in movement, recovery,
-            meals and reflection in the gaps you actually have — and adapt when meetings move.
+            meals and reflection in the gaps you actually have, and adapt when meetings move.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={CalendarDays} label="Calendars" value="3 synced" />
@@ -900,7 +931,7 @@ function AccountabilityModule() {
             <ul className="mt-8 space-y-2.5 text-sm">
               {[
                 "Auto-categorized spending tied to each goal",
-                "Pacts with friends — opt-in social accountability",
+                "Pacts with friends, opt-in social accountability",
                 "Weekly Sunday review with course-corrections",
                 "LONGV rewards redeemable for IRA top-ups",
               ].map((it) => (
@@ -1018,7 +1049,7 @@ function Pricing() {
 
 function FAQ() {
   const items = [
-    { q: "How is my data used?", a: "Your data trains models for YOU only — never sold, never used for advertising. Federated learning improves the system without exposing your raw data. You can export or delete everything in one click." },
+    { q: "How is my data used?", a: "Your data trains models for YOU only, never sold, never used for advertising. Federated learning improves the system without exposing your raw data. You can export or delete everything in one click." },
     { q: "What if the AI is wrong?", a: "Every recommendation has a 'This doesn't fit me' button that retrains the model on your context. We publish accuracy and fairness audits per model in your AI Transparency settings." },
     { q: "Can I export everything?", a: "Yes. One-tap GDPR-grade export of every transaction, signal, and AI rationale. You own your data." },
     { q: "How do you make money?", a: "Subscriptions, card interchange, opt-in merchant cashback, and B2B2C contracts with insurers + employers. Never ads. Never data sales." },
@@ -1057,7 +1088,7 @@ function Footer() {
         <div>
           <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Live your longest life — one decision at a time.
+            Live your longest life, one decision at a time.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-6 text-sm">
