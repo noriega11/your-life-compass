@@ -84,6 +84,11 @@ function Nav() {
 
         {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
+          {topLinks.map((l) => (
+            <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
+              {l.label}
+            </a>
+          ))}
           <div
             className="relative"
             onMouseEnter={() => setFeaturesOpen(true)}
@@ -122,7 +127,7 @@ function Nav() {
               </div>
             )}
           </div>
-          {topLinks.map((l) => (
+          {tailLinks.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
               {l.label}
             </a>
