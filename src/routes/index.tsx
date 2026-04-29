@@ -57,55 +57,115 @@ function Landing() {
 }
 
 function Nav() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { href: "#how", label: "Cómo funciona" },
-    { href: "#scan", label: "Body Scan" },
-    { href: "#wearables", label: "Wearables" },
-    { href: "#prediction", label: "Predicción" },
-    { href: "#wallet", label: "Compras" },
-    { href: "#routines", label: "Rutinas" },
-    { href: "#pricing", label: "Precios" },
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
+
+  const features = [
+    { href: "#scan", icon: ScanFace, label: "Body Age Scan", desc: "60-sec selfie to biological age" },
+    { href: "#wearables", icon: Watch, label: "Wearables", desc: "HRV, sleep, glucose, recovery" },
+    { href: "#prediction", icon: LineChart, label: "Aging Prediction", desc: "Kairos engine, 120+ drivers" },
+    { href: "#wallet", icon: CreditCard, label: "Smart Spending", desc: "Score, nudge, block at checkout" },
+    { href: "#routines", icon: CalendarDays, label: "Routines & Calendar", desc: "Adaptive weekly plan" },
+    { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
+  ];
+  const topLinks = [
+    { href: "#how", label: "How it works" },
+    { href: "#pricing", label: "Pricing" },
     { href: "#faq", label: "FAQ" },
   ];
+
   return (
     <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-background/80 border-b border-border">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
         <a href="#top" className="shrink-0"><Logo size="md" /></a>
-        <div className="hidden lg:flex items-center gap-6 text-sm text-muted-foreground">
-          {links.map((l) => (
+
+        {/* Desktop links */}
+        <div className="hidden lg:flex items-center gap-7 text-sm text-muted-foreground">
+          <div
+            className="relative"
+            onMouseEnter={() => setFeaturesOpen(true)}
+            onMouseLeave={() => setFeaturesOpen(false)}
+          >
+            <button
+              type="button"
+              className="flex items-center gap-1 hover:text-foreground transition-colors py-2"
+              aria-haspopup="true"
+              aria-expanded={featuresOpen}
+              onFocus={() => setFeaturesOpen(true)}
+            >
+              Features
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${featuresOpen ? "rotate-180" : ""}`} />
+            </button>
+            {featuresOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px]">
+                <div className="rounded-2xl border border-border bg-card shadow-card p-3 grid grid-cols-2 gap-1">
+                  {features.map((f) => (
+                    <a
+                      key={f.href}
+                      href={f.href}
+                      onClick={() => setFeaturesOpen(false)}
+                      className="flex items-start gap-3 p-3 rounded-xl hover:bg-muted/60 transition-colors group"
+                    >
+                      <span className="h-9 w-9 rounded-lg bg-lime/15 grid place-items-center shrink-0">
+                        <f.icon className="h-4 w-4 text-lime" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-medium text-foreground">{f.label}</span>
+                        <span className="block text-xs text-muted-foreground mt-0.5">{f.desc}</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          {topLinks.map((l) => (
             <a key={l.href} href={l.href} className="hover:text-foreground transition-colors whitespace-nowrap">
               {l.label}
             </a>
           ))}
         </div>
+
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-            <Link to="/login">Entrar</Link>
+            <Link to="/login">Sign in</Link>
           </Button>
           <Button variant="lime" size="sm" asChild>
-            <Link to="/signup">Ver mi pronóstico</Link>
+            <Link to="/signup">See my forecast</Link>
           </Button>
           <button
             type="button"
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => setMobileOpen((o) => !o)}
             className="lg:hidden h-9 w-9 grid place-items-center rounded-lg border border-border"
-            aria-label="Abrir menú"
-            aria-expanded={open}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
           >
-            <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+            <ChevronDown className={`h-4 w-4 transition-transform ${mobileOpen ? "rotate-180" : ""}`} />
           </button>
         </div>
       </div>
-      {open && (
-        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl">
-          <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
-            {links.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
-                {l.label}
-              </a>
-            ))}
+
+      {mobileOpen && (
+        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl max-h-[80vh] overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-6 py-5 space-y-5">
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-foreground mb-2">Features</p>
+              <div className="grid gap-1">
+                {features.map((f) => (
+                  <a key={f.href} href={f.href} onClick={() => setMobileOpen(false)} className="flex items-center gap-3 py-2 text-sm">
+                    <f.icon className="h-4 w-4 text-lime" /> {f.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border pt-4 grid gap-2 text-sm">
+              {topLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-foreground py-1">
+                  {l.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -126,7 +186,7 @@ function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-6 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            La primera plataforma LifeFi · Tu pronóstico en 12 minutos
+            The first LifeFi platform · Your forecast in 12 minutes
           </motion.div>
 
           <motion.h1
@@ -135,9 +195,9 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-[5.25rem] leading-[0.98] text-balance"
           >
-            Vive más años,
+            Live longer,
             <br />
-            <em className="text-lime not-italic">y vívelos bien.</em>
+            <em className="text-lime not-italic">live them well.</em>
           </motion.h1>
 
           <motion.p
@@ -146,9 +206,9 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-5 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto text-pretty"
           >
-            LONGEVA convierte tus hábitos, tus compras y tus biomarcadores
-            en un pronóstico claro de vida. Después te ayuda a mejorarlo,
-            una decisión pequeña a la vez.
+            LONGEVA turns your habits, your spending and your biomarkers
+            into a clear life forecast. Then it helps you improve it,
+            one small decision at a time.
           </motion.p>
 
           <motion.div
@@ -158,10 +218,10 @@ function Hero() {
             className="mt-7 flex flex-wrap gap-3 justify-center"
           >
             <Button variant="lime" size="lg" asChild>
-              <Link to="/signup">Ver mi pronóstico <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">See my forecast <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="lg" asChild>
-              <a href="#how">Cómo funciona</a>
+              <a href="#how">How it works</a>
             </Button>
           </motion.div>
 
@@ -171,9 +231,9 @@ function Hero() {
             transition={{ delay: 0.55 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Cifrado de extremo a extremo</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> Sin anuncios, nunca</span>
-            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> Tus datos son tuyos</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
+            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
+            <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
           </motion.div>
         </div>
 
@@ -187,7 +247,7 @@ function Hero() {
           <div className="md:col-span-3 rounded-3xl overflow-hidden border border-border shadow-card bg-card">
             <img
               src={heroHuman}
-              alt="Familia disfrutando una mañana saludable juntos"
+              alt="A family enjoying a healthy morning together"
               className="w-full h-full object-cover aspect-[4/3]"
             />
           </div>
@@ -195,14 +255,14 @@ function Hero() {
           {/* Side metrics column, never on top of the photo */}
           <div className="md:col-span-2 flex flex-col gap-3">
             <div className="rounded-2xl bg-card border border-border p-5 shadow-soft">
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Tu LifeScore</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
               <p className="font-display text-5xl tabular-nums leading-none">782</p>
-              <p className="text-xs text-muted-foreground mt-2">+12 esta semana · rango 758 a 806 con 80% de confianza</p>
+              <p className="text-xs text-muted-foreground mt-2">+12 this week · range 758 to 806 at 80% confidence</p>
             </div>
             <div className="grid grid-cols-1 gap-2.5">
-              <MiniChip icon={Heart} label="Esperanza saludable" value="+7 años" />
-              <MiniChip icon={Wallet} label="Brecha de retiro" value="Cerrable" />
-              <MiniChip icon={Brain} label="Acciones para hoy" value="3 listas" />
+              <MiniChip icon={Heart} label="Healthy lifespan" value="+7 yrs" />
+              <MiniChip icon={Wallet} label="Retirement gap" value="Closeable" />
+              <MiniChip icon={Brain} label="Today's actions" value="3 ready" />
             </div>
           </div>
         </motion.div>
@@ -948,7 +1008,7 @@ function AccountabilityModule() {
     { name: "Cap delivery $/wk", current: 64, target: 80, unit: "", inverse: true },
   ];
   return (
-    <section className="py-32 bg-card/40 border-y border-border">
+    <section id="accountability" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
@@ -1035,9 +1095,49 @@ function AccountabilityModule() {
 
 function Pricing() {
   const tiers = [
-    { name: "Free", price: "$0", desc: "See your forecast and start.", features: ["LifeScore + Body Age", "Daily action", "Basic guardrails"], cta: "Start free", highlight: false },
-    { name: "Core", price: "$19", desc: "The full longevity loop.", features: ["Everything in Free", "AI Coach (Kairos)", "All guardrails", "Auto-Save retirement", "Future Self"], cta: "Choose Core", highlight: true },
-    { name: "Plus", price: "$39", desc: "For households + pros.", features: ["Everything in Core", "Household sharing (4)", "LONGEVA Card", "Premium merchant graph", "Priority human review"], cta: "Choose Plus", highlight: false },
+    {
+      name: "Free",
+      price: "$0",
+      desc: "See your forecast and start the loop.",
+      features: [
+        "LifeScore + Body Age scan",
+        "1 daily action",
+        "Basic spending guardrails (nudge only)",
+        "Read-only wallet & wearables sync",
+      ],
+      cta: "Start free",
+      highlight: false,
+    },
+    {
+      name: "Core",
+      price: "$19",
+      desc: "The full longevity loop.",
+      features: [
+        "Everything in Free",
+        "AI Coach (Kairos) · unlimited",
+        "All 3 guardrail tiers (nudge, delay, block)",
+        "Auto-Save retirement routing",
+        "Future Self projections to 90",
+        "LONGV rewards on every healthy purchase",
+      ],
+      cta: "Choose Core",
+      highlight: true,
+    },
+    {
+      name: "Plus",
+      price: "$39",
+      desc: "Households + power users.",
+      features: [
+        "Everything in Core",
+        "Household sharing (up to 4)",
+        "LONGEVA Card · titanium, 1.5% LONGV back",
+        "Premium merchant graph (curated longevity)",
+        "Priority human longevity coach review",
+        "Insurance & retirement credit redemptions",
+      ],
+      cta: "Choose Plus",
+      highlight: false,
+    },
   ];
   return (
     <section id="pricing" className="py-28 scroll-mt-20">
@@ -1045,7 +1145,7 @@ function Pricing() {
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Pricing</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Aligned with your outcomes.</h2>
-          <p className="text-muted-foreground mt-4">Never ads. Never data sales. Cancel any time.</p>
+          <p className="text-muted-foreground mt-4">No ads. No data sales. Cancel any time.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
           {tiers.map((t) => (
@@ -1073,6 +1173,37 @@ function Pricing() {
               </Button>
             </div>
           ))}
+        </div>
+
+        {/* Revenue model transparency */}
+        <div className="mt-14 rounded-3xl border border-border bg-card p-7 sm:p-9">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+            <div className="max-w-md">
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-2">How we make money</p>
+              <h3 className="font-display text-2xl mb-2">Incentives aligned with your healthspan.</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We earn only when you live longer and better. Four streams, all opt-in, all visible.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3 flex-1 max-w-xl">
+              {[
+                { icon: Sparkles, t: "Subscriptions", d: "Core & Plus monthly plans" },
+                { icon: CreditCard, t: "Card interchange", d: "LONGEVA Card swipe fees" },
+                { icon: Apple, t: "Opt-in merchant cashback", d: "Curated longevity brands only" },
+                { icon: Shield, t: "B2B2C contracts", d: "Insurers & employers, never your data" },
+              ].map((r) => (
+                <div key={r.t} className="rounded-xl border border-border bg-background p-4 flex items-start gap-3">
+                  <span className="h-8 w-8 rounded-lg bg-lime/15 grid place-items-center shrink-0">
+                    <r.icon className="h-4 w-4 text-lime" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium">{r.t}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{r.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
