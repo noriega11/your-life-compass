@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   to: number;
@@ -11,22 +11,31 @@ interface Props {
 
 export function Counter({ to, prefix = "", suffix = "", decimals = 0, duration = 1500, className }: Props) {
   const [val, setVal] = useState(0);
+  const rafRef = useRef<number | null>(null);
+
   useEffect(() => {
     const start = performance.now();
-    let raf: number;
     const tick = (t: number) => {
       const p = Math.min(1, (t - start) / duration);
       const eased = 1 - Math.pow(1 - p, 3);
       setVal(to * eased);
-      if (p < 1) raf = requestAnimationFrame(tick);
+      if (p < 1) rafRef.current = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, [to, duration]);
+
+  const display = val.toLocaleString(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+
   return (
     <span className={className}>
       {prefix}
-      {val.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
+      {display}
       {suffix}
     </span>
   );
