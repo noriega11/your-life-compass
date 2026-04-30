@@ -19,31 +19,78 @@ function Today() {
     return "Good evening";
   })();
 
+  const [doneIds, setDoneIds] = useState<Set<string>>(new Set());
+  const toggleDone = (id: string) =>
+    setDoneIds((s) => {
+      const next = new Set(s);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  const doneCount = doneIds.size;
+
+  // Mock 7-day signals with sparklines
+  const signals = [
+    { label: "HRV", value: 64, suffix: "ms", icon: Heart, series: [52, 58, 61, 55, 60, 63, 64], tone: "teal" as const },
+    { label: "Sleep", value: 7.4, suffix: "h", icon: Brain, series: [6.2, 6.8, 7.1, 6.9, 7.0, 7.3, 7.4], tone: "teal" as const },
+    { label: "Glucose", value: 92, suffix: "mg/dL", icon: Wallet, series: [108, 102, 98, 105, 96, 94, 92], tone: "teal" as const },
+    { label: "VO₂ max", value: 47.2, suffix: "", icon: Heart, series: [45.1, 45.4, 45.9, 46.3, 46.6, 47.0, 47.2], tone: "gold" as const },
+  ];
+
   return (
     <div className="max-w-6xl mx-auto space-y-10">
       {/* Hero */}
       <section className="grid lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-7">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Today · Day {MOCK_USER.season.day} of {MOCK_USER.season.total}</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">Today · Day {MOCK_USER.season.day} of {MOCK_USER.season.total}</p>
           <h1 className="font-display text-5xl sm:text-6xl text-balance">{greeting}, {MOCK_USER.firstName}.</h1>
-          <p className="text-muted-foreground mt-3">Your forecast moved <span className="text-lime font-medium">+{MOCK_USER.lifeScoreDelta}</span> this week. Three actions below keep you on the optimized path.</p>
+          <p className="text-muted-foreground mt-3">Your forecast moved <span className="text-teal font-medium">+{MOCK_USER.lifeScoreDelta}</span> this week. Three actions below keep you on the optimized path.</p>
 
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
-              { label: "Health", value: MOCK_USER.health, icon: Heart },
-              { label: "Wealth", value: MOCK_USER.wealth, icon: Wallet },
-              { label: "Mind", value: MOCK_USER.mind, icon: Brain },
+              { label: "Health", value: MOCK_USER.health, icon: Heart, series: [68, 70, 71, 72, 73, 74, 74] },
+              { label: "Wealth", value: MOCK_USER.wealth, icon: Wallet, series: [62, 64, 65, 66, 67, 67, 68] },
+              { label: "Mind", value: MOCK_USER.mind, icon: Brain, series: [76, 77, 78, 79, 80, 80, 81] },
             ].map((s) => (
               <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
                 <s.icon className="h-4 w-4 text-muted-foreground mb-3" />
                 <p className="text-xs text-muted-foreground">{s.label}</p>
                 <p className="font-display text-3xl tabular-nums">{s.value}</p>
+                <Sparkline values={s.series} className="mt-3" />
               </div>
             ))}
           </div>
         </div>
         <div className="lg:col-span-5 flex justify-center">
           <LifeScoreOrb value={MOCK_USER.lifeScore} low={MOCK_USER.lifeScoreLow} high={MOCK_USER.lifeScoreHigh} size={300} />
+        </div>
+      </section>
+
+      {/* Health signals */}
+      <section>
+        <div className="flex items-end justify-between mb-4">
+          <div>
+            <h2 className="font-display text-3xl">Health signals</h2>
+            <p className="text-sm text-muted-foreground">7-day trend, latest day highlighted.</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {signals.map((s) => (
+            <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
+              <div className="flex items-center justify-between mb-3">
+                <s.icon className="h-4 w-4 text-muted-foreground" />
+                <span className={`text-[10px] font-mono uppercase tracking-wider ${s.tone === "gold" ? "text-gold" : "text-teal"}`}>{s.label}</span>
+              </div>
+              <p className="font-display text-3xl tabular-nums">
+                {s.value}
+                <span className="text-sm text-muted-foreground ml-1 font-sans">{s.suffix}</span>
+              </p>
+              <Sparkline
+                values={s.series}
+                className="mt-4"
+                highlight={s.tone === "gold" ? "var(--gold)" : "var(--teal)"}
+              />
+            </div>
+          ))}
         </div>
       </section>
 
@@ -54,9 +101,21 @@ function Today() {
             <h2 className="font-display text-3xl">Your 3 actions today</h2>
             <p className="text-sm text-muted-foreground">Each under 30 minutes. Each explained.</p>
           </div>
+          <div className="text-right">
+            <p className="font-mono text-sm tabular-nums"><span className="text-teal">{doneCount}</span><span className="text-muted-foreground">/3 done</span></p>
+            <div className="mt-1 h-1 w-24 bg-muted rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-teal"
+                animate={{ width: `${(doneCount / 3) * 100}%` }}
+                transition={{ type: "spring", stiffness: 200, damping: 22 }}
+              />
+            </div>
+          </div>
         </div>
         <div className="grid md:grid-cols-3 gap-4">
-          {TODAY_ACTIONS.map((a, i) => <ActionCard key={a.id} a={a} delay={i * 0.08} />)}
+          {TODAY_ACTIONS.map((a, i) => (
+            <ActionCard key={a.id} a={a} delay={i * 0.08} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
+          ))}
         </div>
       </section>
 
