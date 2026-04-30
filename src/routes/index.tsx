@@ -560,15 +560,39 @@ function DataSources() {
 }
 
 function FutureSelf() {
-  const [age, setAge] = useState<70 | 90>(70);
-  const imgs = age === 70
-    ? { current: current70, optimized: optimized70 }
-    : { current: current90, optimized: optimized90 };
+  const ages = [70, 80, 90] as const;
+  type Age = typeof ages[number];
+  const [age, setAge] = useState<Age>(70);
+
+  const data: Record<Age, {
+    img: { current: string; optimized: string };
+    current: { savings: string; healthy: string; bodyAge: string };
+    optimized: { savings: string; healthy: string; bodyAge: string };
+  }> = {
+    70: {
+      img: { current: current70, optimized: optimized70 },
+      current: { savings: "$890K", healthy: "4 yrs", bodyAge: "74.2" },
+      optimized: { savings: "$2.14M", healthy: "12 yrs", bodyAge: "65.8" },
+    },
+    80: {
+      img: { current: current90, optimized: optimized90 },
+      current: { savings: "$240K", healthy: "0 yrs", bodyAge: "86.4" },
+      optimized: { savings: "$1.82M", healthy: "8 yrs", bodyAge: "73.1" },
+    },
+    90: {
+      img: { current: current90, optimized: optimized90 },
+      current: { savings: "Depleted", healthy: "—", bodyAge: "98.2" },
+      optimized: { savings: "$820K", healthy: "3 yrs", bodyAge: "82.4" },
+    },
+  };
+
+  const cur = data[age];
+
   return (
     <section className="py-32 bg-card/40 border-y border-border overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-14 max-w-2xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">See your future self</p>
+        <div className="text-center mb-10 max-w-2xl mx-auto">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">See your future self</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Two paths. Your choice.</h2>
           <p className="text-muted-foreground mt-4">
             What you do today decides who shows up at 70, 80, 90.
@@ -576,12 +600,12 @@ function FutureSelf() {
         </div>
 
         <div className="flex justify-center mb-10 gap-2">
-          {[70, 90].map((a) => (
+          {ages.map((a) => (
             <button
               key={a}
-              onClick={() => setAge(a as 70 | 90)}
+              onClick={() => setAge(a)}
               className={`px-5 py-2 rounded-full text-sm font-mono transition ${
-                age === a ? "bg-lime text-lime-foreground" : "bg-card border border-border text-muted-foreground hover:text-foreground"
+                age === a ? "bg-foreground text-background" : "bg-card border border-border text-muted-foreground hover:text-foreground"
               }`}
             >
               At {a}
@@ -591,26 +615,40 @@ function FutureSelf() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {([
-            { src: imgs.current, label: "Current path", tag: "Without changes" },
-            { src: imgs.optimized, label: "Optimized path", tag: "With LONGEVA" },
+            { src: cur.img.current, label: "Current path", tag: "Without changes", stats: cur.current, accent: "coral" as const },
+            { src: cur.img.optimized, label: "With LONGEVA", tag: "Optimized", stats: cur.optimized, accent: "teal" as const },
           ] as const).map((p) => (
             <motion.div
               key={p.label}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative rounded-3xl overflow-hidden bg-card border border-border"
+              className="rounded-3xl overflow-hidden bg-card border border-border"
             >
-              <img
-                src={p.src}
-                alt={`${p.label} at ${age}`}
-                loading="lazy"
-                className="w-full aspect-[4/5] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-7">
-                <p className="text-xs font-mono uppercase tracking-wider text-lime mb-1">{p.tag}</p>
-                <p className="font-display text-3xl">{p.label}</p>
+              <div className="relative">
+                <img
+                  src={p.src}
+                  alt={`${p.label} at ${age}`}
+                  loading="lazy"
+                  className="w-full aspect-[4/3] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                <div className="absolute bottom-0 inset-x-0 p-5">
+                  <p className={`text-[10px] font-mono uppercase tracking-wider ${p.accent === "teal" ? "text-teal" : "text-coral"} mb-1`}>{p.tag}</p>
+                  <p className="font-display text-2xl">{p.label}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-px bg-border">
+                {[
+                  { k: "Savings", v: p.stats.savings },
+                  { k: "Healthy yrs left", v: p.stats.healthy },
+                  { k: "Body age", v: p.stats.bodyAge },
+                ].map((s) => (
+                  <div key={s.k} className="bg-card p-4 text-center">
+                    <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{s.k}</p>
+                    <p className={`font-display text-xl tabular-nums mt-1 ${p.accent === "teal" ? "text-teal" : "text-coral"}`}>{s.v}</p>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
