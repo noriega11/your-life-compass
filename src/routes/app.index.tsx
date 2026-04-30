@@ -141,22 +141,31 @@ function Today() {
         />
       </section>
 
+      {/* Retirement planner */}
+      <section>
+        <div className="mb-4">
+          <h2 className="font-display text-3xl">Retirement gap</h2>
+          <p className="text-sm text-muted-foreground">Move the sliders, watch your nest egg respond.</p>
+        </div>
+        <RetirementPlanner currentAge={MOCK_USER.realAge} />
+      </section>
+
       {/* Future Self teaser */}
       <section className="rounded-3xl overflow-hidden border border-border bg-card p-6 sm:p-10 grid md:grid-cols-2 gap-8 items-center">
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">See your future self</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">See your future self</p>
           <h2 className="font-display text-4xl mb-3">Two paths. Your choice.</h2>
           <p className="text-muted-foreground mb-5">What you do today decides who shows up at 70.</p>
-          <a href="/app/trajectory" className="inline-flex items-center gap-1.5 text-sm text-lime hover:underline">
+          <a href="/app/trajectory" className="inline-flex items-center gap-1.5 text-sm text-teal hover:underline">
             Open your forecast <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          {[{ src: current70, tag: "Without changes" }, { src: optimized70, tag: "With LONGEVA" }].map((p) => (
+          {[{ src: current70, tag: "Without changes", tone: "coral" }, { src: optimized70, tag: "With LONGEVA", tone: "teal" }].map((p) => (
             <div key={p.tag} className="relative rounded-2xl overflow-hidden">
               <img src={p.src} alt={p.tag} loading="lazy" className="w-full aspect-[4/5] object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
-              <p className="absolute bottom-3 left-3 text-xs font-mono text-lime">{p.tag}</p>
+              <p className={`absolute bottom-3 left-3 text-xs font-mono ${p.tone === "teal" ? "text-teal" : "text-coral"}`}>{p.tag}</p>
             </div>
           ))}
         </div>
