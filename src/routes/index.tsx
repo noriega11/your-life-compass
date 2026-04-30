@@ -10,6 +10,7 @@ import { LifeScoreOrb } from "@/components/LifeScoreOrb";
 import { Counter } from "@/components/Counter";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
+import { RetirementPlanner } from "@/components/RetirementPlanner";
 import { useState } from "react";
 import optimized70 from "@/assets/future-self-optimized-70.jpg";
 import current70 from "@/assets/future-self-current-70.jpg";
