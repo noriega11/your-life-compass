@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, Wallet, Brain, ArrowRight, Check, ShieldCheck, Receipt, PiggyBank } from "lucide-react";
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
 import { WhyThis } from "@/components/WhyThis";
+import { RetirementPlanner } from "@/components/RetirementPlanner";
 import { MOCK_USER, TODAY_ACTIONS, RECOMMENDED_MERCHANTS, RECENT_TRANSACTIONS } from "@/lib/mockData";
 import { useState } from "react";
 import optimized70 from "@/assets/future-self-optimized-70.jpg";
