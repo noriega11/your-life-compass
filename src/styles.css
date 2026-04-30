@@ -63,6 +63,11 @@
   --color-lime-foreground: var(--lime-foreground);
   --color-ink: var(--ink);
   --color-paper: var(--paper);
+
+  --color-gold: var(--gold);
+  --color-teal: var(--teal);
+  --color-coral: var(--coral);
+  --color-amber: var(--amber);
 }
 
 /* ──────────────  LIGHT (default)  ────────────── */
@@ -124,6 +129,12 @@
   --shadow-glow-lime: 0 0 50px -12px oklch(0.42 0.10 165 / 30%);
   --shadow-card: 0 1px 2px oklch(0.16 0.03 250 / 6%), 0 8px 28px -12px oklch(0.16 0.03 250 / 10%);
   --shadow-soft: 0 1px 2px oklch(0.16 0.03 250 / 4%), 0 4px 16px -8px oklch(0.16 0.03 250 / 8%);
+
+  /* LONGEVA accent system (light) — slightly darker for AA on white */
+  --gold: oklch(0.70 0.13 85);    /* #C9A84C feel */
+  --teal: oklch(0.66 0.13 175);   /* #2EC4A0 */
+  --coral: oklch(0.62 0.20 30);   /* #E05C3A */
+  --amber: oklch(0.74 0.16 70);   /* #E8A42A */
 }
 
 /* ──────────────  DARK  ────────────── */
@@ -177,6 +188,12 @@
   --shadow-glow-lime: 0 0 60px -10px oklch(0.90 0.18 120 / 50%);
   --shadow-card: 0 8px 32px -12px oklch(0 0 0 / 50%);
   --shadow-soft: 0 4px 20px -8px oklch(0 0 0 / 35%);
+
+  /* LONGEVA accent system (dark) */
+  --gold: oklch(0.82 0.14 85);    /* #C9A84C bright */
+  --teal: oklch(0.78 0.14 175);   /* #2EC4A0 bright */
+  --coral: oklch(0.72 0.20 30);   /* #E05C3A bright */
+  --amber: oklch(0.82 0.16 70);   /* #E8A42A bright */
 }
 
 @layer base {
