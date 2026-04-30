@@ -148,7 +148,26 @@ function Stat({ label, value, hint, tone }: { label: string; value: string; hint
 
 function TxRow({ t, delay }: { t: typeof RECENT_TRANSACTIONS[number]; delay: number }) {
   const Icon = t.healthHours > 0 ? TrendingUp : t.healthHours < 0 ? TrendingDown : Minus;
-  const tone = t.impact === "good" ? "text-lime" : t.impact === "blocked" ? "text-danger" : "text-muted-foreground";
+
+  // Badge config per impact
+  const badge = (() => {
+    if (t.impact === "blocked") {
+      return { label: "BLOCKED", cls: "bg-coral/15 text-coral border-coral/30" };
+    }
+    if (t.impact === "good" && t.healthHours > 0) {
+      return { label: `+${t.healthHours.toFixed(1)} HRS`, cls: "bg-teal/15 text-teal border-teal/30" };
+    }
+    if (t.impact === "neutral" && t.healthHours < 0) {
+      return { label: "REDUCED", cls: "bg-amber/15 text-amber border-amber/30" };
+    }
+    return { label: t.impact.toUpperCase(), cls: "bg-muted text-muted-foreground border-border" };
+  })();
+
+  const iconCls =
+    t.impact === "blocked" ? "text-coral" :
+      t.impact === "good" ? "text-teal" :
+        "text-muted-foreground";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -156,27 +175,36 @@ function TxRow({ t, delay }: { t: typeof RECENT_TRANSACTIONS[number]; delay: num
       transition={{ delay }}
       className="rounded-2xl border border-border bg-card p-4 flex items-center gap-4"
     >
-      <div className={`h-10 w-10 rounded-full grid place-items-center bg-muted ${tone}`}>
+      <div className={`h-10 w-10 rounded-full grid place-items-center bg-muted ${iconCls}`}>
         <Icon className="h-4 w-4" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline justify-between gap-3">
           <p className="font-medium truncate">{t.merchant}</p>
-          <p className="font-mono tabular-nums text-sm">${t.amount.toFixed(2)}</p>
+          <p className={`font-mono tabular-nums text-sm ${t.impact === "blocked" ? "line-through text-muted-foreground" : ""}`}>
+            ${t.amount.toFixed(2)}
+          </p>
         </div>
-        <div className="flex items-center gap-3 mt-1">
-          <p className="text-xs text-muted-foreground">{t.date}</p>
-          <span className={`text-xs font-mono ${tone} uppercase tracking-wider`}>{t.impact}</span>
-          <span className="text-xs text-muted-foreground">
-            {t.healthHours > 0 ? "+" : ""}{t.healthHours} healthspan hrs
+        <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+          <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${badge.cls}`}>
+            {badge.label}
           </span>
+          <p className="text-xs text-muted-foreground">{t.date}</p>
+          {t.impact !== "blocked" && (
+            <span className="text-xs text-muted-foreground">
+              {t.healthHours > 0 ? "+" : ""}{t.healthHours} healthspan hrs
+            </span>
+          )}
         </div>
       </div>
       <div className="hidden sm:flex items-center gap-1.5">
         {(["metabolic", "mental", "financial", "environmental"] as const).map((axis) => (
           <div key={axis} className="text-center">
             <div className="h-1 w-8 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-lime" style={{ width: `${t.scores[axis] * 10}%` }} />
+              <div
+                className={`h-full ${t.impact === "blocked" ? "bg-coral" : "bg-teal"}`}
+                style={{ width: `${t.scores[axis] * 10}%` }}
+              />
             </div>
             <p className="text-[9px] font-mono uppercase text-muted-foreground mt-0.5">{axis[0]}</p>
           </div>
