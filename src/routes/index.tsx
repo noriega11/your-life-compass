@@ -141,7 +141,7 @@ function Nav() {
             <Link to="/login">Sign in</Link>
           </Button>
           <Button variant="lime" size="sm" asChild>
-            <Link to="/signup">See my forecast</Link>
+            <Link to="/signup">Start optimizing my wealth</Link>
           </Button>
           <button
             type="button"
