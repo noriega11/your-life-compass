@@ -1162,17 +1162,17 @@ function AccountabilityModule() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
-            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Accountability</p>
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Financial Goals & Pacts</p>
             <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
               Goals you'll <em className="text-lime not-italic">actually</em> hit.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-              Every transaction logged against your financial and longevity goals. Weekly reviews
-              from Kairos. Streaks, pacts, and gentle nudges before you drift.
+              Every transaction logged against your net worth, retirement, and leakage targets. Weekly
+              capital reviews, streaks, and pacts that keep your money on the optimized trajectory.
             </p>
             <ul className="mt-8 space-y-2.5 text-sm">
               {[
-                "Auto-categorized spending tied to each goal",
+                "Auto-categorized spending tied to each financial goal",
                 "Pacts with friends, opt-in social accountability",
                 "Weekly Sunday review with course-corrections",
                 "LONGV rewards redeemable for IRA top-ups",
