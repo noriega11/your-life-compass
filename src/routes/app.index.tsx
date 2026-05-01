@@ -153,11 +153,11 @@ function Today() {
       {/* Future Self teaser */}
       <section className="rounded-3xl overflow-hidden border border-border bg-card p-6 sm:p-10 grid md:grid-cols-2 gap-8 items-center">
         <div>
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">See your future self</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">Two financial trajectories</p>
           <h2 className="font-display text-4xl mb-3">Two paths. Your choice.</h2>
-          <p className="text-muted-foreground mb-5">What you do today decides who shows up at 70.</p>
+          <p className="text-muted-foreground mb-5">What you do with money today decides your net worth at 70.</p>
           <a href="/app/trajectory" className="inline-flex items-center gap-1.5 text-sm text-teal hover:underline">
-            Open your forecast <ArrowRight className="h-4 w-4" />
+            Open my forecast <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="grid grid-cols-2 gap-3">
