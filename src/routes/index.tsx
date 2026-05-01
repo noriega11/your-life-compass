@@ -382,9 +382,9 @@ function MiniChip({ icon: Icon, label, value }: { icon: React.ComponentType<{ cl
 
 function PreviewBand() {
   const items = [
-    { label: "Projected lifespan", value: 87, suffix: " yrs", sub: "82–91 · 80% conf.", tone: "neutral" as const },
-    { label: "Healthy years", value: 7, prefix: "+", suffix: " yrs", sub: "with LONGEVA habits", tone: "teal" as const },
-    { label: "Retirement gap at 67", prefix: "−$", value: 620, suffix: "K", sub: "closeable in 4 yrs", tone: "coral" as const },
+    { label: "Projected net worth at 67", prefix: "$", value: 1.62, suffix: "M", decimals: 2, sub: "with LONGEVA · 80% conf.", tone: "teal" as const },
+    { label: "Retirement gap closed", prefix: "+$", value: 620, suffix: "K", sub: "vs. default trajectory", tone: "teal" as const },
+    { label: "Spending leakage cut", prefix: "−", value: 22, suffix: "%", sub: "blocked + rerouted to invest", tone: "coral" as const },
   ];
   const toneCls = (t: "neutral" | "teal" | "coral") =>
     t === "teal" ? "text-teal" : t === "coral" ? "text-coral" : "text-foreground";
@@ -392,10 +392,10 @@ function PreviewBand() {
     <section className="py-24 border-y border-border bg-card/30">
       <div className="max-w-6xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold text-center mb-3">
-          What you'll know in 12 minutes
+          Your financial trajectory, in 12 minutes
         </p>
         <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">
-          Three numbers that change how you live.
+          Three numbers that change your money.
         </h2>
         <div className="grid md:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden mb-12">
           {items.map((it) => (
