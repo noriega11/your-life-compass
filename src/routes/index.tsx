@@ -246,8 +246,8 @@ function Hero() {
             transition={{ delay: 0.55 }}
             className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Bank-grade encryption</span>
+            <span className="flex items-center gap-1.5"><CreditCard className="h-3.5 w-3.5" /> Secure banking rails</span>
             <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
           </motion.div>
         </div>
