@@ -41,12 +41,16 @@ function Landing() {
       <PreviewBand />
       <ThreeCrises />
       <HowItWorks />
-      <BodyAgeScan />
-      <WearablesModule />
+      <FinancialDashboard />
+      <RealtimeCapitalActions />
       <AgingPrediction />
       <WalletIntegrations />
+      <BodyAgeScan />
+      <WearablesModule />
       <RoutinesCalendar />
       <AccountabilityModule />
+      <FintechInfra />
+      <CompetitivePositioning />
       <DataSources />
       <FutureSelf />
       <ImpactBand />
