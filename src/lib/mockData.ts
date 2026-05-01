@@ -8,76 +8,192 @@ export const MOCK_USER = {
   lifeScoreLow: 758,
   lifeScoreHigh: 806,
   lifeScoreDelta: 4,
-  health: 74,
-  wealth: 68,
-  mind: 81,
+  // Composite scores
+  wealthScore: 68,
+  vitalityScore: 74,
+  mindScore: 81,
+  retirementReadiness: 61, // %
+  // Body, secondary
   bodyAge: 31.4,
   realAge: 34,
+  // Money, primary
+  income: 95000,
+  monthlySpend: 4850,
+  impulseLeakage: 620, // $/mo
+  retirementBalance: 38000,
+  retirementGap: -428000,
+  savingsRate: 7, // %
+  targetSavingsRate: 15,
+  autoSavedThisMonth: 312,
+  guardrailSavings: 187,
+  leakageReduced: 22, // %
+  netWorthCurrent67: 740000,
+  netWorthOptimized67: 1080000,
+  emergencyRunwayMonths: 2.4,
+  debtPressure: 18, // % of income
+  // Engagement
   streak: 12,
   league: "Silver II",
   longvBalance: 4280,
-  season: { name: "Metabolic Spring", day: 34, total: 90 },
+  season: { name: "Wealth Forecast Q2", day: 34, total: 90 },
+  // Back-compat aliases used by existing components
+  health: 74,
+  wealth: 68,
+  mind: 81,
 };
 
 export const TODAY_ACTIONS = [
   {
     id: "a1",
-    category: "Health",
-    title: "Walk 20 min before your 11am meeting",
-    outcome: "Lowers glucose variability, +0.04 healthy years",
-    longv: 40,
-    duration: 20,
+    category: "Auto-Save",
+    title: "Move $47 from unused dining budget into IRA",
+    outcome: "+$2,400 projected at 67 · closes 0.6% of retirement gap",
+    longv: 60,
+    duration: 1,
+    dollars: 47,
+    retirementImpact: 2400,
     why: {
       summary:
-        "We recommended a morning walk because your glucose variability has been trending high (84th percentile this week) and walking before breakfast has been shown to reduce it by 25% in similar users.",
+        "Your dining budget has $47 unused this week. Routing it now compounds to ~$2,400 at 67 and closes a measurable slice of your $428K retirement gap.",
       signals: [
-        { name: "Glucose variability (CGM)", weight: 0.42 },
-        { name: "Sedentary hours", weight: 0.27 },
-        { name: "Calendar gap 10:30–11:00", weight: 0.18 },
-        { name: "Past completion rate", weight: 0.13 },
+        { name: "Unused dining budget", weight: 0.44 },
+        { name: "Retirement gap velocity", weight: 0.31 },
+        { name: "33-year compounding window", weight: 0.25 },
       ],
-      confidence: 0.81,
-      modelVersion: "Kairos v4.1",
+      confidence: 0.88,
+      modelVersion: "Wealth Engine v1.4",
     },
   },
   {
     id: "a2",
-    category: "Wealth",
-    title: "Skip one delivery order this week, auto-route to IRA",
-    outcome: "Adds $2,400 to retirement at 67",
-    longv: 60,
+    category: "Guardrail",
+    title: "Set a $90 weekly delivery cap",
+    outcome: "Avg savings $112/wk → $5,800/yr to emergency fund",
+    longv: 80,
     duration: 1,
+    dollars: 112,
+    retirementImpact: 5800,
     why: {
       summary:
-        "You spent $186 on food delivery in the last 14 days. Redirecting one order keeps the same week of meals while compounding $34 over 33 years to roughly $2,400 at age 67.",
+        "You spent $186/wk on delivery on average. Capping at $90/wk redirects ~$112 weekly with minimal lifestyle change.",
       signals: [
-        { name: "Delivery spend (14d)", weight: 0.51 },
-        { name: "Retirement gap", weight: 0.29 },
-        { name: "Time horizon", weight: 0.20 },
+        { name: "Delivery spend (28d)", weight: 0.48 },
+        { name: "Late-night order frequency", weight: 0.27 },
+        { name: "Sleep ↔ impulse correlation", weight: 0.25 },
       ],
-      confidence: 0.88,
+      confidence: 0.85,
       modelVersion: "Purchase DNA v2.0",
     },
   },
   {
     id: "a3",
-    category: "Mind",
-    title: "8 minutes of breathwork before bed",
-    outcome: "Improves sleep depth, protects healthspan",
-    longv: 25,
-    duration: 8,
+    category: "Guardrail",
+    title: "Pause late-night purchases after 9 PM",
+    outcome: "60-second cool-off · est. $74/mo retained",
+    longv: 40,
+    duration: 1,
+    dollars: 74,
+    retirementImpact: 1880,
     why: {
       summary:
-        "Your average sleep latency was 28 min this week (target <15). Slow breathing for 8 minutes has been shown to halve sleep latency in similar users.",
+        "62% of your reversed purchases last quarter happened after 9 PM. A 60-second pause cuts this category by ~70% in similar users.",
       signals: [
-        { name: "Sleep latency (Whoop)", weight: 0.46 },
-        { name: "Evening HRV", weight: 0.31 },
-        { name: "Stress score", weight: 0.23 },
+        { name: "After-9pm reversal rate", weight: 0.52 },
+        { name: "HRV-based stress signal", weight: 0.26 },
+        { name: "Cohort baseline", weight: 0.22 },
       ],
-      confidence: 0.74,
+      confidence: 0.79,
       modelVersion: "Kairos v4.1",
     },
   },
+  {
+    id: "a4",
+    category: "Subscriptions",
+    title: "Cancel 2 unused subscriptions",
+    outcome: "$38/mo recovered → routed to IRA automatically",
+    longv: 30,
+    duration: 2,
+    dollars: 38,
+    retirementImpact: 1980,
+    why: {
+      summary:
+        "Two subscriptions ($21 + $17) had no usage in the last 60 days. Canceling now recovers $456/yr that compounds to ~$1,980 at 67.",
+      signals: [
+        { name: "Subscription usage logs", weight: 0.58 },
+        { name: "Renewal date proximity", weight: 0.24 },
+        { name: "Category overlap", weight: 0.18 },
+      ],
+      confidence: 0.92,
+      modelVersion: "Subscription Audit v1.1",
+    },
+  },
+  {
+    id: "a5",
+    category: "Review",
+    title: "Review $186 in impulse transactions",
+    outcome: "Approve, refund, or block — 4 min",
+    longv: 25,
+    duration: 4,
+    dollars: 186,
+    retirementImpact: 0,
+    why: {
+      summary:
+        "Five transactions this week were flagged as impulse (high-velocity, off-pattern, late-night). Reviewing them tunes your guardrails.",
+      signals: [
+        { name: "Velocity anomaly", weight: 0.41 },
+        { name: "Off-pattern merchant", weight: 0.34 },
+        { name: "Time-of-day signal", weight: 0.25 },
+      ],
+      confidence: 0.76,
+      modelVersion: "Purchase DNA v2.0",
+    },
+  },
+];
+
+export const FINANCIAL_PATTERNS = [
+  {
+    id: "p1",
+    title: "Your weekend spending rises 34% after short-sleep weeks",
+    behavior: "Sub-6h sleep on 3+ weeknights",
+    action: "Enable a $120 weekend discretionary cap on low-sleep weeks",
+    dollars: 142,
+    confidence: 0.81,
+    range: "$110–$170/mo",
+  },
+  {
+    id: "p2",
+    title: "Weeks with 3+ workouts correlate with 18% higher savings consistency",
+    behavior: "Movement frequency",
+    action: "Tie auto-save bonus to your weekly workout streak",
+    dollars: 96,
+    confidence: 0.74,
+    range: "$70–$120/mo",
+  },
+  {
+    id: "p3",
+    title: "Stress-heavy workdays predict +28% delivery and shopping spend",
+    behavior: "Calendar density + low HRV",
+    action: "Pre-stage a meal-prep plan on heavy-meeting days",
+    dollars: 188,
+    confidence: 0.83,
+    range: "$150–$220/mo",
+  },
+  {
+    id: "p4",
+    title: "Late-night screen time correlates with next-day impulse purchases",
+    behavior: "Screen >11pm on phone",
+    action: "Auto-engage 60-sec pause on next-day discretionary spend",
+    dollars: 74,
+    confidence: 0.69,
+    range: "$50–$95/mo",
+  },
+];
+
+export const HEALTH_WEALTH_TRADEOFFS = [
+  { id: "t1", tension: "Saving more, sleeping less", detail: "Extra freelance hours added $640/mo income but cut sleep to 5.8h.", verdict: "Net negative: future medical-cost risk +$2.3K/yr." },
+  { id: "t2", tension: "Working longer, stress-spending more", detail: "Overtime weeks correlate with +$210 in delivery and impulse buys.", verdict: "Net negative: erases ~70% of the income gain." },
+  { id: "t3", tension: "Cutting food costs, worsening nutrition", detail: "Switched to $4 lunches. Glucose variability +18% in 30 days.", verdict: "Risk: long-term healthcare-cost pressure." },
+  { id: "t4", tension: "Spending on fitness, reducing future cost risk", detail: "$215/mo Equinox correlates with -$840/yr projected medical risk.", verdict: "Net positive: 4× ROI over 10 years." },
 ];
 
 // Deterministic pseudo-noise so SSR and client renders match (no Math.random()).

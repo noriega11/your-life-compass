@@ -15,6 +15,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppWealthRouteImport } from './routes/app.wealth'
+import { Route as AppVitalityRouteImport } from './routes/app.vitality'
 import { Route as AppVaultRouteImport } from './routes/app.vault'
 import { Route as AppTrajectoryRouteImport } from './routes/app.trajectory'
 import { Route as AppSpendingRouteImport } from './routes/app.spending'
@@ -23,8 +25,10 @@ import { Route as AppRetirementRouteImport } from './routes/app.retirement'
 import { Route as AppRecommendedRouteImport } from './routes/app.recommended'
 import { Route as AppQuestsRouteImport } from './routes/app.quests'
 import { Route as AppProgressRouteImport } from './routes/app.progress'
+import { Route as AppPatternsRouteImport } from './routes/app.patterns'
 import { Route as AppGuardrailsRouteImport } from './routes/app.guardrails'
 import { Route as AppCoachRouteImport } from './routes/app.coach'
+import { Route as AppBalanceRouteImport } from './routes/app.balance'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -54,6 +58,16 @@ const IndexRoute = IndexRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppWealthRoute = AppWealthRouteImport.update({
+  id: '/wealth',
+  path: '/wealth',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVitalityRoute = AppVitalityRouteImport.update({
+  id: '/vitality',
+  path: '/vitality',
   getParentRoute: () => AppRoute,
 } as any)
 const AppVaultRoute = AppVaultRouteImport.update({
@@ -96,6 +110,11 @@ const AppProgressRoute = AppProgressRouteImport.update({
   path: '/progress',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPatternsRoute = AppPatternsRouteImport.update({
+  id: '/patterns',
+  path: '/patterns',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppGuardrailsRoute = AppGuardrailsRouteImport.update({
   id: '/guardrails',
   path: '/guardrails',
@@ -106,6 +125,11 @@ const AppCoachRoute = AppCoachRouteImport.update({
   path: '/coach',
   getParentRoute: () => AppRoute,
 } as any)
+const AppBalanceRoute = AppBalanceRouteImport.update({
+  id: '/balance',
+  path: '/balance',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -113,8 +137,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/balance': typeof AppBalanceRoute
   '/app/coach': typeof AppCoachRoute
   '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/patterns': typeof AppPatternsRoute
   '/app/progress': typeof AppProgressRoute
   '/app/quests': typeof AppQuestsRoute
   '/app/recommended': typeof AppRecommendedRoute
@@ -123,6 +149,8 @@ export interface FileRoutesByFullPath {
   '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
   '/app/vault': typeof AppVaultRoute
+  '/app/vitality': typeof AppVitalityRoute
+  '/app/wealth': typeof AppWealthRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -130,8 +158,10 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/balance': typeof AppBalanceRoute
   '/app/coach': typeof AppCoachRoute
   '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/patterns': typeof AppPatternsRoute
   '/app/progress': typeof AppProgressRoute
   '/app/quests': typeof AppQuestsRoute
   '/app/recommended': typeof AppRecommendedRoute
@@ -140,6 +170,8 @@ export interface FileRoutesByTo {
   '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
   '/app/vault': typeof AppVaultRoute
+  '/app/vitality': typeof AppVitalityRoute
+  '/app/wealth': typeof AppWealthRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -149,8 +181,10 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/signup': typeof SignupRoute
+  '/app/balance': typeof AppBalanceRoute
   '/app/coach': typeof AppCoachRoute
   '/app/guardrails': typeof AppGuardrailsRoute
+  '/app/patterns': typeof AppPatternsRoute
   '/app/progress': typeof AppProgressRoute
   '/app/quests': typeof AppQuestsRoute
   '/app/recommended': typeof AppRecommendedRoute
@@ -159,6 +193,8 @@ export interface FileRoutesById {
   '/app/spending': typeof AppSpendingRoute
   '/app/trajectory': typeof AppTrajectoryRoute
   '/app/vault': typeof AppVaultRoute
+  '/app/vitality': typeof AppVitalityRoute
+  '/app/wealth': typeof AppWealthRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -169,8 +205,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/signup'
+    | '/app/balance'
     | '/app/coach'
     | '/app/guardrails'
+    | '/app/patterns'
     | '/app/progress'
     | '/app/quests'
     | '/app/recommended'
@@ -179,6 +217,8 @@ export interface FileRouteTypes {
     | '/app/spending'
     | '/app/trajectory'
     | '/app/vault'
+    | '/app/vitality'
+    | '/app/wealth'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -186,8 +226,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/signup'
+    | '/app/balance'
     | '/app/coach'
     | '/app/guardrails'
+    | '/app/patterns'
     | '/app/progress'
     | '/app/quests'
     | '/app/recommended'
@@ -196,6 +238,8 @@ export interface FileRouteTypes {
     | '/app/spending'
     | '/app/trajectory'
     | '/app/vault'
+    | '/app/vitality'
+    | '/app/wealth'
     | '/app'
   id:
     | '__root__'
@@ -204,8 +248,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/onboarding'
     | '/signup'
+    | '/app/balance'
     | '/app/coach'
     | '/app/guardrails'
+    | '/app/patterns'
     | '/app/progress'
     | '/app/quests'
     | '/app/recommended'
@@ -214,6 +260,8 @@ export interface FileRouteTypes {
     | '/app/spending'
     | '/app/trajectory'
     | '/app/vault'
+    | '/app/vitality'
+    | '/app/wealth'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -267,6 +315,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/wealth': {
+      id: '/app/wealth'
+      path: '/wealth'
+      fullPath: '/app/wealth'
+      preLoaderRoute: typeof AppWealthRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/vitality': {
+      id: '/app/vitality'
+      path: '/vitality'
+      fullPath: '/app/vitality'
+      preLoaderRoute: typeof AppVitalityRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/vault': {
@@ -325,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProgressRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/patterns': {
+      id: '/app/patterns'
+      path: '/patterns'
+      fullPath: '/app/patterns'
+      preLoaderRoute: typeof AppPatternsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/guardrails': {
       id: '/app/guardrails'
       path: '/guardrails'
@@ -339,12 +408,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCoachRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/balance': {
+      id: '/app/balance'
+      path: '/balance'
+      fullPath: '/app/balance'
+      preLoaderRoute: typeof AppBalanceRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppBalanceRoute: typeof AppBalanceRoute
   AppCoachRoute: typeof AppCoachRoute
   AppGuardrailsRoute: typeof AppGuardrailsRoute
+  AppPatternsRoute: typeof AppPatternsRoute
   AppProgressRoute: typeof AppProgressRoute
   AppQuestsRoute: typeof AppQuestsRoute
   AppRecommendedRoute: typeof AppRecommendedRoute
@@ -353,12 +431,16 @@ interface AppRouteChildren {
   AppSpendingRoute: typeof AppSpendingRoute
   AppTrajectoryRoute: typeof AppTrajectoryRoute
   AppVaultRoute: typeof AppVaultRoute
+  AppVitalityRoute: typeof AppVitalityRoute
+  AppWealthRoute: typeof AppWealthRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppBalanceRoute: AppBalanceRoute,
   AppCoachRoute: AppCoachRoute,
   AppGuardrailsRoute: AppGuardrailsRoute,
+  AppPatternsRoute: AppPatternsRoute,
   AppProgressRoute: AppProgressRoute,
   AppQuestsRoute: AppQuestsRoute,
   AppRecommendedRoute: AppRecommendedRoute,
@@ -367,6 +449,8 @@ const AppRouteChildren: AppRouteChildren = {
   AppSpendingRoute: AppSpendingRoute,
   AppTrajectoryRoute: AppTrajectoryRoute,
   AppVaultRoute: AppVaultRoute,
+  AppVitalityRoute: AppVitalityRoute,
+  AppWealthRoute: AppWealthRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
@@ -382,12 +466,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

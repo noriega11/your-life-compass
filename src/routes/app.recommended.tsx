@@ -18,9 +18,9 @@ function Recommended() {
     <div className="max-w-6xl mx-auto space-y-10">
       <header className="space-y-3">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-teal">Recommended for you</p>
-        <h1 className="font-display text-5xl text-balance">Curated for the gaps in your LifeScore.</h1>
+        <h1 className="font-display text-5xl text-balance">Smarter spending. Better forecast.</h1>
         <p className="text-muted-foreground text-lg max-w-2xl">
-          Every merchant is scored for your specific health, wealth, and mind drivers. No paid placements.
+          Cheaper grocery alternatives, meal-prep replacing delivery, lower-cost fitness, subscription cancellations, and insurance-linked rewards. No paid placements.
         </p>
       </header>
 
