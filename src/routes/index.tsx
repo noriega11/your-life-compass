@@ -939,13 +939,14 @@ function AgingPrediction() {
           </div>
         </div>
         <div className="lg:col-span-5">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Aging Prediction Engine</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Lifetime Financial Forecast Engine</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Today's habits. <em className="text-lime not-italic">Tomorrow's age.</em>
+            Today's decisions. <em className="text-lime not-italic">Tomorrow's net worth.</em>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            We continuously analyze your last 90 days of behavior, sleep, movement, food, stress, social -
-            and project your biological age curve to 90. Every driver shown. Every weight explainable.
+            We blend 90 days of cashflow, investment performance, and behavioral risk signals into a
+            single survival-style projection of your net worth, retirement readiness, and lifetime liabilities.
+            Every driver shown. Every weight explainable.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={LineChart} label="Drivers tracked" value="120+" />
