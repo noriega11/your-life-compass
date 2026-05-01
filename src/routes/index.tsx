@@ -1401,7 +1401,7 @@ function Footer() {
         <div>
           <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Live your longest life, one decision at a time.
+            Control your financial future—automatically.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-6 text-sm">
