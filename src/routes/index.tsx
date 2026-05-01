@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA — Optimize your financial future, automatically." },
+      { title: "LONGEVA, Optimize your financial future, automatically." },
       {
         name: "description",
         content:
@@ -205,9 +205,9 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Optimize your financial future—
+            Your money,
             <br />
-            <em className="text-lime not-italic">automatically.</em>
+            on <em className="text-lime not-italic">autopilot.</em>
           </motion.h1>
 
           <motion.p
@@ -216,8 +216,8 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground text-pretty"
           >
-            LONGEVA uses your spending, savings, lifestyle, and health signals to forecast
-            your retirement readiness, reduce financial leakage, and help you build long-term wealth.
+            LONGEVA forecasts your retirement, blocks wasteful spending, and quietly invests the difference.
+            One simple loop, working for you every day.
           </motion.p>
 
           <motion.div
@@ -478,10 +478,10 @@ function ThreeCrises() {
 
 function HowItWorks() {
   const steps = [
-    { n: "01", icon: Database, title: "Connect", body: "Bank, card, retirement, investment, and health data — read-only and encrypted." },
-    { n: "02", icon: LineChart, title: "Forecast", body: "Project lifetime wealth, retirement readiness, and the financial impact of every behavior." },
-    { n: "03", icon: Shield, title: "Intervene", body: "Pause, nudge, or block harmful financial decisions in real time at the point of swipe." },
-    { n: "04", icon: PiggyBank, title: "Reallocate", body: "Saved capital is routed into your IRA, emergency fund, and goals — every day." },
+    { n: "01", icon: Database, title: "Connect", body: "Link your bank, cards, and retirement accounts. Read-only and encrypted." },
+    { n: "02", icon: LineChart, title: "Forecast", body: "See your real net worth at 67 and exactly how to close the gap." },
+    { n: "03", icon: Shield, title: "Protect", body: "We quietly pause spending that would hurt your future self." },
+    { n: "04", icon: PiggyBank, title: "Grow", body: "Every dollar saved is auto-routed into your IRA and index funds." },
   ];
   return (
     <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
@@ -595,7 +595,7 @@ function FutureSelf() {
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">Two financial trajectories</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Two paths. Your choice.</h2>
           <p className="text-muted-foreground mt-4">
-            What you do with money today decides your net worth — and your options — at 70, 80, 90.
+            What you do with money today decides your net worth, and your options, at 70, 80, 90.
           </p>
         </div>
 
@@ -767,8 +767,8 @@ function BodyAgeScan() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
             A 60-second on-device scan reads 38 facial biomarkers to estimate biological age. The signal feeds the
-            Forecast Engine — sharper longevity-adjusted retirement planning, lower projected healthcare liabilities,
-            tighter confidence bands on your net-worth curve.
+            Forecast Engine, sharper longevity-adjusted retirement planning, lower projected healthcare liabilities,
+            and tighter confidence bands on your net-worth curve.
           </p>
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
@@ -845,7 +845,7 @@ function WearablesModule() {
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-4">
               HRV, sleep, glucose, VO₂ max and recovery feed the Forecast Engine alongside your bank and
-              investment data — improving the accuracy of long-horizon liabilities, longevity-adjusted
+              investment data, improving the accuracy of long-horizon liabilities, longevity-adjusted
               retirement curves, and risk-of-ruin estimates.
             </p>
           </div>
@@ -978,7 +978,7 @@ function WalletIntegrations() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
             Connect Apple Pay, Google Pay, your debit cards and bank accounts. LONGEVA scores every transaction
-            against your lifetime financial goals — pausing or blocking suboptimal spending and routing the
+            against your lifetime financial goals, pausing or blocking suboptimal spending and routing the
             saved capital straight into investing accounts.
           </p>
         </div>
@@ -1394,7 +1394,7 @@ function Footer() {
         <div>
           <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Control your financial future—automatically.
+            Control your financial future, automatically.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-6 text-sm">
@@ -1449,7 +1449,7 @@ function FinancialDashboard() {
         <div className="max-w-2xl mb-12">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Your Financial Dashboard</p>
           <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
-            Net worth, retirement, leakage — in one view.
+            Net worth, retirement, leakage. One simple view.
           </h2>
           <p className="text-muted-foreground text-lg mt-5 leading-relaxed">
             A real-time financial command center. Track your projected net worth, see capital saved by
@@ -1536,7 +1536,7 @@ function RealtimeCapitalActions() {
             Active money. Not passive tracking.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            Most apps log what already happened. LONGEVA intervenes — pausing, blocking, and reallocating
+            Most apps log what already happened. LONGEVA intervenes, pausing, blocking, and reallocating
             in the moment a transaction hits the rails.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
@@ -1638,7 +1638,7 @@ function CompetitivePositioning() {
               {[
                 "Controls behavior at the moment of decision",
                 "Connects spending, saving and investing into one loop",
-                "Optimizes lifetime financial outcomes — not weekly budgets",
+                "Optimizes lifetime financial outcomes, not weekly budgets",
                 "Pauses, blocks, and reroutes capital in real time",
               ].map((it) => (
                 <li key={it} className="flex items-start gap-2.5">
