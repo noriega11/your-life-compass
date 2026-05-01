@@ -281,13 +281,13 @@ function Hero() {
               transition={{ delay: 0.65 }}
               className="hidden sm:block absolute bottom-2 left-0 lg:left-2 w-[230px] rounded-2xl bg-card border border-border p-5 shadow-card"
             >
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Projected net worth · 67</p>
               <div className="flex items-baseline gap-2">
-                <p className="font-display text-5xl tabular-nums leading-none">782</p>
-                <span className="text-xs font-mono text-lime">+12</span>
+                <p className="font-display text-4xl tabular-nums leading-none">$1.62M</p>
+                <span className="text-xs font-mono text-lime">+$420K</span>
               </div>
               <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-                Range 758–806 · 80% confidence
+                vs. $820K default · 80% conf.
               </p>
               {/* tiny sparkline */}
               <svg viewBox="0 0 100 24" className="w-full mt-3 h-6 text-lime">
@@ -309,11 +309,11 @@ function Hero() {
               className="hidden sm:flex absolute top-4 right-0 lg:-right-2 items-center gap-2.5 rounded-full bg-card border border-border pl-2 pr-4 py-2 shadow-soft"
             >
               <span className="h-7 w-7 rounded-full bg-lime/15 grid place-items-center">
-                <Heart className="h-3.5 w-3.5 text-lime" />
+                <CreditCard className="h-3.5 w-3.5 text-lime" />
               </span>
               <div className="leading-tight">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Healthy lifespan</p>
-                <p className="text-sm font-medium">+7 yrs projected</p>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Auto-invested today</p>
+                <p className="text-sm font-medium">+$47 → IRA</p>
               </div>
             </motion.div>
 
@@ -322,23 +322,23 @@ function Hero() {
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.75 }}
-              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-4 w-[200px] rounded-2xl bg-card border border-border p-4 shadow-card"
+              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-4 w-[220px] rounded-2xl bg-card border border-border p-4 shadow-card"
             >
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Today</p>
-                <span className="text-[10px] font-mono text-muted-foreground">3 / 3</span>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Live · capital actions</p>
+                <span className="text-[10px] font-mono text-muted-foreground">3</span>
               </div>
               <ul className="space-y-2 text-xs">
                 {[
-                  { t: "20-min Zone-2 walk", done: true },
-                  { t: "Skip 1 delivery order", done: true },
-                  { t: "Wind-down by 22:30", done: false },
+                  { t: "+$47 auto-invested", done: true },
+                  { t: "$82 impulse blocked", done: true },
+                  { t: "$22 rerouted to IRA", done: true },
                 ].map((a) => (
                   <li key={a.t} className="flex items-center gap-2">
                     <span className={`h-3.5 w-3.5 rounded-full grid place-items-center shrink-0 ${a.done ? "bg-lime" : "border border-border"}`}>
                       {a.done && <Check className="h-2.5 w-2.5 text-lime-foreground" strokeWidth={3} />}
                     </span>
-                    <span className={a.done ? "line-through text-muted-foreground" : ""}>{a.t}</span>
+                    <span>{a.t}</span>
                   </li>
                 ))}
               </ul>
@@ -348,16 +348,16 @@ function Hero() {
           {/* Mobile-only compact stats row (replaces hidden floating cards) */}
           <div className="sm:hidden mt-5 grid grid-cols-3 gap-2">
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Score</p>
-              <p className="font-display text-xl mt-0.5">782</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Net worth · 67</p>
+              <p className="font-display text-xl mt-0.5">$1.62M</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Lifespan</p>
-              <p className="font-display text-xl mt-0.5">+7y</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Auto-invest</p>
+              <p className="font-display text-xl mt-0.5">+$47</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Today</p>
-              <p className="font-display text-xl mt-0.5">3/3</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Blocked</p>
+              <p className="font-display text-xl mt-0.5">$82</p>
             </div>
           </div>
         </motion.div>
