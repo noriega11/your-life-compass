@@ -1080,13 +1080,13 @@ function RoutinesCalendar() {
     <section id="routines" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines + Calendar</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines & Cashflow Calendar</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Your week, <em className="text-lime not-italic">built around</em> your forecast.
+            Your week, <em className="text-lime not-italic">aligned with</em> your wealth plan.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            Two-way sync with Google, Apple and Outlook calendars. We slot in movement, recovery,
-            meals and reflection in the gaps you actually have, and adapt when meetings move.
+            Two-way sync with Google, Apple and Outlook. LONGEVA slots productive earning blocks, recovery,
+            and capital decisions (paydays, bill clusters, auto-invest sweeps) into the gaps you actually have.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={CalendarDays} label="Calendars" value="3 synced" />
