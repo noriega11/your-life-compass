@@ -43,7 +43,7 @@ function Today() {
         <div className="lg:col-span-7">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">Today · Day {MOCK_USER.season.day} of {MOCK_USER.season.total}</p>
           <h1 className="font-display text-5xl sm:text-6xl text-balance">{greeting}, {MOCK_USER.firstName}.</h1>
-          <p className="text-muted-foreground mt-3">Your financial trajectory moved <span className="text-teal font-medium">+{MOCK_USER.lifeScoreDelta}</span> this week. Three capital actions below keep you on the optimized path.</p>
+          <p className="text-muted-foreground mt-3">Your retirement readiness improved <span className="text-teal font-medium">+{MOCK_USER.lifeScoreDelta}</span> this week. Three capital actions below keep you on the optimized path. Your LifeScore blends wealth, risk, behavior, and vitality into one financial-readiness number.</p>
 
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
