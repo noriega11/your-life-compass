@@ -4,6 +4,7 @@ import {
   ArrowRight, Heart, Wallet, Brain, Shield, Activity, Sparkles, Check,
   Lock, Eye, Database, Smartphone, ChevronDown, TrendingDown, AlertCircle,
   CreditCard, Watch, ScanFace, CalendarDays, Target, Zap, Apple, Bell, Repeat, LineChart,
+  PiggyBank, TrendingUp, Banknote, Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
@@ -22,11 +23,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA, Live your longest life" },
+      { title: "LONGEVA — Control your financial future, automatically." },
       {
         name: "description",
         content:
-          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire, then improve all three.",
+          "LONGEVA is the behavioral fintech platform that predicts your lifetime financial trajectory and adjusts your daily spending, saving, and investing in real time.",
       },
     ],
   }),
@@ -40,12 +41,16 @@ function Landing() {
       <PreviewBand />
       <ThreeCrises />
       <HowItWorks />
-      <BodyAgeScan />
-      <WearablesModule />
+      <FinancialDashboard />
+      <RealtimeCapitalActions />
       <AgingPrediction />
       <WalletIntegrations />
+      <BodyAgeScan />
+      <WearablesModule />
       <RoutinesCalendar />
       <AccountabilityModule />
+      <FintechInfra />
+      <CompetitivePositioning />
       <DataSources />
       <FutureSelf />
       <ImpactBand />
@@ -62,12 +67,12 @@ function Nav() {
   const [featuresOpen, setFeaturesOpen] = useState(false);
 
   const features = [
-    { href: "#scan", icon: ScanFace, label: "Body Age Scan", desc: "60-sec selfie to biological age" },
-    { href: "#wearables", icon: Watch, label: "Wearables", desc: "HRV, sleep, glucose, recovery" },
-    { href: "#prediction", icon: LineChart, label: "Aging Prediction", desc: "Kairos engine, 120+ drivers" },
-    { href: "#wallet", icon: CreditCard, label: "Smart Spending", desc: "Score, nudge, block at checkout" },
-    { href: "#routines", icon: CalendarDays, label: "Routines & Calendar", desc: "Adaptive weekly plan" },
-    { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
+    { href: "#prediction", icon: LineChart, label: "Lifetime Forecast Engine", desc: "Project net worth & retirement gap" },
+    { href: "#wallet", icon: CreditCard, label: "Autonomous Capital Allocation", desc: "Pause, block, reroute spending" },
+    { href: "#routines", icon: CalendarDays, label: "Auto-Save & Investing", desc: "Daily redirects to IRA & index" },
+    { href: "#scan", icon: ScanFace, label: "Behavioral Risk Signals", desc: "Biometric inputs improve forecasts" },
+    { href: "#wearables", icon: Watch, label: "Connected Data Layer", desc: "Banks, cards, wearables in one stream" },
+    { href: "#accountability", icon: Target, label: "Financial Goals & Pacts", desc: "Net worth, retirement, leakage caps" },
   ];
   const topLinks = [
     { href: "#about", label: "About" },
@@ -141,7 +146,7 @@ function Nav() {
             <Link to="/login">Sign in</Link>
           </Button>
           <Button variant="lime" size="sm" asChild>
-            <Link to="/signup">See my forecast</Link>
+            <Link to="/signup">Start optimizing my wealth</Link>
           </Button>
           <button
             type="button"
@@ -202,7 +207,7 @@ function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            The first LifeFi platform · Forecast in 12 minutes
+            Behavioral fintech · Real-time capital allocation
           </motion.div>
 
           <motion.h1
@@ -211,9 +216,9 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Live longer.
+            Control your financial future—
             <br />
-            <em className="text-lime not-italic">Live them well.</em>
+            <em className="text-lime not-italic">automatically.</em>
           </motion.h1>
 
           <motion.p
@@ -222,9 +227,8 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground text-pretty"
           >
-            LONGEVA turns your habits, your spending and your biomarkers
-            into a clear life forecast, then helps you improve it
-            one small decision at a time.
+            LONGEVA predicts your lifetime financial trajectory and adjusts your
+            daily spending, saving, and investing in real time.
           </motion.p>
 
           <motion.div
@@ -234,7 +238,7 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <Button variant="lime" size="lg" asChild>
-              <Link to="/signup">See my forecast <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">Start optimizing my wealth <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="lg" asChild>
               <a href="#how">How it works</a>
@@ -247,8 +251,8 @@ function Hero() {
             transition={{ delay: 0.55 }}
             className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground"
           >
-            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> End-to-end encrypted</span>
-            <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /> No ads, ever</span>
+            <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" /> Bank-grade encryption</span>
+            <span className="flex items-center gap-1.5"><CreditCard className="h-3.5 w-3.5" /> Secure banking rails</span>
             <span className="flex items-center gap-1.5"><Database className="h-3.5 w-3.5" /> You own your data</span>
           </motion.div>
         </div>
@@ -282,13 +286,13 @@ function Hero() {
               transition={{ delay: 0.65 }}
               className="hidden sm:block absolute bottom-2 left-0 lg:left-2 w-[230px] rounded-2xl bg-card border border-border p-5 shadow-card"
             >
-              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Your LifeScore</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-1">Projected net worth · 67</p>
               <div className="flex items-baseline gap-2">
-                <p className="font-display text-5xl tabular-nums leading-none">782</p>
-                <span className="text-xs font-mono text-lime">+12</span>
+                <p className="font-display text-4xl tabular-nums leading-none">$1.62M</p>
+                <span className="text-xs font-mono text-lime">+$420K</span>
               </div>
               <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
-                Range 758–806 · 80% confidence
+                vs. $820K default · 80% conf.
               </p>
               {/* tiny sparkline */}
               <svg viewBox="0 0 100 24" className="w-full mt-3 h-6 text-lime">
@@ -310,11 +314,11 @@ function Hero() {
               className="hidden sm:flex absolute top-4 right-0 lg:-right-2 items-center gap-2.5 rounded-full bg-card border border-border pl-2 pr-4 py-2 shadow-soft"
             >
               <span className="h-7 w-7 rounded-full bg-lime/15 grid place-items-center">
-                <Heart className="h-3.5 w-3.5 text-lime" />
+                <CreditCard className="h-3.5 w-3.5 text-lime" />
               </span>
               <div className="leading-tight">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Healthy lifespan</p>
-                <p className="text-sm font-medium">+7 yrs projected</p>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Auto-invested today</p>
+                <p className="text-sm font-medium">+$47 → IRA</p>
               </div>
             </motion.div>
 
@@ -323,23 +327,23 @@ function Hero() {
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.75 }}
-              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-4 w-[200px] rounded-2xl bg-card border border-border p-4 shadow-card"
+              className="hidden lg:block absolute top-1/2 -translate-y-1/2 -right-4 w-[220px] rounded-2xl bg-card border border-border p-4 shadow-card"
             >
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Today</p>
-                <span className="text-[10px] font-mono text-muted-foreground">3 / 3</span>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Live · capital actions</p>
+                <span className="text-[10px] font-mono text-muted-foreground">3</span>
               </div>
               <ul className="space-y-2 text-xs">
                 {[
-                  { t: "20-min Zone-2 walk", done: true },
-                  { t: "Skip 1 delivery order", done: true },
-                  { t: "Wind-down by 22:30", done: false },
+                  { t: "+$47 auto-invested", done: true },
+                  { t: "$82 impulse blocked", done: true },
+                  { t: "$22 rerouted to IRA", done: true },
                 ].map((a) => (
                   <li key={a.t} className="flex items-center gap-2">
                     <span className={`h-3.5 w-3.5 rounded-full grid place-items-center shrink-0 ${a.done ? "bg-lime" : "border border-border"}`}>
                       {a.done && <Check className="h-2.5 w-2.5 text-lime-foreground" strokeWidth={3} />}
                     </span>
-                    <span className={a.done ? "line-through text-muted-foreground" : ""}>{a.t}</span>
+                    <span>{a.t}</span>
                   </li>
                 ))}
               </ul>
@@ -349,16 +353,16 @@ function Hero() {
           {/* Mobile-only compact stats row (replaces hidden floating cards) */}
           <div className="sm:hidden mt-5 grid grid-cols-3 gap-2">
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Score</p>
-              <p className="font-display text-xl mt-0.5">782</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Net worth · 67</p>
+              <p className="font-display text-xl mt-0.5">$1.62M</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Lifespan</p>
-              <p className="font-display text-xl mt-0.5">+7y</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Auto-invest</p>
+              <p className="font-display text-xl mt-0.5">+$47</p>
             </div>
             <div className="rounded-xl border border-border bg-card p-3 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Today</p>
-              <p className="font-display text-xl mt-0.5">3/3</p>
+              <p className="text-[9px] font-mono uppercase tracking-wider text-lime">Blocked</p>
+              <p className="font-display text-xl mt-0.5">$82</p>
             </div>
           </div>
         </motion.div>
@@ -383,9 +387,9 @@ function MiniChip({ icon: Icon, label, value }: { icon: React.ComponentType<{ cl
 
 function PreviewBand() {
   const items = [
-    { label: "Projected lifespan", value: 87, suffix: " yrs", sub: "82–91 · 80% conf.", tone: "neutral" as const },
-    { label: "Healthy years", value: 7, prefix: "+", suffix: " yrs", sub: "with LONGEVA habits", tone: "teal" as const },
-    { label: "Retirement gap at 67", prefix: "−$", value: 620, suffix: "K", sub: "closeable in 4 yrs", tone: "coral" as const },
+    { label: "Projected net worth at 67", prefix: "$", value: 1.62, suffix: "M", decimals: 2, sub: "with LONGEVA · 80% conf.", tone: "teal" as const },
+    { label: "Retirement gap closed", prefix: "+$", value: 620, suffix: "K", sub: "vs. default trajectory", tone: "teal" as const },
+    { label: "Spending leakage cut", prefix: "−", value: 22, suffix: "%", sub: "blocked + rerouted to invest", tone: "coral" as const },
   ];
   const toneCls = (t: "neutral" | "teal" | "coral") =>
     t === "teal" ? "text-teal" : t === "coral" ? "text-coral" : "text-foreground";
@@ -393,10 +397,10 @@ function PreviewBand() {
     <section className="py-24 border-y border-border bg-card/30">
       <div className="max-w-6xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold text-center mb-3">
-          What you'll know in 12 minutes
+          Your financial trajectory, in 12 minutes
         </p>
         <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">
-          Three numbers that change how you live.
+          Three numbers that change your money.
         </h2>
         <div className="grid md:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden mb-12">
           {items.map((it) => (
@@ -404,7 +408,7 @@ function PreviewBand() {
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">{it.label}</p>
               <p className={`font-display text-6xl tabular-nums ${toneCls(it.tone)}`}>
                 {it.prefix}
-                <Counter to={it.value} />
+                <Counter to={it.value} decimals={it.decimals ?? 0} />
                 {it.suffix}
               </p>
               <p className="text-xs text-muted-foreground mt-3 font-mono">{it.sub}</p>
@@ -422,25 +426,25 @@ function PreviewBand() {
 function ThreeCrises() {
   const crises = [
     {
-      icon: Activity,
-      stat: "16 yrs",
-      title: "The Healthspan Gap",
-      body: "Average Americans live 16 years sick at the end. We extend healthy years, not just total years.",
-      img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80",
-    },
-    {
       icon: TrendingDown,
       stat: "57%",
-      title: "The Pension Collapse",
-      body: "57% of households will not have enough to retire. We auto-route savings on autopilot.",
+      title: "The Retirement Shortfall",
+      body: "57% of households won't have enough to retire. LONGEVA auto-routes capital into IRAs and index funds on every paycheck.",
       img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80",
     },
     {
       icon: AlertCircle,
       stat: "$1.6T",
-      title: "The Behavioral Gap",
-      body: "$1.6T spent on impulse decisions every year. Guardrails block the worst before they happen.",
+      title: "The Behavioral Spending Gap",
+      body: "$1.6T leaks to impulse decisions every year. Guardrails detect, pause, and block suboptimal transactions before checkout.",
       img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80",
+    },
+    {
+      icon: Activity,
+      stat: "16 yrs",
+      title: "The Healthcare Cost Curve",
+      body: "16 sick years at end-of-life crater retirement portfolios. Behavioral signals lower projected medical liabilities and extend earning years.",
+      img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80",
     },
   ];
   return (
@@ -449,7 +453,7 @@ function ThreeCrises() {
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why now</p>
           <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
-            The three crises of 2030.
+            The three financial crises of 2030.
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -481,19 +485,22 @@ function ThreeCrises() {
 
 function HowItWorks() {
   const steps = [
-    { n: "01", icon: Database, title: "Connect", body: "Link your bank, wearable, and snap a photo. Read-only, encrypted, revocable." },
-    { n: "02", icon: Activity, title: "Forecast", body: "See your lifespan, healthspan, and retirement gap with confidence bands." },
-    { n: "03", icon: Sparkles, title: "Act", body: "Three personalized actions per day. Each under 30 minutes. Each explained." },
-    { n: "04", icon: TrendingDown, title: "Compound", body: "Every small decision compounds. Watch your forecast bend upward." },
+    { n: "01", icon: Database, title: "Analyze", body: "We ingest your bank, card, investment, wearable, and behavioral data — read-only and encrypted." },
+    { n: "02", icon: LineChart, title: "Forecast", body: "The Lifetime Forecast Engine projects your net worth, retirement gap, and financial trajectory to 90." },
+    { n: "03", icon: Shield, title: "Intervene", body: "Real-time guardrails pause, block or nudge transactions that hurt your long-term outcome." },
+    { n: "04", icon: PiggyBank, title: "Reallocate", body: "Saved capital is auto-routed into your IRA, index funds, and emergency fund — every day." },
   ];
   return (
     <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20 max-w-2xl mx-auto">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">How LONGEVA works</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">
-            Four steps. One unbroken loop.
+            From daily actions to lifetime wealth—fully automated.
           </h2>
+          <p className="text-muted-foreground text-lg mt-5">
+            One closed loop: data in, forecast out, capital reallocated in real time.
+          </p>
         </div>
         <div className="grid md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
           {steps.map((s) => (
@@ -592,10 +599,10 @@ function FutureSelf() {
     <section className="py-32 bg-card/40 border-y border-border overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-10 max-w-2xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">See your future self</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">Two financial trajectories</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Two paths. Your choice.</h2>
           <p className="text-muted-foreground mt-4">
-            What you do today decides who shows up at 70, 80, 90.
+            What you do with money today decides your net worth — and your options — at 70, 80, 90.
           </p>
         </div>
 
@@ -660,16 +667,16 @@ function FutureSelf() {
 
 function ImpactBand() {
   const stats = [
-    { value: 7, prefix: "+", suffix: " yrs", label: "Healthy years added" },
-    { value: 420, prefix: "+$", suffix: "K", label: "Retirement, by 67" },
-    { value: 22, prefix: "-", suffix: "%", label: "Impulse spending" },
-    { value: 50, suffix: "M+", label: "Healthy life-years at scale" },
+    { value: 420, prefix: "+$", suffix: "K", label: "Retirement added by 67" },
+    { value: 22, prefix: "−", suffix: "%", label: "Spending leakage cut" },
+    { value: 47, prefix: "+$", suffix: "/d", label: "Auto-invested on average" },
+    { value: 18, prefix: "−", suffix: "%", label: "Projected healthcare cost" },
   ];
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3 text-center">LONGEVA impact</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">Outcomes, not promises.</h2>
+        <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">Outcomes, measured in dollars.</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s) => (
             <motion.div
@@ -761,19 +768,20 @@ function BodyAgeScan() {
     <section id="scan" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5 order-2 lg:order-1">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Body Age Scan · 60 sec</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Behavioral Risk Signal · 60 sec</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Your face knows your <em className="text-lime not-italic">real</em> age.
+            Biometrics that <em className="text-lime not-italic">price</em> your future.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            A 60-second selfie scan reads 38 facial biomarkers, skin elasticity, periorbital fat,
-            micro-circulation, and returns your biological age. Runs on-device. Photo never leaves your phone.
+            A 60-second on-device scan reads 38 facial biomarkers to estimate biological age. The signal feeds the
+            Forecast Engine — sharper longevity-adjusted retirement planning, lower projected healthcare liabilities,
+            tighter confidence bands on your net-worth curve.
           </p>
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
-              { k: "Real age", v: "34" },
-              { k: "Body age", v: "31.4", accent: true },
-              { k: "Δ vs peers", v: "−2.6" },
+              { k: "Biological age", v: "31.4", accent: true },
+              { k: "Healthcare cost Δ", v: "−18%" },
+              { k: "Earning years +", v: "+4.2" },
             ].map((m) => (
               <div key={m.k} className="rounded-2xl border border-border bg-card p-4">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{m.k}</p>
@@ -838,13 +846,14 @@ function WearablesModule() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
           <div className="max-w-2xl">
-            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wearables · always on</p>
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Connected Data Layer · always on</p>
             <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-              Your body, in one stream.
+              Behavioral inputs. Sharper forecasts.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device, then translate
-              the noise into one number you actually act on.
+              HRV, sleep, glucose, VO₂ max and recovery feed the Forecast Engine alongside your bank and
+              investment data — improving the accuracy of long-horizon liabilities, longevity-adjusted
+              retirement curves, and risk-of-ruin estimates.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -908,8 +917,8 @@ function AgingPrediction() {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
             <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-background/95 backdrop-blur-xl border border-border p-6 shadow-card">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Aging drivers · live</p>
-                <span className="text-[10px] font-mono text-muted-foreground">Kairos v4.1 · 84% conf.</span>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Forecast drivers · live</p>
+                <span className="text-[10px] font-mono text-muted-foreground">Forecast Engine v4.1 · 84% conf.</span>
               </div>
               <div className="space-y-2.5">
                 {drivers.map((d) => (
@@ -931,13 +940,14 @@ function AgingPrediction() {
           </div>
         </div>
         <div className="lg:col-span-5">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Aging Prediction Engine</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Lifetime Financial Forecast Engine</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Today's habits. <em className="text-lime not-italic">Tomorrow's age.</em>
+            Today's decisions. <em className="text-lime not-italic">Tomorrow's net worth.</em>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            We continuously analyze your last 90 days of behavior, sleep, movement, food, stress, social -
-            and project your biological age curve to 90. Every driver shown. Every weight explainable.
+            We blend 90 days of cashflow, investment performance, and behavioral risk signals into a
+            single survival-style projection of your net worth, retirement readiness, and lifetime liabilities.
+            Every driver shown. Every weight explainable.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={LineChart} label="Drivers tracked" value="120+" />
@@ -969,23 +979,24 @@ function WalletIntegrations() {
     <section id="wallet" className="py-28 bg-card/40 border-y border-border overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wallets · Cards · Banks</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Autonomous Capital Allocation System</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            One swipe. Every consequence visible.
+            Detect. Pause. Reroute.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-            Connect Apple Pay, Google Pay, your debit cards and bank accounts. Every purchase scored
-            in real time across health, wealth, mind and the planet, with guardrails before you tap.
+            Connect Apple Pay, Google Pay, your debit cards and bank accounts. LONGEVA scores every transaction
+            against your lifetime financial goals — pausing or blocking suboptimal spending and routing the
+            saved capital straight into investing accounts.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 relative rounded-[2rem] overflow-hidden border border-border bg-background p-8 sm:p-10">
             <p className="text-xs font-mono uppercase tracking-wider text-lime mb-2">The LONGEVA Card</p>
-            <h3 className="font-display text-3xl mb-3">Your guardrails, in titanium.</h3>
+            <h3 className="font-display text-3xl mb-3">Programmable spending controls.</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-              Tap-to-pay anywhere. Earns LONGV when you spend on what extends your life. Three-tier
-              guardrails block the worst before checkout.
+              Issued via partner banking infrastructure. Three-tier capital controls block, delay, or nudge any
+              transaction that pulls you off your projected net-worth curve.
             </p>
             <div className="relative aspect-[1.586] rounded-2xl bg-gradient-to-br from-foreground via-foreground to-foreground/80 dark:from-card dark:to-background p-6 shadow-glow-lime overflow-hidden">
               <div className="absolute inset-0 opacity-30 bg-radial-lime" />
@@ -1069,13 +1080,13 @@ function RoutinesCalendar() {
     <section id="routines" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines + Calendar</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Routines & Cashflow Calendar</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Your week, <em className="text-lime not-italic">built around</em> your forecast.
+            Your week, <em className="text-lime not-italic">aligned with</em> your wealth plan.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            Two-way sync with Google, Apple and Outlook calendars. We slot in movement, recovery,
-            meals and reflection in the gaps you actually have, and adapt when meetings move.
+            Two-way sync with Google, Apple and Outlook. LONGEVA slots productive earning blocks, recovery,
+            and capital decisions (paydays, bill clusters, auto-invest sweeps) into the gaps you actually have.
           </p>
           <div className="grid grid-cols-2 gap-3 mt-8">
             <Stat icon={CalendarDays} label="Calendars" value="3 synced" />
@@ -1151,17 +1162,17 @@ function AccountabilityModule() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5">
-            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Accountability</p>
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Financial Goals & Pacts</p>
             <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
               Goals you'll <em className="text-lime not-italic">actually</em> hit.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-              Every transaction logged against your financial and longevity goals. Weekly reviews
-              from Kairos. Streaks, pacts, and gentle nudges before you drift.
+              Every transaction logged against your net worth, retirement, and leakage targets. Weekly
+              capital reviews, streaks, and pacts that keep your money on the optimized trajectory.
             </p>
             <ul className="mt-8 space-y-2.5 text-sm">
               {[
-                "Auto-categorized spending tied to each goal",
+                "Auto-categorized spending tied to each financial goal",
                 "Pacts with friends, opt-in social accountability",
                 "Weekly Sunday review with course-corrections",
                 "LONGV rewards redeemable for IRA top-ups",
@@ -1237,12 +1248,12 @@ function Pricing() {
     {
       name: "Free",
       price: "$0",
-      desc: "See your forecast and start the loop.",
+      desc: "See your trajectory and start the loop.",
       features: [
-        "LifeScore + Body Age scan",
-        "1 daily action",
+        "Lifetime Financial Forecast (free tier)",
+        "1 daily capital action",
         "Basic spending guardrails (nudge only)",
-        "Read-only wallet & wearables sync",
+        "Read-only bank, card & wearable sync",
       ],
       cta: "Start free",
       highlight: false,
@@ -1250,16 +1261,16 @@ function Pricing() {
     {
       name: "Core",
       price: "$19",
-      desc: "The full longevity loop.",
+      desc: "The full capital optimization loop.",
       features: [
         "Everything in Free",
-        "AI Coach (Kairos) · unlimited",
+        "AI Financial Coach · unlimited",
         "All 3 guardrail tiers (nudge, delay, block)",
-        "Auto-Save retirement routing",
-        "Future Self projections to 90",
-        "LONGV rewards on every healthy purchase",
+        "Auto-Save & auto-invest routing",
+        "Net-worth projections to 90",
+        "LONGV rewards on every optimized purchase",
       ],
-      cta: "Choose Core",
+      cta: "Optimize my finances",
       highlight: true,
     },
     {
@@ -1270,11 +1281,11 @@ function Pricing() {
         "Everything in Core",
         "Household sharing (up to 4)",
         "LONGEVA Card · titanium, 1.5% LONGV back",
-        "Premium merchant graph (curated longevity)",
-        "Priority human longevity coach review",
+        "Premium merchant graph (curated value)",
+        "Priority human financial planner review",
         "Insurance & retirement credit redemptions",
       ],
-      cta: "Choose Plus",
+      cta: "Take control of my money",
       highlight: false,
     },
   ];
@@ -1283,7 +1294,7 @@ function Pricing() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Pricing</p>
-          <h2 className="font-display text-5xl sm:text-6xl text-balance">Aligned with your outcomes.</h2>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance">Priced against your wealth outcomes.</h2>
           <p className="text-muted-foreground mt-4">No ads. No data sales. Cancel any time.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
@@ -1319,9 +1330,9 @@ function Pricing() {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="max-w-md">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-2">How we make money</p>
-              <h3 className="font-display text-2xl mb-2">Incentives aligned with your healthspan.</h3>
+              <h3 className="font-display text-2xl mb-2">Incentives aligned with your net worth.</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                We earn only when you live longer and better. Four streams, all opt-in, all visible.
+                We earn only when your money compounds. Four streams, all opt-in, all visible.
               </p>
             </div>
             <div className="grid sm:grid-cols-2 gap-3 flex-1 max-w-xl">
@@ -1390,7 +1401,7 @@ function Footer() {
         <div>
           <div className="mb-4"><Logo size="md" /></div>
           <p className="text-sm text-muted-foreground max-w-xs">
-            Live your longest life, one decision at a time.
+            Control your financial future—automatically.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-6 text-sm">
@@ -1416,5 +1427,240 @@ function Footer() {
         </p>
       </div>
     </footer>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Financial Dashboard
+ * ──────────────────────────────────────────────────────────── */
+function FinancialDashboard() {
+  const series = [
+    { age: 35, base: 80, longeva: 80 },
+    { age: 40, base: 145, longeva: 198 },
+    { age: 45, base: 230, longeva: 365 },
+    { age: 50, base: 340, longeva: 580 },
+    { age: 55, base: 470, longeva: 850 },
+    { age: 60, base: 620, longeva: 1180 },
+    { age: 67, base: 820, longeva: 1620 },
+  ];
+  const max = 1700;
+  const w = 560, h = 220, pad = 28;
+  const x = (i: number) => pad + (i * (w - pad * 2)) / (series.length - 1);
+  const y = (v: number) => h - pad - ((v / max) * (h - pad * 2));
+  const linePath = (key: "base" | "longeva") =>
+    series.map((p, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(p[key])}`).join(" ");
+
+  return (
+    <section id="dashboard" className="py-28 scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-2xl mb-12">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Your Financial Dashboard</p>
+          <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
+            Net worth, retirement, leakage — in one view.
+          </h2>
+          <p className="text-muted-foreground text-lg mt-5 leading-relaxed">
+            A real-time financial command center. Track your projected net worth, see capital saved by
+            interventions, and watch auto-invested dollars compound.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-6">
+          {/* Net worth chart */}
+          <div className="lg:col-span-8 rounded-3xl border border-border bg-card p-7">
+            <div className="flex items-end justify-between mb-6 flex-wrap gap-3">
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Net worth trajectory</p>
+                <p className="font-display text-2xl mt-1">$1.62M projected at 67</p>
+              </div>
+              <div className="flex items-center gap-4 text-xs">
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-muted-foreground/50" /> Default path</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-lime" /> With LONGEVA</span>
+              </div>
+            </div>
+            <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto" aria-label="Net worth chart">
+              {[0, 0.25, 0.5, 0.75, 1].map((p) => (
+                <line key={p} x1={pad} x2={w - pad} y1={pad + p * (h - pad * 2)} y2={pad + p * (h - pad * 2)} stroke="currentColor" className="text-border" strokeDasharray="2 4" />
+              ))}
+              <path d={linePath("base")} fill="none" stroke="currentColor" className="text-muted-foreground/60" strokeWidth="2" />
+              <path d={`${linePath("longeva")} L ${x(series.length - 1)} ${h - pad} L ${pad} ${h - pad} Z`} fill="currentColor" className="text-lime/15" />
+              <path d={linePath("longeva")} fill="none" stroke="currentColor" className="text-lime" strokeWidth="2.5" />
+              {series.map((p, i) => (
+                <g key={p.age}>
+                  <text x={x(i)} y={h - 8} fontSize="10" textAnchor="middle" className="fill-muted-foreground font-mono">{p.age}</text>
+                </g>
+              ))}
+            </svg>
+          </div>
+
+          {/* Side KPIs */}
+          <div className="lg:col-span-4 grid gap-3">
+            {[
+              { k: "Retirement gap", v: "−$620K", sub: "closeable in 4 yrs", tone: "coral" as const, icon: TrendingDown },
+              { k: "Saved by interventions · 30d", v: "$1,840", sub: "blocked + nudged", tone: "teal" as const, icon: Shield },
+              { k: "Auto-invested · 30d", v: "$1,410", sub: "→ IRA + index", tone: "teal" as const, icon: PiggyBank },
+              { k: "Spending leakage", v: "−22%", sub: "vs. 90-day baseline", tone: "teal" as const, icon: TrendingUp },
+            ].map((kpi) => (
+              <div key={kpi.k} className="rounded-2xl border border-border bg-card p-5 flex items-start gap-4">
+                <span className="h-10 w-10 rounded-xl bg-lime/15 grid place-items-center shrink-0">
+                  <kpi.icon className="h-4 w-4 text-lime" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{kpi.k}</p>
+                  <p className={`font-display text-2xl tabular-nums mt-0.5 ${kpi.tone === "coral" ? "text-coral" : "text-teal"}`}>{kpi.v}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">{kpi.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Real-time Capital Actions
+ * ──────────────────────────────────────────────────────────── */
+function RealtimeCapitalActions() {
+  const events = [
+    { t: "+$47 auto-invested", sub: "Round-ups → IRA · 09:14", tone: "teal" as const, icon: PiggyBank },
+    { t: "$82 prevented from impulse spending", sub: "Amazon electronics · 12:02", tone: "coral" as const, icon: Shield },
+    { t: "Transaction paused", sub: "DoorDash · long-term impact −$1,840 at 67", tone: "amber" as const, icon: AlertCircle },
+    { t: "+$22 rerouted to index fund", sub: "Skipped 3rd delivery this week", tone: "teal" as const, icon: TrendingUp },
+    { t: "Cashflow reallocation", sub: "Idle checking → high-yield · $600", tone: "teal" as const, icon: Banknote },
+  ];
+  const toneCls = (t: "teal" | "coral" | "amber") =>
+    t === "teal" ? "text-teal bg-teal/10 border-teal/30"
+      : t === "coral" ? "text-coral bg-coral/10 border-coral/30"
+      : "text-amber bg-amber/10 border-amber/30";
+
+  return (
+    <section className="py-24 bg-card/40 border-y border-border">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Real-time capital actions</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            Active money. Not passive tracking.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+            Most apps log what already happened. LONGEVA intervenes — pausing, blocking, and reallocating
+            in the moment a transaction hits the rails.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-8">
+            <Stat icon={Shield} label="Blocked · 30d" value="$1,840" />
+            <Stat icon={PiggyBank} label="Reallocated · 30d" value="$1,410" />
+            <Stat icon={Zap} label="Median latency" value="220 ms" />
+            <Stat icon={Building2} label="Banking partners" value="14k+" />
+          </div>
+        </div>
+        <div className="lg:col-span-7 rounded-3xl border border-border bg-background p-6 sm:p-8">
+          <div className="flex items-center justify-between mb-5">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-lime flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" /> Live capital feed
+            </p>
+            <span className="text-[10px] font-mono text-muted-foreground">Today</span>
+          </div>
+          <div className="space-y-2">
+            {events.map((e) => (
+              <div key={e.t} className={`rounded-xl border p-4 flex items-start gap-3 ${toneCls(e.tone)}`}>
+                <e.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-foreground">{e.t}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 font-mono">{e.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Fintech Infrastructure
+ * ──────────────────────────────────────────────────────────── */
+function FintechInfra() {
+  const items = [
+    { icon: Building2, t: "Powered by secure banking integrations", d: "Connections via tier-1 aggregators across 14k+ institutions." },
+    { icon: Zap, t: "Built on modern payment rails", d: "Real-time interventions on Visa & Mastercard authorization streams." },
+    { icon: CreditCard, t: "Card issued via partner banking infrastructure", d: "FDIC-insured sponsor bank, programmable spend controls at the network level." },
+    { icon: Lock, t: "SOC 2 Type II · GDPR · CCPA", d: "Bank-grade encryption in transit and at rest. You own and can export every byte." },
+  ];
+  return (
+    <section className="py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Fintech infrastructure</p>
+          <h2 className="font-display text-4xl sm:text-5xl text-balance">Built on the rails your money already runs on.</h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {items.map((it) => (
+            <div key={it.t} className="rounded-2xl border border-border bg-card p-6">
+              <span className="h-10 w-10 rounded-xl bg-lime/15 grid place-items-center mb-4">
+                <it.icon className="h-4 w-4 text-lime" />
+              </span>
+              <p className="font-medium text-sm">{it.t}</p>
+              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{it.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Competitive Positioning
+ * ──────────────────────────────────────────────────────────── */
+function CompetitivePositioning() {
+  return (
+    <section className="py-28 bg-card/40 border-y border-border">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why LONGEVA is different</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance">Others track. We control.</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-5">
+          <div className="rounded-3xl border border-border bg-background p-8">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-3">Other apps</p>
+            <h3 className="font-display text-2xl mb-5">Passive observers</h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "Track spending after the fact",
+                "Manage investments in isolation",
+                "Show charts, leave decisions to you",
+                "No intervention at point of sale",
+              ].map((it) => (
+                <li key={it} className="flex items-start gap-2.5">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/50 shrink-0" /> {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-lime bg-card p-8 shadow-glow-lime">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-lime mb-3">LONGEVA</p>
+            <h3 className="font-display text-2xl mb-5">Autonomous capital allocator</h3>
+            <ul className="space-y-3 text-sm">
+              {[
+                "Controls behavior at the moment of decision",
+                "Connects spending, saving and investing into one loop",
+                "Optimizes lifetime financial outcomes — not weekly budgets",
+                "Pauses, blocks, and reroutes capital in real time",
+              ].map((it) => (
+                <li key={it} className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-lime mt-0.5 shrink-0" /> {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="mt-10 text-center">
+          <Button variant="lime" size="lg" asChild>
+            <Link to="/signup">Start improving my financial future <ArrowRight className="h-4 w-4" /></Link>
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
