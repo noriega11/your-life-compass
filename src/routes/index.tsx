@@ -667,16 +667,16 @@ function FutureSelf() {
 
 function ImpactBand() {
   const stats = [
-    { value: 7, prefix: "+", suffix: " yrs", label: "Healthy years added" },
-    { value: 420, prefix: "+$", suffix: "K", label: "Retirement, by 67" },
-    { value: 22, prefix: "-", suffix: "%", label: "Impulse spending" },
-    { value: 50, suffix: "M+", label: "Healthy life-years at scale" },
+    { value: 420, prefix: "+$", suffix: "K", label: "Retirement added by 67" },
+    { value: 22, prefix: "−", suffix: "%", label: "Spending leakage cut" },
+    { value: 47, prefix: "+$", suffix: "/d", label: "Auto-invested on average" },
+    { value: 18, prefix: "−", suffix: "%", label: "Projected healthcare cost" },
   ];
   return (
     <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3 text-center">LONGEVA impact</p>
-        <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">Outcomes, not promises.</h2>
+        <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">Outcomes, measured in dollars.</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s) => (
             <motion.div
