@@ -843,7 +843,7 @@ function WearablesModule() {
     { name: "Apple Watch", metric: "HRV · 62 ms", img: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=900&q=85&auto=format&fit=crop" },
     { name: "Oura Ring", metric: "Sleep · 87", img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=900&q=85&auto=format&fit=crop" },
     { name: "Whoop 4.0", metric: "Recovery · 74%", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=85&auto=format&fit=crop" },
-    { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1559757175-7cb036e0d465?w=900&q=85&auto=format&fit=crop" },
+    { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=85&auto=format&fit=crop" },
   ];
   return (
     <section id="wearables" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
