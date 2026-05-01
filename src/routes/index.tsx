@@ -846,13 +846,14 @@ function WearablesModule() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
           <div className="max-w-2xl">
-            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wearables · always on</p>
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Connected Data Layer · always on</p>
             <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-              Your body, in one stream.
+              Behavioral inputs. Sharper forecasts.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-              We unify HRV, sleep, glucose, VO₂ max and recovery from every major device, then translate
-              the noise into one number you actually act on.
+              HRV, sleep, glucose, VO₂ max and recovery feed the Forecast Engine alongside your bank and
+              investment data — improving the accuracy of long-horizon liabilities, longevity-adjusted
+              retirement curves, and risk-of-ruin estimates.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
