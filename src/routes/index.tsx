@@ -421,25 +421,25 @@ function PreviewBand() {
 function ThreeCrises() {
   const crises = [
     {
-      icon: Activity,
-      stat: "16 yrs",
-      title: "The Healthspan Gap",
-      body: "Average Americans live 16 years sick at the end. We extend healthy years, not just total years.",
-      img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80",
-    },
-    {
       icon: TrendingDown,
       stat: "57%",
-      title: "The Pension Collapse",
-      body: "57% of households will not have enough to retire. We auto-route savings on autopilot.",
+      title: "The Retirement Shortfall",
+      body: "57% of households won't have enough to retire. LONGEVA auto-routes capital into IRAs and index funds on every paycheck.",
       img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&q=80",
     },
     {
       icon: AlertCircle,
       stat: "$1.6T",
-      title: "The Behavioral Gap",
-      body: "$1.6T spent on impulse decisions every year. Guardrails block the worst before they happen.",
+      title: "The Behavioral Spending Gap",
+      body: "$1.6T leaks to impulse decisions every year. Guardrails detect, pause, and block suboptimal transactions before checkout.",
       img: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80",
+    },
+    {
+      icon: Activity,
+      stat: "16 yrs",
+      title: "The Healthcare Cost Curve",
+      body: "16 sick years at end-of-life crater retirement portfolios. Behavioral signals lower projected medical liabilities and extend earning years.",
+      img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80",
     },
   ];
   return (
@@ -448,7 +448,7 @@ function ThreeCrises() {
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why now</p>
           <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
-            The three crises of 2030.
+            The three financial crises of 2030.
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
