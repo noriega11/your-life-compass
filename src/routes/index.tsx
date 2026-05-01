@@ -202,7 +202,7 @@ function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-xs text-muted-foreground mb-7 shadow-soft"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" />
-            The first LifeFi platform · Forecast in 12 minutes
+            Behavioral fintech · Real-time capital allocation
           </motion.div>
 
           <motion.h1
@@ -211,9 +211,9 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Live longer.
+            Control your financial future—
             <br />
-            <em className="text-lime not-italic">Live them well.</em>
+            <em className="text-lime not-italic">automatically.</em>
           </motion.h1>
 
           <motion.p
@@ -222,9 +222,8 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground text-pretty"
           >
-            LONGEVA turns your habits, your spending and your biomarkers
-            into a clear life forecast, then helps you improve it
-            one small decision at a time.
+            LONGEVA predicts your lifetime financial trajectory and adjusts your
+            daily spending, saving, and investing in real time.
           </motion.p>
 
           <motion.div
@@ -234,7 +233,7 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <Button variant="lime" size="lg" asChild>
-              <Link to="/signup">See my forecast <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">Start optimizing my wealth <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="lg" asChild>
               <a href="#how">How it works</a>
