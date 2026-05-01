@@ -42,19 +42,8 @@ function Landing() {
       <ThreeCrises />
       <HowItWorks />
       <FinancialDashboard />
-      <RealtimeCapitalActions />
-      <AgingPrediction />
       <WalletIntegrations />
-      <BodyAgeScan />
-      <WearablesModule />
-      <RoutinesCalendar />
-      <AccountabilityModule />
-      <FintechInfra />
       <CompetitivePositioning />
-      <DataSources />
-      <FutureSelf />
-      <ImpactBand />
-      <Explainability />
       <Pricing />
       <FAQ />
       <Footer />
