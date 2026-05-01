@@ -978,23 +978,24 @@ function WalletIntegrations() {
     <section id="wallet" className="py-28 bg-card/40 border-y border-border overflow-hidden scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Wallets · Cards · Banks</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Autonomous Capital Allocation System</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            One swipe. Every consequence visible.
+            Detect. Pause. Reroute.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-            Connect Apple Pay, Google Pay, your debit cards and bank accounts. Every purchase scored
-            in real time across health, wealth, mind and the planet, with guardrails before you tap.
+            Connect Apple Pay, Google Pay, your debit cards and bank accounts. LONGEVA scores every transaction
+            against your lifetime financial goals — pausing or blocking suboptimal spending and routing the
+            saved capital straight into investing accounts.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-6">
           <div className="lg:col-span-5 relative rounded-[2rem] overflow-hidden border border-border bg-background p-8 sm:p-10">
             <p className="text-xs font-mono uppercase tracking-wider text-lime mb-2">The LONGEVA Card</p>
-            <h3 className="font-display text-3xl mb-3">Your guardrails, in titanium.</h3>
+            <h3 className="font-display text-3xl mb-3">Programmable spending controls.</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-              Tap-to-pay anywhere. Earns LONGV when you spend on what extends your life. Three-tier
-              guardrails block the worst before checkout.
+              Issued via partner banking infrastructure. Three-tier capital controls block, delay, or nudge any
+              transaction that pulls you off your projected net-worth curve.
             </p>
             <div className="relative aspect-[1.586] rounded-2xl bg-gradient-to-br from-foreground via-foreground to-foreground/80 dark:from-card dark:to-background p-6 shadow-glow-lime overflow-hidden">
               <div className="absolute inset-0 opacity-30 bg-radial-lime" />
