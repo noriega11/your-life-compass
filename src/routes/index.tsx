@@ -1294,7 +1294,7 @@ function Pricing() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Pricing</p>
-          <h2 className="font-display text-5xl sm:text-6xl text-balance">Aligned with your outcomes.</h2>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance">Priced against your wealth outcomes.</h2>
           <p className="text-muted-foreground mt-4">No ads. No data sales. Cancel any time.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-5">
