@@ -1,8 +1,8 @@
 import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import {
-  Home, Activity, Receipt, Sparkles, PiggyBank, Shield, Trophy,
-  MapPin, Lock, TreePine, Settings, Bell, Flame, LogOut,
+  Home, TrendingUp, Receipt, Sparkles, PiggyBank, Shield, Trophy,
+  MapPin, Lock, Settings, Bell, Flame, LogOut, Activity, Scale, HeartPulse, LineChart,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -14,15 +14,17 @@ export const Route = createFileRoute("/app")({ component: AppLayout });
 
 const NAV = [
   { to: "/app", label: "Today", icon: Home, exact: true },
-  { to: "/app/trajectory", label: "Financial Forecast", icon: Activity },
+  { to: "/app/wealth", label: "Wealth Forecast", icon: TrendingUp },
   { to: "/app/retirement", label: "Retirement", icon: PiggyBank },
+  { to: "/app/guardrails", label: "Smart Guardrails", icon: Shield },
   { to: "/app/spending", label: "Spending Impact", icon: Receipt },
-  { to: "/app/guardrails", label: "Guardrails", icon: Shield },
+  { to: "/app/patterns", label: "Patterns", icon: LineChart },
+  { to: "/app/balance", label: "Health-Wealth Balance", icon: Scale },
+  { to: "/app/vitality", label: "Vitality Risk", icon: HeartPulse },
   { to: "/app/coach", label: "AI Coach", icon: Sparkles },
-  { to: "/app/quests", label: "Quests", icon: Trophy },
+  { to: "/app/quests", label: "LONGV Rewards", icon: Trophy },
   { to: "/app/recommended", label: "Recommended", icon: MapPin },
   { to: "/app/vault", label: "Data Vault", icon: Lock },
-  { to: "/app/progress", label: "Progress Tree", icon: TreePine },
   { to: "/app/settings", label: "Settings", icon: Settings },
 ];
 
