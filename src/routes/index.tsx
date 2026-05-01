@@ -1429,3 +1429,238 @@ function Footer() {
     </footer>
   );
 }
+
+/* ────────────────────────────────────────────────────────────
+ * Financial Dashboard
+ * ──────────────────────────────────────────────────────────── */
+function FinancialDashboard() {
+  const series = [
+    { age: 35, base: 80, longeva: 80 },
+    { age: 40, base: 145, longeva: 198 },
+    { age: 45, base: 230, longeva: 365 },
+    { age: 50, base: 340, longeva: 580 },
+    { age: 55, base: 470, longeva: 850 },
+    { age: 60, base: 620, longeva: 1180 },
+    { age: 67, base: 820, longeva: 1620 },
+  ];
+  const max = 1700;
+  const w = 560, h = 220, pad = 28;
+  const x = (i: number) => pad + (i * (w - pad * 2)) / (series.length - 1);
+  const y = (v: number) => h - pad - ((v / max) * (h - pad * 2));
+  const linePath = (key: "base" | "longeva") =>
+    series.map((p, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(p[key])}`).join(" ");
+
+  return (
+    <section id="dashboard" className="py-28 scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-2xl mb-12">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Your Financial Dashboard</p>
+          <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
+            Net worth, retirement, leakage — in one view.
+          </h2>
+          <p className="text-muted-foreground text-lg mt-5 leading-relaxed">
+            A real-time financial command center. Track your projected net worth, see capital saved by
+            interventions, and watch auto-invested dollars compound.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-6">
+          {/* Net worth chart */}
+          <div className="lg:col-span-8 rounded-3xl border border-border bg-card p-7">
+            <div className="flex items-end justify-between mb-6 flex-wrap gap-3">
+              <div>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Net worth trajectory</p>
+                <p className="font-display text-2xl mt-1">$1.62M projected at 67</p>
+              </div>
+              <div className="flex items-center gap-4 text-xs">
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-muted-foreground/50" /> Default path</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-lime" /> With LONGEVA</span>
+              </div>
+            </div>
+            <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-auto" aria-label="Net worth chart">
+              {[0, 0.25, 0.5, 0.75, 1].map((p) => (
+                <line key={p} x1={pad} x2={w - pad} y1={pad + p * (h - pad * 2)} y2={pad + p * (h - pad * 2)} stroke="currentColor" className="text-border" strokeDasharray="2 4" />
+              ))}
+              <path d={linePath("base")} fill="none" stroke="currentColor" className="text-muted-foreground/60" strokeWidth="2" />
+              <path d={`${linePath("longeva")} L ${x(series.length - 1)} ${h - pad} L ${pad} ${h - pad} Z`} fill="currentColor" className="text-lime/15" />
+              <path d={linePath("longeva")} fill="none" stroke="currentColor" className="text-lime" strokeWidth="2.5" />
+              {series.map((p, i) => (
+                <g key={p.age}>
+                  <text x={x(i)} y={h - 8} fontSize="10" textAnchor="middle" className="fill-muted-foreground font-mono">{p.age}</text>
+                </g>
+              ))}
+            </svg>
+          </div>
+
+          {/* Side KPIs */}
+          <div className="lg:col-span-4 grid gap-3">
+            {[
+              { k: "Retirement gap", v: "−$620K", sub: "closeable in 4 yrs", tone: "coral" as const, icon: TrendingDown },
+              { k: "Saved by interventions · 30d", v: "$1,840", sub: "blocked + nudged", tone: "teal" as const, icon: Shield },
+              { k: "Auto-invested · 30d", v: "$1,410", sub: "→ IRA + index", tone: "teal" as const, icon: PiggyBank },
+              { k: "Spending leakage", v: "−22%", sub: "vs. 90-day baseline", tone: "teal" as const, icon: TrendingUp },
+            ].map((kpi) => (
+              <div key={kpi.k} className="rounded-2xl border border-border bg-card p-5 flex items-start gap-4">
+                <span className="h-10 w-10 rounded-xl bg-lime/15 grid place-items-center shrink-0">
+                  <kpi.icon className="h-4 w-4 text-lime" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{kpi.k}</p>
+                  <p className={`font-display text-2xl tabular-nums mt-0.5 ${kpi.tone === "coral" ? "text-coral" : "text-teal"}`}>{kpi.v}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">{kpi.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Real-time Capital Actions
+ * ──────────────────────────────────────────────────────────── */
+function RealtimeCapitalActions() {
+  const events = [
+    { t: "+$47 auto-invested", sub: "Round-ups → IRA · 09:14", tone: "teal" as const, icon: PiggyBank },
+    { t: "$82 prevented from impulse spending", sub: "Amazon electronics · 12:02", tone: "coral" as const, icon: Shield },
+    { t: "Transaction paused", sub: "DoorDash · long-term impact −$1,840 at 67", tone: "amber" as const, icon: AlertCircle },
+    { t: "+$22 rerouted to index fund", sub: "Skipped 3rd delivery this week", tone: "teal" as const, icon: TrendingUp },
+    { t: "Cashflow reallocation", sub: "Idle checking → high-yield · $600", tone: "teal" as const, icon: Banknote },
+  ];
+  const toneCls = (t: "teal" | "coral" | "amber") =>
+    t === "teal" ? "text-teal bg-teal/10 border-teal/30"
+      : t === "coral" ? "text-coral bg-coral/10 border-coral/30"
+      : "text-amber bg-amber/10 border-amber/30";
+
+  return (
+    <section className="py-24 bg-card/40 border-y border-border">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        <div className="lg:col-span-5">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Real-time capital actions</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
+            Active money. Not passive tracking.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mt-5">
+            Most apps log what already happened. LONGEVA intervenes — pausing, blocking, and reallocating
+            in the moment a transaction hits the rails.
+          </p>
+          <div className="grid grid-cols-2 gap-3 mt-8">
+            <Stat icon={Shield} label="Blocked · 30d" value="$1,840" />
+            <Stat icon={PiggyBank} label="Reallocated · 30d" value="$1,410" />
+            <Stat icon={Zap} label="Median latency" value="220 ms" />
+            <Stat icon={Building2} label="Banking partners" value="14k+" />
+          </div>
+        </div>
+        <div className="lg:col-span-7 rounded-3xl border border-border bg-background p-6 sm:p-8">
+          <div className="flex items-center justify-between mb-5">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-lime flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-lime animate-pulse" /> Live capital feed
+            </p>
+            <span className="text-[10px] font-mono text-muted-foreground">Today</span>
+          </div>
+          <div className="space-y-2">
+            {events.map((e) => (
+              <div key={e.t} className={`rounded-xl border p-4 flex items-start gap-3 ${toneCls(e.tone)}`}>
+                <e.icon className="h-4 w-4 mt-0.5 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium text-foreground">{e.t}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 font-mono">{e.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Fintech Infrastructure
+ * ──────────────────────────────────────────────────────────── */
+function FintechInfra() {
+  const items = [
+    { icon: Building2, t: "Powered by secure banking integrations", d: "Connections via tier-1 aggregators across 14k+ institutions." },
+    { icon: Zap, t: "Built on modern payment rails", d: "Real-time interventions on Visa & Mastercard authorization streams." },
+    { icon: CreditCard, t: "Card issued via partner banking infrastructure", d: "FDIC-insured sponsor bank, programmable spend controls at the network level." },
+    { icon: Lock, t: "SOC 2 Type II · GDPR · CCPA", d: "Bank-grade encryption in transit and at rest. You own and can export every byte." },
+  ];
+  return (
+    <section className="py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Fintech infrastructure</p>
+          <h2 className="font-display text-4xl sm:text-5xl text-balance">Built on the rails your money already runs on.</h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {items.map((it) => (
+            <div key={it.t} className="rounded-2xl border border-border bg-card p-6">
+              <span className="h-10 w-10 rounded-xl bg-lime/15 grid place-items-center mb-4">
+                <it.icon className="h-4 w-4 text-lime" />
+              </span>
+              <p className="font-medium text-sm">{it.t}</p>
+              <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{it.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Competitive Positioning
+ * ──────────────────────────────────────────────────────────── */
+function CompetitivePositioning() {
+  return (
+    <section className="py-28 bg-card/40 border-y border-border">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why LONGEVA is different</p>
+          <h2 className="font-display text-5xl sm:text-6xl text-balance">Others track. We control.</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-5">
+          <div className="rounded-3xl border border-border bg-background p-8">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-3">Other apps</p>
+            <h3 className="font-display text-2xl mb-5">Passive observers</h3>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "Track spending after the fact",
+                "Manage investments in isolation",
+                "Show charts, leave decisions to you",
+                "No intervention at point of sale",
+              ].map((it) => (
+                <li key={it} className="flex items-start gap-2.5">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-muted-foreground/50 shrink-0" /> {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-3xl border border-lime bg-card p-8 shadow-glow-lime">
+            <p className="text-[10px] font-mono uppercase tracking-wider text-lime mb-3">LONGEVA</p>
+            <h3 className="font-display text-2xl mb-5">Autonomous capital allocator</h3>
+            <ul className="space-y-3 text-sm">
+              {[
+                "Controls behavior at the moment of decision",
+                "Connects spending, saving and investing into one loop",
+                "Optimizes lifetime financial outcomes — not weekly budgets",
+                "Pauses, blocks, and reroutes capital in real time",
+              ].map((it) => (
+                <li key={it} className="flex items-start gap-2.5">
+                  <Check className="h-4 w-4 text-lime mt-0.5 shrink-0" /> {it}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="mt-10 text-center">
+          <Button variant="lime" size="lg" asChild>
+            <Link to="/signup">Start improving my financial future <ArrowRight className="h-4 w-4" /></Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
