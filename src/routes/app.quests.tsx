@@ -4,7 +4,7 @@ import { Trophy, Flame, Users, Coins, ArrowRight, CheckCircle2, Target } from "l
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Counter } from "@/components/Counter";
-import { QUESTS, MOCK_USER } from "@/lib/mockData";
+import { MOCK_USER } from "@/lib/mockData";
 
 export const Route = createFileRoute("/app/quests")({ component: Quests });
 
@@ -75,7 +75,7 @@ function Quests() {
       <section>
         <h2 className="font-display text-2xl mb-5">Active quests</h2>
         <div className="grid lg:grid-cols-3 gap-5">
-          {QUESTS.map((q) => (
+          {FIN_QUESTS.map((q) => (
             <motion.div
               key={q.id}
               whileHover={{ y: -4 }}

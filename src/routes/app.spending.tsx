@@ -94,8 +94,8 @@ function Spending() {
         </div>
         <div className="flex-1">
           <p className="text-xs font-mono uppercase tracking-wider text-lime mb-1">Pattern of the week</p>
-          <p className="font-display text-xl mb-1">You spend 34% more on ultra-processed food on Fridays.</p>
-          <p className="text-sm text-muted-foreground">Three Trader Joe's swaps would save $42/wk and recover ~3.1 healthspan hrs.</p>
+          <p className="font-display text-xl mb-1">You spend 34% more on delivery on Fridays.</p>
+          <p className="text-sm text-muted-foreground">Three Trader Joe's swaps would save $42/wk → $2,180 routed to your IRA over the year.</p>
         </div>
         <WhyThis data={{
           summary: "Friday transactions in 'ultra-processed' category averaged $58 vs $43 on other weekdays over the last 8 weeks. The pattern correlates with sub-6h Thursday sleep.",
