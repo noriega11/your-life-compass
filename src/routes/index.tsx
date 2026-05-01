@@ -484,7 +484,7 @@ function HowItWorks() {
     { n: "01", icon: Database, title: "Analyze", body: "We ingest your bank, card, investment, wearable, and behavioral data — read-only and encrypted." },
     { n: "02", icon: LineChart, title: "Forecast", body: "The Lifetime Forecast Engine projects your net worth, retirement gap, and financial trajectory to 90." },
     { n: "03", icon: Shield, title: "Intervene", body: "Real-time guardrails pause, block or nudge transactions that hurt your long-term outcome." },
-    { n: "04", icon: PiggyIcon, title: "Reallocate", body: "Saved capital is auto-routed into your IRA, index funds, and emergency fund — every day." },
+    { n: "04", icon: PiggyBank, title: "Reallocate", body: "Saved capital is auto-routed into your IRA, index funds, and emergency fund — every day." },
   ];
   return (
     <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
