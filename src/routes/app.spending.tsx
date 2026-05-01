@@ -36,10 +36,10 @@ function Spending() {
   return (
     <div className="max-w-6xl mx-auto space-y-10">
       <header>
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Spending Impact & Leakage</p>
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-coral mb-2">Spending Impact & Leakage</p>
         <h1 className="font-display text-5xl text-balance">Where your money is leaking — and how to redirect it.</h1>
         <p className="text-muted-foreground mt-3 max-w-2xl">
-          Every transaction scored for financial impact, with health and behavioral signals as supporting intelligence. Read-only. Never sold.
+          Every transaction scored for retirement impact and long-term financial effect. Health and behavior signals are inputs, not the headline. Read-only. Never sold.
         </p>
       </header>
 
@@ -76,14 +76,14 @@ function Spending() {
         </div>
 
         <div className="space-y-3">
-          <Stat label="Total spend (7d)" value={`$${totalSpend.toFixed(0)}`} hint="Across all categories" />
+          <Stat label="Monthly leakage" value="$620" hint="Impulse + waste, last 30d" tone="warn" />
           <Stat
-            label="Healthspan effect"
-            value={`${totalHealthHours > 0 ? "+" : ""}${totalHealthHours.toFixed(1)} hrs`}
-            hint={totalHealthHours > 0 ? "Net positive this week" : "Net negative, rebalance suggested"}
-            tone={totalHealthHours > 0 ? "good" : "warn"}
+            label="Redirected to savings"
+            value="$312"
+            hint="Auto-routed this month"
+            tone="good"
           />
-          <Stat label="Blocked / nudged" value="3" hint="Saved $87 + 4.6 healthspan hrs" />
+          <Stat label="Blocked / nudged" value="3" hint="$87 retained for IRA" />
         </div>
       </section>
 

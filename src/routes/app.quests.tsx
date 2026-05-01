@@ -19,8 +19,16 @@ const LEAGUE = [
 const REWARDS = [
   { id: "r1", title: "Cashback to checking", cost: 500, sub: "$5 transfer", icon: Coins },
   { id: "r2", title: "IRA top-up", cost: 1000, sub: "$15 contribution", icon: Target },
-  { id: "r3", title: "Insurance credit", cost: 1500, sub: "Premium discount", icon: CheckCircle2 },
-  { id: "r4", title: "Function Health credit", cost: 2500, sub: "$40 off labs", icon: Trophy },
+  { id: "r3", title: "Insurance premium discount", cost: 1500, sub: "Up to 8% off", icon: CheckCircle2 },
+  { id: "r4", title: "Merchant discount, partner network", cost: 2500, sub: "$40 credit", icon: Trophy },
+];
+
+const FIN_QUESTS = [
+  { id: "fq1", title: "No delivery for 5 weekdays", category: "Spending", longv: 200, progress: 60, why: "Avg savings $112/wk → emergency fund." },
+  { id: "fq2", title: "Move $100 to emergency fund", category: "Auto-Save", longv: 150, progress: 35, why: "Lifts your runway from 2.4 → 2.8 months." },
+  { id: "fq3", title: "Reduce convenience spend by 15%", category: "Spending", longv: 180, progress: 48, why: "Closes 0.4% of your retirement gap this month." },
+  { id: "fq4", title: "Set up a retirement contribution rule", category: "Auto-Save", longv: 220, progress: 80, why: "Auto-routes $50/wk to your IRA." },
+  { id: "fq5", title: "Complete 3 workouts → unlock 6% insurance discount", category: "Vitality", longv: 160, progress: 67, why: "Partner carrier rewards measured movement." },
 ];
 
 function Quests() {
