@@ -62,12 +62,12 @@ function Nav() {
   const [featuresOpen, setFeaturesOpen] = useState(false);
 
   const features = [
-    { href: "#scan", icon: ScanFace, label: "Body Age Scan", desc: "60-sec selfie to biological age" },
-    { href: "#wearables", icon: Watch, label: "Wearables", desc: "HRV, sleep, glucose, recovery" },
-    { href: "#prediction", icon: LineChart, label: "Aging Prediction", desc: "Kairos engine, 120+ drivers" },
-    { href: "#wallet", icon: CreditCard, label: "Smart Spending", desc: "Score, nudge, block at checkout" },
-    { href: "#routines", icon: CalendarDays, label: "Routines & Calendar", desc: "Adaptive weekly plan" },
-    { href: "#accountability", icon: Target, label: "Accountability", desc: "Goals, pacts, journal" },
+    { href: "#prediction", icon: LineChart, label: "Lifetime Forecast Engine", desc: "Project net worth & retirement gap" },
+    { href: "#wallet", icon: CreditCard, label: "Autonomous Capital Allocation", desc: "Pause, block, reroute spending" },
+    { href: "#routines", icon: CalendarDays, label: "Auto-Save & Investing", desc: "Daily redirects to IRA & index" },
+    { href: "#scan", icon: ScanFace, label: "Behavioral Risk Signals", desc: "Biometric inputs improve forecasts" },
+    { href: "#wearables", icon: Watch, label: "Connected Data Layer", desc: "Banks, cards, wearables in one stream" },
+    { href: "#accountability", icon: Target, label: "Financial Goals & Pacts", desc: "Net worth, retirement, leakage caps" },
   ];
   const topLinks = [
     { href: "#about", label: "About" },
