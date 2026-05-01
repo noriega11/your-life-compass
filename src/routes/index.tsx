@@ -768,19 +768,20 @@ function BodyAgeScan() {
     <section id="scan" className="py-28 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5 order-2 lg:order-1">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Body Age Scan · 60 sec</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Behavioral Risk Signal · 60 sec</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance leading-[0.95]">
-            Your face knows your <em className="text-lime not-italic">real</em> age.
+            Biometrics that <em className="text-lime not-italic">price</em> your future.
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed mt-5">
-            A 60-second selfie scan reads 38 facial biomarkers, skin elasticity, periorbital fat,
-            micro-circulation, and returns your biological age. Runs on-device. Photo never leaves your phone.
+            A 60-second on-device scan reads 38 facial biomarkers to estimate biological age. The signal feeds the
+            Forecast Engine — sharper longevity-adjusted retirement planning, lower projected healthcare liabilities,
+            tighter confidence bands on your net-worth curve.
           </p>
           <div className="grid grid-cols-3 gap-3 mt-8">
             {[
-              { k: "Real age", v: "34" },
-              { k: "Body age", v: "31.4", accent: true },
-              { k: "Δ vs peers", v: "−2.6" },
+              { k: "Biological age", v: "31.4", accent: true },
+              { k: "Healthcare cost Δ", v: "−18%" },
+              { k: "Earning years +", v: "+4.2" },
             ].map((m) => (
               <div key={m.k} className="rounded-2xl border border-border bg-card p-4">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{m.k}</p>
