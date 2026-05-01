@@ -23,11 +23,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA — Control your financial future, automatically." },
+      { title: "LONGEVA — Optimize your financial future, automatically." },
       {
         name: "description",
         content:
-          "LONGEVA is the behavioral fintech platform that predicts your lifetime financial trajectory and adjusts your daily spending, saving, and investing in real time.",
+          "LONGEVA is the behavioral fintech platform that forecasts your retirement readiness, blocks financial leakage, and auto-routes capital into long-term wealth.",
       },
     ],
   }),
@@ -216,7 +216,7 @@ function Hero() {
             transition={{ delay: 0.15 }}
             className="font-display text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-balance"
           >
-            Control your financial future—
+            Optimize your financial future—
             <br />
             <em className="text-lime not-italic">automatically.</em>
           </motion.h1>
@@ -227,8 +227,8 @@ function Hero() {
             transition={{ delay: 0.25 }}
             className="mt-6 text-base sm:text-lg text-muted-foreground text-pretty"
           >
-            LONGEVA predicts your lifetime financial trajectory and adjusts your
-            daily spending, saving, and investing in real time.
+            LONGEVA uses your spending, savings, lifestyle, and health signals to forecast
+            your retirement readiness, reduce financial leakage, and help you build long-term wealth.
           </motion.p>
 
           <motion.div
@@ -238,10 +238,10 @@ function Hero() {
             className="mt-8 flex flex-wrap gap-3"
           >
             <Button variant="lime" size="lg" asChild>
-              <Link to="/signup">Start optimizing my wealth <ArrowRight className="h-4 w-4" /></Link>
+              <Link to="/signup">See my financial forecast <ArrowRight className="h-4 w-4" /></Link>
             </Button>
             <Button variant="glass" size="lg" asChild>
-              <a href="#how">How it works</a>
+              <a href="#how">How LONGEVA works</a>
             </Button>
           </motion.div>
 
@@ -453,8 +453,12 @@ function ThreeCrises() {
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Why now</p>
           <h2 className="font-display text-5xl sm:text-6xl leading-tight text-balance">
-            The three financial crises of 2030.
+            The financial crisis hiding in daily behavior.
           </h2>
+          <p className="text-muted-foreground text-lg mt-5">
+            People don't fail retirement because of income alone. They fail because daily spending,
+            health costs, and behavior compound silently. LONGEVA intervenes before the damage is done.
+          </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {crises.map((c, i) => (
@@ -485,10 +489,10 @@ function ThreeCrises() {
 
 function HowItWorks() {
   const steps = [
-    { n: "01", icon: Database, title: "Analyze", body: "We ingest your bank, card, investment, wearable, and behavioral data — read-only and encrypted." },
-    { n: "02", icon: LineChart, title: "Forecast", body: "The Lifetime Forecast Engine projects your net worth, retirement gap, and financial trajectory to 90." },
-    { n: "03", icon: Shield, title: "Intervene", body: "Real-time guardrails pause, block or nudge transactions that hurt your long-term outcome." },
-    { n: "04", icon: PiggyBank, title: "Reallocate", body: "Saved capital is auto-routed into your IRA, index funds, and emergency fund — every day." },
+    { n: "01", icon: Database, title: "Connect", body: "Bank, card, retirement, investment, and health data — read-only and encrypted." },
+    { n: "02", icon: LineChart, title: "Forecast", body: "Project lifetime wealth, retirement readiness, and the financial impact of every behavior." },
+    { n: "03", icon: Shield, title: "Intervene", body: "Pause, nudge, or block harmful financial decisions in real time at the point of swipe." },
+    { n: "04", icon: PiggyBank, title: "Reallocate", body: "Saved capital is routed into your IRA, emergency fund, and goals — every day." },
   ];
   return (
     <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
@@ -496,10 +500,10 @@ function HowItWorks() {
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">How LONGEVA works</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">
-            From daily actions to lifetime wealth—fully automated.
+            How LONGEVA turns behavior into wealth.
           </h2>
           <p className="text-muted-foreground text-lg mt-5">
-            One closed loop: data in, forecast out, capital reallocated in real time.
+            Connect → Forecast → Intervene → Reallocate. One closed loop, fully automated.
           </p>
         </div>
         <div className="grid md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">

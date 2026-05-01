@@ -14,11 +14,11 @@ export const Route = createFileRoute("/app")({ component: AppLayout });
 
 const NAV = [
   { to: "/app", label: "Today", icon: Home, exact: true },
-  { to: "/app/trajectory", label: "Forecast", icon: Activity },
+  { to: "/app/trajectory", label: "Financial Forecast", icon: Activity },
+  { to: "/app/retirement", label: "Retirement", icon: PiggyBank },
   { to: "/app/spending", label: "Spending Impact", icon: Receipt },
-  { to: "/app/coach", label: "AI Coach", icon: Sparkles },
-  { to: "/app/retirement", label: "Auto-Save", icon: PiggyBank },
   { to: "/app/guardrails", label: "Guardrails", icon: Shield },
+  { to: "/app/coach", label: "AI Coach", icon: Sparkles },
   { to: "/app/quests", label: "Quests", icon: Trophy },
   { to: "/app/recommended", label: "Recommended", icon: MapPin },
   { to: "/app/vault", label: "Data Vault", icon: Lock },

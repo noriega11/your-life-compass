@@ -35,10 +35,10 @@ function Guardrails() {
   return (
     <div className="max-w-6xl mx-auto space-y-10">
       <header className="space-y-3">
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-coral">Guardrails</p>
-        <h1 className="font-display text-5xl text-balance">Protect future-you from present-you.</h1>
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-coral">Smart Payment Guardrails</p>
+        <h1 className="font-display text-5xl text-balance">Stop bad financial decisions before they happen.</h1>
         <p className="text-muted-foreground text-lg max-w-2xl">
-          Three-tier rules on the LONGEVA Card. Nudge, pause, or hard-block purchases that hurt your goals.
+          Three-tier rules on the LONGEVA Card. Nudge, pause, or hard-block purchases that hurt your retirement — then route the saved cash to your IRA, emergency fund, or goal.
         </p>
       </header>
 

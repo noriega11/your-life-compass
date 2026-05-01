@@ -36,10 +36,10 @@ function Spending() {
   return (
     <div className="max-w-6xl mx-auto space-y-10">
       <header>
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your spending impact</p>
-        <h1 className="font-display text-5xl text-balance">How your money shapes your life.</h1>
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Spending Impact & Leakage</p>
+        <h1 className="font-display text-5xl text-balance">Where your money is leaking — and how to redirect it.</h1>
         <p className="text-muted-foreground mt-3 max-w-2xl">
-          Every transaction scored on four axes, metabolic, mental, financial, environmental. Read-only. Never sold.
+          Every transaction scored for financial impact, with health and behavioral signals as supporting intelligence. Read-only. Never sold.
         </p>
       </header>
 

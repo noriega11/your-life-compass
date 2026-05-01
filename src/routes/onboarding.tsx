@@ -167,32 +167,32 @@ function StepHeader({ kicker, title, intro }: { kicker: string; title: string; i
 
 function StepNorthStar({ data, setData }: StepProps) {
   const motivations = [
-    { id: "healthspan", label: "Healthspan", icon: Heart },
-    { id: "wealthspan", label: "Wealthspan", icon: Wallet },
-    { id: "family", label: "Family", icon: Users },
-    { id: "freedom", label: "Freedom", icon: Compass },
-    { id: "impact", label: "Impact", icon: Sparkles },
+    { id: "retire-early", label: "Retire earlier", icon: Wallet },
+    { id: "reduce-debt", label: "Reduce debt", icon: Compass },
+    { id: "emergency", label: "Build emergency fund", icon: Sparkles },
+    { id: "leakage", label: "Cut lifestyle leakage", icon: Heart },
+    { id: "freedom", label: "Financial freedom", icon: Users },
   ];
   return (
     <div>
       <StepHeader
-        kicker="Step 1 · Your North Star"
-        title="What are you building toward?"
-        intro="We tie every recommendation back to this. Be specific, we'll do the rest."
+        kicker="Step 1 · Your Financial North Star"
+        title="When do you want to be financially free?"
+        intro="LONGEVA ties every recommendation back to this. Tell us the financial future you're building toward."
       />
       <div className="space-y-6">
         <div>
-          <Label className="mb-2 block">Your goal</Label>
+          <Label className="mb-2 block">Your financial goal</Label>
           <Textarea
             value={data.life_goal}
             onChange={(e) => setData({ ...data, life_goal: e.target.value })}
-            placeholder="Retire at 60 with $2.5M, hiking every weekend with my grandkids."
+            placeholder="Retire at 60 with $2.5M and zero debt, with enough monthly income to travel without worry."
             rows={4}
             className="resize-none"
           />
         </div>
         <div>
-          <Label className="mb-3 block">Primary motivation</Label>
+          <Label className="mb-3 block">What matters most right now?</Label>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
             {motivations.map((m) => (
               <button
@@ -284,13 +284,13 @@ function StepConnect({ data, setData, category }: StepProps & { category: "banks
   const meta = category === "banks"
     ? {
         kicker: "Step 3 · Connect your money",
-        title: "Read-only. Encrypted. Revocable.",
-        intro: "We never move your money. We read transactions to understand your habits, that's it.",
+        title: "Your financial forecast starts here.",
+        intro: "Bank, card, retirement, and investment accounts. Read-only. Never moved. Always revocable.",
       }
     : {
         kicker: "Step 4 · Connect your body",
-        title: "All optional. All toggleable.",
-        intro: "Pair financial data with health signals to see your full trajectory. Pick what you have.",
+        title: "Health signals as financial intelligence.",
+        intro: "Wearable data helps us estimate future healthcare-cost risk and the behaviors that quietly shape your spending. Optional.",
       };
   const selected = data[category];
 
@@ -363,9 +363,9 @@ function StepBodyScan({ data, setData }: StepProps) {
   return (
     <div>
       <StepHeader
-        kicker="Step 5 · Body Age scan"
+        kicker="Step 5 · Optional health-risk signal"
         title="One photo. 40+ biomarkers. On-device only."
-        intro="Processed on your device via Apple Neural Engine / Qualcomm AI Hub. Never uploaded. Never stored on our servers."
+        intro="Optional. A facial scan adds a behavioral health signal that improves your healthcare-cost risk forecast. Processed on-device, never uploaded."
       />
       <div className="rounded-3xl border border-border bg-card p-10 text-center">
         <div className="mx-auto h-48 w-48 rounded-full border-2 border-dashed border-border grid place-items-center mb-6 overflow-hidden relative">
@@ -412,9 +412,9 @@ function StepBodyScan({ data, setData }: StepProps) {
 function StepReveal({ data: _data, onFinish }: { data: FormData; onFinish: () => void }) {
   return (
     <div className="text-center">
-      <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Step 6 · Your first forecast</p>
-      <h2 className="font-display text-5xl mb-3">Here's where you're headed.</h2>
-      <p className="text-muted-foreground mb-10">Every number includes a confidence band. Tap "Why this?" to see the signals behind it.</p>
+      <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">Step 6 · Your first financial life forecast</p>
+      <h2 className="font-display text-5xl mb-3">Here's where your money is headed.</h2>
+      <p className="text-muted-foreground mb-10">Retirement gap is your most important number. Tap "Why this?" on any forecast to see the signals behind it.</p>
 
       <div className="flex justify-center mb-10">
         <LifeScoreOrb value={612} low={588} high={638} size={300} />
@@ -422,9 +422,9 @@ function StepReveal({ data: _data, onFinish }: { data: FormData; onFinish: () =>
 
       <div className="grid sm:grid-cols-3 gap-3 mb-8 text-left">
         {[
-          { label: "Projected lifespan", value: "87.2 yrs", sub: "82–91 · 80% conf." },
-          { label: "Healthy years", value: "71.5 yrs", sub: "Gap of 15.7 sick years" },
           { label: "Retirement gap at 67", value: "-$428K", sub: "Closeable in 4 years" },
+          { label: "Projected lifespan", value: "87.2 yrs", sub: "82–91 · 80% conf." },
+          { label: "Healthy years", value: "71.5 yrs", sub: "Future cost-risk input" },
         ].map((s) => (
           <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
             <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{s.label}</p>
