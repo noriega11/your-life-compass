@@ -80,12 +80,12 @@ export const TODAY_ACTIONS = [
   },
 ];
 
+// Deterministic pseudo-noise so SSR and client renders match (no Math.random()).
+const _noise = (i: number, seed: number) => ((Math.sin(i * 12.9898 + seed) * 43758.5453) % 1 + 1) % 1;
 export const TRAJECTORY_DATA = Array.from({ length: 60 }, (_, i) => {
   const age = 34 + i;
-  // Current path bends down after 60.
-  const current = 100 - Math.max(0, (age - 60) * 2.4) - Math.random() * 2;
-  // Optimized path: holds longer, decays gently.
-  const optimized = 100 - Math.max(0, (age - 72) * 1.6) - Math.random() * 1.5;
+  const current = 100 - Math.max(0, (age - 60) * 2.4) - _noise(i, 1.7) * 2;
+  const optimized = 100 - Math.max(0, (age - 72) * 1.6) - _noise(i, 4.3) * 1.5;
   return {
     age,
     current: Math.max(20, Math.round(current)),
