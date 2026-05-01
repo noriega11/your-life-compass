@@ -22,11 +22,11 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "LONGEVA, Live your longest life" },
+      { title: "LONGEVA — Control your financial future, automatically." },
       {
         name: "description",
         content:
-          "Your life forecast in 12 minutes. See how long you'll live, how healthy you'll stay, and whether you'll have enough to retire, then improve all three.",
+          "LONGEVA is the behavioral fintech platform that predicts your lifetime financial trajectory and adjusts your daily spending, saving, and investing in real time.",
       },
     ],
   }),
