@@ -403,7 +403,7 @@ function PreviewBand() {
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-4">{it.label}</p>
               <p className={`font-display text-6xl tabular-nums ${toneCls(it.tone)}`}>
                 {it.prefix}
-                <Counter to={it.value} />
+                <Counter to={it.value} decimals={it.decimals ?? 0} />
                 {it.suffix}
               </p>
               <p className="text-xs text-muted-foreground mt-3 font-mono">{it.sub}</p>
