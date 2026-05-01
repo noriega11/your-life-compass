@@ -1,20 +1,35 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import {
-  ArrowRight, Check, ShieldCheck, Receipt, PiggyBank, TrendingUp, TrendingDown,
-  Wallet, Target, Activity,
+  ArrowRight, Check, Shield, PiggyBank, TrendingUp, Sparkles, Wallet,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
 } from "recharts";
-import { useState } from "react";
-import { WhyThis } from "@/components/WhyThis";
+import { useAuth } from "@/lib/auth";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Counter } from "@/components/Counter";
+import { Progress } from "@/components/ui/progress";
 import { MOCK_USER, TODAY_ACTIONS, RETIREMENT_DATA } from "@/lib/mockData";
 
 export const Route = createFileRoute("/app/")({ component: Today });
 
 function Today() {
+  const { user } = useAuth();
+  const [doneIds, setDoneIds] = useState<Set<string>>(new Set());
+
+  const profile = useMemo(() => {
+    const fullName = (user?.user_metadata as any)?.full_name as string | undefined;
+    const display = fullName || MOCK_USER.firstName;
+    const first = display.split(" ")[0];
+    const initials = display.split(" ").map((p) => p[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
+    const avatarUrl =
+      ((user?.user_metadata as any)?.avatar_url as string | undefined) ||
+      `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(display)}&backgroundType=gradientLinear`;
+    return { first, display, initials, avatarUrl };
+  }, [user]);
+
   const greeting = (() => {
     const h = new Date().getHours();
     if (h < 12) return "Good morning";
@@ -22,103 +37,141 @@ function Today() {
     return "Good evening";
   })();
 
-  const [doneIds, setDoneIds] = useState<Set<string>>(new Set());
   const toggleDone = (id: string) =>
     setDoneIds((s) => {
       const next = new Set(s);
       if (next.has(id)) next.delete(id); else next.add(id);
       return next;
     });
+
+  const totalActions = TODAY_ACTIONS.length;
   const doneCount = doneIds.size;
+  const progressPct = Math.round((doneCount / totalActions) * 100);
+
+  // The 4-step journey, the only thing the user has to follow.
+  const journey = [
+    {
+      n: 1,
+      title: "See where you stand",
+      body: "Your wealth, retirement gap, and forecast at a glance.",
+      cta: "Open forecast",
+      to: "/app/wealth",
+      done: true,
+    },
+    {
+      n: 2,
+      title: "Approve today's 3 actions",
+      body: `${doneCount} of ${totalActions} done. Each one closes part of your gap.`,
+      cta: "Review actions",
+      to: "#actions",
+      done: doneCount >= 3,
+      active: true,
+    },
+    {
+      n: 3,
+      title: "Turn on auto-save",
+      body: "Route unused budget into your IRA. One toggle.",
+      cta: "Set up",
+      to: "/app/retirement",
+      done: false,
+    },
+    {
+      n: 4,
+      title: "Activate guardrails",
+      body: "Block leaks before they happen. Save without thinking.",
+      cta: "Enable",
+      to: "/app/guardrails",
+      done: false,
+    },
+  ];
 
   const gapAbs = Math.abs(MOCK_USER.retirementGap);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-10">
-      {/* Hero */}
-      <header className="space-y-3">
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold">Your Financial Life Forecast · Day {MOCK_USER.season.day}/{MOCK_USER.season.total}</p>
-        <h1 className="font-display text-5xl sm:text-6xl text-balance">{greeting}, {MOCK_USER.firstName}.</h1>
-        <p className="text-muted-foreground max-w-2xl">
-          Five capital actions today close <span className="text-teal font-medium">$13,200</span> of your retirement gap. Your money is being optimized in real time.
-        </p>
+    <div className="max-w-5xl mx-auto space-y-10">
+      {/* HERO: Photo + greeting + single primary number */}
+      <header className="rounded-3xl border border-border bg-gradient-to-br from-card to-background p-6 sm:p-8">
+        <div className="flex items-start gap-5">
+          <Avatar className="h-16 w-16 sm:h-20 sm:w-20 ring-2 ring-gold/40 shrink-0">
+            <AvatarImage src={profile.avatarUrl} alt={profile.display} />
+            <AvatarFallback className="bg-gold/20 text-gold font-medium">{profile.initials}</AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-1">
+              Day {MOCK_USER.season.day} of {MOCK_USER.season.total}
+            </p>
+            <h1 className="font-display text-3xl sm:text-4xl text-balance">
+              {greeting}, {profile.first}.
+            </h1>
+            <p className="text-sm text-muted-foreground mt-2 max-w-xl">
+              You have <span className="text-foreground font-medium">3 small actions</span> today that move your retirement forecast by{" "}
+              <span className="text-teal font-medium">+$13,200</span>.
+            </p>
+          </div>
+        </div>
+
+        {/* One progress bar so the user always knows where they are. */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between text-xs mb-2">
+            <span className="text-muted-foreground">Today's progress</span>
+            <span className="font-mono tabular-nums">
+              <span className="text-teal">{doneCount}</span>
+              <span className="text-muted-foreground">/{totalActions}</span>
+            </span>
+          </div>
+          <Progress value={progressPct} className="h-2" />
+        </div>
       </header>
 
-      {/* 6 hero metrics */}
-      <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-        <MetricCard
-          tag="LifeScore"
-          tone="gold"
-          value={<><Counter to={MOCK_USER.lifeScore} />/1000</>}
-          delta={`+${MOCK_USER.lifeScoreDelta} this week`}
-          deltaTone="up"
-          hint="Wealth + risk + behavior + vitality"
-        />
-        <MetricCard
+      {/* JOURNEY: numbered, linear, only one thing to do next */}
+      <section>
+        <div className="mb-4">
+          <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Your journey</p>
+          <h2 className="font-display text-2xl">Start here. Four steps.</h2>
+        </div>
+        <ol className="grid sm:grid-cols-2 gap-3">
+          {journey.map((s) => (
+            <JourneyStep key={s.n} step={s} />
+          ))}
+        </ol>
+      </section>
+
+      {/* THREE primary metrics, no more (Hick's Law) */}
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <BigMetric
           tag="Wealth Score"
-          tone="teal"
           value={<><Counter to={MOCK_USER.wealthScore} />/100</>}
-          delta="+3 vs last month"
-          deltaTone="up"
-          hint="Savings rate, leakage, debt pressure"
-        />
-        <MetricCard
-          tag="Retirement Readiness"
+          delta="+3 this month"
           tone="teal"
-          value={<><Counter to={MOCK_USER.retirementReadiness} />%</>}
-          delta="Target 85% by 67"
-          hint="Income replacement at 67"
         />
-        <MetricCard
+        <BigMetric
           tag="Retirement Gap"
-          tone="coral"
           value={<>-$<Counter to={Math.round(gapAbs / 1000)} />K</>}
-          delta="−$8.4K closed this quarter"
-          deltaTone="up"
-          hint="Projected shortfall at 67"
+          delta="−$8.4K closed"
+          tone="coral"
         />
-        <MetricCard
-          tag="Auto-Saved This Month"
-          tone="teal"
+        <BigMetric
+          tag="Auto-Saved"
           value={<>$<Counter to={MOCK_USER.autoSavedThisMonth} /></>}
-          delta="+18% vs last month"
-          deltaTone="up"
-          hint="Routed to IRA & emergency fund"
-        />
-        <MetricCard
-          tag="Spending Leakage Reduced"
+          delta="this month"
           tone="gold"
-          value={<><Counter to={MOCK_USER.leakageReduced} />%</>}
-          delta="$187 in guardrail saves"
-          deltaTone="up"
-          hint="vs your baseline 90 days ago"
         />
       </section>
 
-      {/* Net worth trajectory */}
+      {/* Net worth forecast, the single chart on Home */}
       <section className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-        <div className="flex items-start justify-between gap-4 mb-5">
-          <div>
-            <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">Net Worth Forecast</p>
-            <h2 className="font-display text-3xl">Current path vs LONGEVA-optimized</h2>
-            <p className="text-sm text-muted-foreground mt-1">
-              At 67: <span className="text-muted-foreground line-through">${(MOCK_USER.netWorthCurrent67/1000).toFixed(0)}K</span>{" "}
-              → <span className="text-teal font-medium">${(MOCK_USER.netWorthOptimized67/1000).toFixed(0)}K</span> with current rules active.
-            </p>
-          </div>
-          <WhyThis data={{
-            summary: "Projected from your current savings rate, recurring obligations, guardrail savings, and historical investment returns. The optimized path assumes your 4 active rules continue.",
-            signals: [
-              { name: "Savings rate trajectory", weight: 0.36 },
-              { name: "Guardrail interventions", weight: 0.28 },
-              { name: "Auto-save rules", weight: 0.22 },
-              { name: "Income trajectory", weight: 0.14 },
-            ],
-            confidence: 0.83,
-            modelVersion: "Wealth Engine v1.4",
-          }} />
+        <div className="mb-5">
+          <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">Net Worth at 67</p>
+          <h2 className="font-display text-2xl sm:text-3xl">
+            <span className="text-muted-foreground line-through">${(MOCK_USER.netWorthCurrent67/1000).toFixed(0)}K</span>{" "}
+            <ArrowRight className="inline h-5 w-5 text-muted-foreground mx-1" />{" "}
+            <span className="text-teal">${(MOCK_USER.netWorthOptimized67/1000).toFixed(0)}K</span>
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            With your current rules active, you're on the optimized path.
+          </p>
         </div>
-        <div className="h-[280px] -mx-2">
+        <div className="h-[240px] -mx-2">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={RETIREMENT_DATA}>
               <defs>
@@ -132,167 +185,115 @@ function Today() {
               <YAxis stroke="var(--muted-foreground)" fontSize={11} tickFormatter={(v) => `$${v}k`} />
               <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, fontSize: 12 }} formatter={(v: number) => `$${v}k`} />
               <ReferenceLine x={67} stroke="var(--gold)" strokeDasharray="4 4" label={{ value: "Retire", fill: "var(--gold)", fontSize: 10 }} />
-              <Area type="monotone" dataKey="base" stroke="var(--muted-foreground)" strokeWidth={2} fill="transparent" name="Default path" />
-              <Area type="monotone" dataKey="longeva" stroke="var(--teal)" strokeWidth={2.5} fill="url(#dash-longeva)" name="LONGEVA path" />
+              <Area type="monotone" dataKey="base" stroke="var(--muted-foreground)" strokeWidth={2} fill="transparent" name="Default" />
+              <Area type="monotone" dataKey="longeva" stroke="var(--teal)" strokeWidth={2.5} fill="url(#dash-longeva)" name="Optimized" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
       </section>
 
-      {/* Today's Financial Actions */}
-      <section>
+      {/* Today's actions, simplified */}
+      <section id="actions">
         <div className="flex items-end justify-between mb-4">
           <div>
-            <h2 className="font-display text-3xl">Today's financial actions</h2>
-            <p className="text-sm text-muted-foreground">Each one moves your retirement gap. Approve, dismiss, or auto-execute.</p>
+            <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Step 2</p>
+            <h2 className="font-display text-2xl">Today's actions</h2>
           </div>
-          <div className="text-right">
-            <p className="font-mono text-sm tabular-nums"><span className="text-teal">{doneCount}</span><span className="text-muted-foreground">/{TODAY_ACTIONS.length} done</span></p>
-            <div className="mt-1 h-1 w-24 bg-muted rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-teal"
-                animate={{ width: `${(doneCount / TODAY_ACTIONS.length) * 100}%` }}
-                transition={{ type: "spring", stiffness: 200, damping: 22 }}
-              />
-            </div>
-          </div>
+          <p className="text-xs text-muted-foreground">Tap to mark done</p>
         </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          {TODAY_ACTIONS.map((a, i) => (
-            <ActionCard key={a.id} a={a} delay={i * 0.06} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
+        <div className="space-y-3">
+          {TODAY_ACTIONS.slice(0, 3).map((a, i) => (
+            <ActionRow key={a.id} a={a} delay={i * 0.05} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
           ))}
         </div>
       </section>
-
-      {/* At a glance */}
-      <section className="grid md:grid-cols-3 gap-4">
-        <GlanceCard icon={ShieldCheck} tag="Guardrails" headline="$87 saved today" body="2 purchases blocked, 1 nudged." to="/app/guardrails" />
-        <GlanceCard icon={Receipt} tag="Spending Impact" headline="22% leakage reduced" body="$186 flagged for review." to="/app/spending" />
-        <GlanceCard icon={PiggyBank} tag="Auto-Save" headline="$47 → IRA" body="Routed automatically this morning." to="/app/retirement" />
-      </section>
-
-      {/* Wealth & Vitality split */}
-      <section className="grid md:grid-cols-2 gap-4">
-        <SplitCard
-          icon={Wallet}
-          tone="teal"
-          tag="Wealth"
-          headline="Open your full forecast"
-          body="Net worth at 67/75/85, savings rate, debt pressure, and a redirect simulator."
-          to="/app/wealth"
-        />
-        <SplitCard
-          icon={Activity}
-          tone="gold"
-          tag="Vitality Risk"
-          headline="Health → financial pressure"
-          body="How sleep, stress, and movement signals shape your future healthcare-cost forecast."
-          to="/app/vitality"
-        />
-      </section>
     </div>
   );
 }
 
-function MetricCard({
-  tag, value, delta, deltaTone, hint, tone,
-}: {
+function JourneyStep({ step }: {
+  step: { n: number; title: string; body: string; cta: string; to: string; done: boolean; active?: boolean };
+}) {
+  const Cmp: any = step.to.startsWith("#") ? "a" : Link;
+  const linkProps: any = step.to.startsWith("#") ? { href: step.to } : { to: step.to };
+  return (
+    <li>
+      <Cmp
+        {...linkProps}
+        className={`block rounded-2xl border p-5 transition group ${
+          step.done
+            ? "border-teal/40 bg-teal/5"
+            : step.active
+            ? "border-gold bg-gold/5 shadow-sm"
+            : "border-border bg-card hover:border-foreground/40"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <div className={`h-8 w-8 rounded-full grid place-items-center text-xs font-medium shrink-0 ${
+            step.done ? "bg-teal text-background" : step.active ? "bg-gold text-background" : "bg-muted text-muted-foreground"
+          }`}>
+            {step.done ? <Check className="h-4 w-4" strokeWidth={3} /> : step.n}
+          </div>
+          {step.active && (
+            <span className="text-[10px] font-mono uppercase tracking-wider text-gold">Start here</span>
+          )}
+        </div>
+        <p className="font-medium leading-snug">{step.title}</p>
+        <p className="text-sm text-muted-foreground mt-1">{step.body}</p>
+        <p className={`text-xs mt-3 inline-flex items-center gap-1 ${step.done ? "text-teal" : "text-foreground"}`}>
+          {step.cta} <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition" />
+        </p>
+      </Cmp>
+    </li>
+  );
+}
+
+function BigMetric({ tag, value, delta, tone }: {
   tag: string;
   value: React.ReactNode;
-  delta?: string;
-  deltaTone?: "up" | "down";
-  hint?: string;
-  tone: "gold" | "teal" | "coral";
+  delta: string;
+  tone: "teal" | "coral" | "gold";
 }) {
-  const toneCls = tone === "gold" ? "text-gold" : tone === "teal" ? "text-teal" : "text-coral";
-  const Arrow = deltaTone === "up" ? TrendingUp : TrendingDown;
+  const cls = tone === "teal" ? "text-teal" : tone === "coral" ? "text-coral" : "text-gold";
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{tag}</p>
-      <p className={`font-display text-3xl tabular-nums mt-2 ${toneCls}`}>{value}</p>
-      {delta && (
-        <p className={`text-xs mt-2 flex items-center gap-1 ${deltaTone === "up" ? "text-teal" : "text-muted-foreground"}`}>
-          {deltaTone && <Arrow className="h-3 w-3" />}
-          {delta}
-        </p>
-      )}
-      {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+      <p className={`font-display text-3xl tabular-nums mt-2 ${cls}`}>{value}</p>
+      <p className="text-xs text-muted-foreground mt-1">{delta}</p>
     </div>
   );
 }
 
-function ActionCard({
-  a, delay, done, onToggle,
-}: {
+function ActionRow({ a, delay, done, onToggle }: {
   a: typeof TODAY_ACTIONS[0]; delay: number; done: boolean; onToggle: () => void;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
+    <motion.button
+      type="button"
+      onClick={onToggle}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className={`rounded-2xl border p-5 transition-all ${done ? "border-teal/60 bg-teal/5" : "border-border bg-card"}`}
+      className={`w-full text-left rounded-2xl border p-4 sm:p-5 transition flex items-start gap-4 ${
+        done ? "border-teal/50 bg-teal/5" : "border-border bg-card hover:border-foreground/40"
+      }`}
     >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted">{a.category}</span>
-        <span className="text-xs text-gold font-mono">+{a.longv} LONGV</span>
+      <div className={`h-9 w-9 rounded-full border grid place-items-center shrink-0 transition ${
+        done ? "bg-teal border-teal text-background" : "border-border"
+      }`}>
+        {done && <Check className="h-4 w-4" strokeWidth={3} />}
       </div>
-      <p className={`font-medium leading-snug mb-2 ${done ? "line-through text-muted-foreground" : ""}`}>{a.title}</p>
-      <p className="text-xs text-muted-foreground leading-relaxed mb-4">{a.outcome}</p>
-      <div className="grid grid-cols-2 gap-2 mb-4">
-        <div className="rounded-lg bg-background border border-border p-2">
-          <p className="text-[9px] font-mono uppercase text-muted-foreground">Saved</p>
-          <p className="text-sm font-medium text-teal tabular-nums">${a.dollars}</p>
-        </div>
-        <div className="rounded-lg bg-background border border-border p-2">
-          <p className="text-[9px] font-mono uppercase text-muted-foreground">At 67</p>
-          <p className="text-sm font-medium text-gold tabular-nums">{a.retirementImpact ? `+$${a.retirementImpact.toLocaleString()}` : "—"}</p>
-        </div>
+      <div className="min-w-0 flex-1">
+        <p className={`font-medium leading-snug ${done ? "line-through text-muted-foreground" : ""}`}>{a.title}</p>
+        <p className="text-xs text-muted-foreground mt-1">{a.outcome}</p>
       </div>
-      <div className="flex items-center justify-between">
-        <WhyThis data={a.why} label="Why?" />
-        <button
-          onClick={onToggle}
-          className={`h-7 w-7 rounded-full border grid place-items-center transition ${
-            done ? "bg-teal border-teal text-background" : "border-border hover:border-foreground"
-          }`}
-          aria-label="Mark complete"
-        >
-          {done && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
-        </button>
+      <div className="text-right shrink-0">
+        <p className="text-sm font-medium text-teal tabular-nums">+${a.dollars}</p>
+        <p className="text-[10px] text-muted-foreground">today</p>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
-function GlanceCard({ icon: Icon, tag, headline, body, to }: { icon: React.ComponentType<{ className?: string }>; tag: string; headline: string; body: string; to: string }) {
-  return (
-    <Link to={to} className="rounded-2xl border border-border bg-card p-5 hover:border-foreground/40 transition">
-      <Icon className="h-4 w-4 text-gold mb-3" />
-      <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{tag}</p>
-      <p className="font-display text-2xl mt-1">{headline}</p>
-      <p className="text-xs text-muted-foreground mt-1">{body}</p>
-    </Link>
-  );
-}
-
-function SplitCard({ icon: Icon, tone, tag, headline, body, to }: {
-  icon: React.ComponentType<{ className?: string }>;
-  tone: "teal" | "gold";
-  tag: string; headline: string; body: string; to: string;
-}) {
-  const cls = tone === "teal" ? "text-teal" : "text-gold";
-  return (
-    <Link to={to} className="rounded-3xl border border-border bg-gradient-to-br from-card to-card/50 p-6 hover:border-foreground/40 transition group">
-      <div className="flex items-start justify-between mb-3">
-        <div className={`h-10 w-10 rounded-xl bg-${tone}/15 grid place-items-center ${cls}`}>
-          <Icon className="h-4 w-4" />
-        </div>
-        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition" />
-      </div>
-      <p className={`text-[10px] font-mono uppercase tracking-wider ${cls}`}>{tag}</p>
-      <h3 className="font-display text-2xl mt-1 mb-2">{headline}</h3>
-      <p className="text-sm text-muted-foreground">{body}</p>
-    </Link>
-  );
-}
+// Keep these imports referenced so future sections can re-mount easily.
+void Shield; void PiggyBank; void TrendingUp; void Sparkles; void Wallet;
