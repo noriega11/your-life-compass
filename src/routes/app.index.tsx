@@ -98,8 +98,8 @@ function Today() {
       <section>
         <div className="flex items-end justify-between mb-4">
           <div>
-            <h2 className="font-display text-3xl">Your 3 actions today</h2>
-            <p className="text-sm text-muted-foreground">Each under 30 minutes. Each explained.</p>
+            <h2 className="font-display text-3xl">Your 3 capital actions today</h2>
+            <p className="text-sm text-muted-foreground">Each under 30 minutes. Each with measurable financial impact.</p>
           </div>
           <div className="text-right">
             <p className="font-mono text-sm tabular-nums"><span className="text-teal">{doneCount}</span><span className="text-muted-foreground">/3 done</span></p>
