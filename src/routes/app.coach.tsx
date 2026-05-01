@@ -14,22 +14,22 @@ interface Msg {
 }
 
 const SUGGESTIONS = [
-  "Why is my LifeScore down this week?",
-  "What's the fastest way to add 1 healthy year?",
-  "Review my grocery spend",
-  "Which habit is dragging my Vitality score?",
+  "How can I close my retirement gap faster?",
+  "Where am I leaking money this month?",
+  "Which purchases hurt my long-term forecast?",
+  "How are sleep and stress affecting my spending?",
 ];
 
 const SEED_REPLIES: Record<string, { text: string; why: WhyThisData }> = {
   default: {
-    text: "Here's what I'd focus on: your sleep window has slipped 38 minutes this week, which historically softens your next-day glucose response and raises evening discretionary spend. A single 10pm wind-down reminder tends to recover both within 5–7 days for users like you.",
+    text: "Your biggest financial leak this month is late-night delivery — $186 across 6 orders, mostly on nights after sub-6h sleep. Capping delivery at $80/wk and routing the difference into your IRA closes ~$1,840 of your retirement gap over time. Want me to enable the guardrail?",
     why: {
-      summary: "Built from your last 21 days of sleep timing, glucose variability, and evening transactions. Recommendation prioritizes the highest-leverage single habit, not the most habits.",
+      summary: "Built from your last 21 days of transactions, sleep timing, and your current retirement gap. Recommendation prioritizes the highest-dollar leverage point first.",
       signals: [
-        { name: "Sleep window drift (21d)", weight: 0.41 },
-        { name: "Glucose variability trend", weight: 0.26 },
-        { name: "Evening discretionary spend", weight: 0.21 },
-        { name: "User adherence pattern", weight: 0.12 },
+        { name: "Late-night delivery spend (21d)", weight: 0.41 },
+        { name: "Retirement gap velocity", weight: 0.26 },
+        { name: "Sleep → impulse spend correlation", weight: 0.21 },
+        { name: "Guardrail adherence pattern", weight: 0.12 },
       ],
       confidence: 0.79,
       modelVersion: "Kairos v4.1",
@@ -38,9 +38,9 @@ const SEED_REPLIES: Record<string, { text: string; why: WhyThisData }> = {
 };
 
 const PRESCRIPTIONS = [
-  { tag: "Active", title: "10pm wind-down reminder", days: "Day 4 of 14", impact: "Sleep window holding within 22 min" },
   { tag: "Active", title: "Cap delivery at $80/wk", days: "Day 12 of 30", impact: "$118 redirected → IRA so far" },
-  { tag: "Pending", title: "20-min walk before lunch", days: "Starts tomorrow", impact: "Targets glucose variability" },
+  { tag: "Active", title: "Round-up on every purchase", days: "Day 4 of 30", impact: "$48/mo auto-invested" },
+  { tag: "Pending", title: "10pm wind-down reminder", days: "Starts tomorrow", impact: "Targets late-night impulse spend" },
 ];
 
 function Coach() {
@@ -48,7 +48,7 @@ function Coach() {
     {
       id: "0",
       role: "kairos",
-      text: "Morning, Maya. I reviewed your last 7 days. One thing stood out, want me to walk you through it?",
+      text: "Morning, Maya. I reviewed your last 7 days of spending and your retirement trajectory. One financial leak stood out — want me to walk you through it?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -75,9 +75,9 @@ function Coach() {
   return (
     <div className="max-w-7xl mx-auto">
       <header className="mb-6">
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your AI Coach</p>
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your financial behavior coach</p>
         <h1 className="font-display text-4xl">Kairos</h1>
-        <p className="text-muted-foreground text-sm mt-2">Every answer ends with "Why I said this →" so you always see the rationale.</p>
+        <p className="text-muted-foreground text-sm mt-2">Asks where your money is leaking, what to block, and how to close your retirement gap. Every answer shows its rationale.</p>
       </header>
 
       <div className="grid lg:grid-cols-[1fr_340px] gap-6">

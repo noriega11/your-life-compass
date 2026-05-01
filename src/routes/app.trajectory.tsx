@@ -48,10 +48,10 @@ function Trajectory() {
   return (
     <div className="max-w-6xl mx-auto space-y-12">
       <header>
-        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Your life forecast</p>
-        <h1 className="font-display text-5xl text-balance">This is where you're headed, and where you could be.</h1>
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-2">Financial Life Forecast</p>
+        <h1 className="font-display text-5xl text-balance">Will I have enough money to live the life I want?</h1>
         <p className="text-muted-foreground mt-3 max-w-2xl">
-          Two paths, side by side. Toggle habits to see how your trajectory bends. Confidence shading shows our 80% range, never false precision.
+          Net worth trajectory and retirement readiness, side by side with the health-risk inputs that move them. Toggle behaviors to see how your forecast bends.
         </p>
       </header>
 
