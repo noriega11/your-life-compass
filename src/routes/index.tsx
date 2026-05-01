@@ -386,11 +386,14 @@ function PreviewBand() {
     <section className="py-24 border-y border-border bg-card/30">
       <div className="max-w-6xl mx-auto px-6">
         <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold text-center mb-3">
-          Your financial trajectory, in 12 minutes
+          See your number in 60 seconds
         </p>
-        <h2 className="font-display text-4xl sm:text-5xl text-center mb-14 text-balance">
-          Three numbers that change your money.
+        <h2 className="font-display text-4xl sm:text-5xl text-center mb-4 text-balance">
+          People like you are adding $420K to retirement.
         </h2>
+        <p className="text-center text-muted-foreground max-w-xl mx-auto mb-14">
+          You're closer than you think. Here are the three numbers that matter.
+        </p>
         <div className="grid md:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden mb-12">
           {items.map((it) => (
             <div key={it.label} className="bg-background p-10 text-center">
@@ -581,7 +584,7 @@ function FutureSelf() {
     },
     90: {
       img: { current: current90, optimized: optimized90 },
-      current: { savings: "Depleted", healthy: "—", bodyAge: "98.2" },
+      current: { savings: "Depleted", healthy: "0", bodyAge: "98.2" },
       optimized: { savings: "$820K", healthy: "3 yrs", bodyAge: "82.4" },
     },
   };
@@ -832,7 +835,7 @@ function WearablesModule() {
     { name: "Apple Watch", metric: "HRV · 62 ms", img: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=900&q=85&auto=format&fit=crop" },
     { name: "Oura Ring", metric: "Sleep · 87", img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=900&q=85&auto=format&fit=crop" },
     { name: "Whoop 4.0", metric: "Recovery · 74%", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=85&auto=format&fit=crop" },
-    { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=900&q=85&auto=format&fit=crop" },
+    { name: "Dexcom CGM", metric: "Glucose · 94 mg/dL", img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&q=85&auto=format&fit=crop" },
   ];
   return (
     <section id="wearables" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
