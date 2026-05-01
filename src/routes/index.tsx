@@ -916,8 +916,8 @@ function AgingPrediction() {
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
             <div className="absolute inset-x-6 bottom-6 rounded-2xl bg-background/95 backdrop-blur-xl border border-border p-6 shadow-card">
               <div className="flex items-center justify-between mb-4">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Aging drivers · live</p>
-                <span className="text-[10px] font-mono text-muted-foreground">Kairos v4.1 · 84% conf.</span>
+                <p className="text-[10px] font-mono uppercase tracking-wider text-lime">Forecast drivers · live</p>
+                <span className="text-[10px] font-mono text-muted-foreground">Forecast Engine v4.1 · 84% conf.</span>
               </div>
               <div className="space-y-2.5">
                 {drivers.map((d) => (
