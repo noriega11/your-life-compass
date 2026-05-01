@@ -480,19 +480,22 @@ function ThreeCrises() {
 
 function HowItWorks() {
   const steps = [
-    { n: "01", icon: Database, title: "Connect", body: "Link your bank, wearable, and snap a photo. Read-only, encrypted, revocable." },
-    { n: "02", icon: Activity, title: "Forecast", body: "See your lifespan, healthspan, and retirement gap with confidence bands." },
-    { n: "03", icon: Sparkles, title: "Act", body: "Three personalized actions per day. Each under 30 minutes. Each explained." },
-    { n: "04", icon: TrendingDown, title: "Compound", body: "Every small decision compounds. Watch your forecast bend upward." },
+    { n: "01", icon: Database, title: "Analyze", body: "We ingest your bank, card, investment, wearable, and behavioral data — read-only and encrypted." },
+    { n: "02", icon: LineChart, title: "Forecast", body: "The Lifetime Forecast Engine projects your net worth, retirement gap, and financial trajectory to 90." },
+    { n: "03", icon: Shield, title: "Intervene", body: "Real-time guardrails pause, block or nudge transactions that hurt your long-term outcome." },
+    { n: "04", icon: PiggyIcon, title: "Reallocate", body: "Saved capital is auto-routed into your IRA, index funds, and emergency fund — every day." },
   ];
   return (
     <section id="how" className="py-28 bg-card/40 border-y border-border scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20 max-w-2xl mx-auto">
+        <div className="text-center mb-16 max-w-2xl mx-auto">
           <p className="text-xs font-mono uppercase tracking-[0.25em] text-lime mb-3">How LONGEVA works</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">
-            Four steps. One unbroken loop.
+            From daily actions to lifetime wealth—fully automated.
           </h2>
+          <p className="text-muted-foreground text-lg mt-5">
+            One closed loop: data in, forecast out, capital reallocated in real time.
+          </p>
         </div>
         <div className="grid md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
           {steps.map((s) => (
