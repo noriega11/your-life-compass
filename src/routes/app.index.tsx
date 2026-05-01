@@ -1,13 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Heart, Wallet, Brain, ArrowRight, Check, ShieldCheck, Receipt, PiggyBank } from "lucide-react";
-import { LifeScoreOrb } from "@/components/LifeScoreOrb";
-import { WhyThis } from "@/components/WhyThis";
-import { RetirementPlanner } from "@/components/RetirementPlanner";
-import { MOCK_USER, TODAY_ACTIONS, RECOMMENDED_MERCHANTS, RECENT_TRANSACTIONS } from "@/lib/mockData";
+import {
+  ArrowRight, Check, ShieldCheck, Receipt, PiggyBank, TrendingUp, TrendingDown,
+  Wallet, Target, Activity,
+} from "lucide-react";
+import {
+  ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
+} from "recharts";
 import { useState } from "react";
-import optimized70 from "@/assets/future-self-optimized-70.jpg";
-import current70 from "@/assets/future-self-current-70.jpg";
+import { WhyThis } from "@/components/WhyThis";
+import { Counter } from "@/components/Counter";
+import { MOCK_USER, TODAY_ACTIONS, RETIREMENT_DATA } from "@/lib/mockData";
 
 export const Route = createFileRoute("/app/")({ component: Today });
 
@@ -28,175 +31,192 @@ function Today() {
     });
   const doneCount = doneIds.size;
 
-  // Mock 7-day signals with sparklines
-  const signals = [
-    { label: "HRV", value: 64, suffix: "ms", icon: Heart, series: [52, 58, 61, 55, 60, 63, 64], tone: "teal" as const },
-    { label: "Sleep", value: 7.4, suffix: "h", icon: Brain, series: [6.2, 6.8, 7.1, 6.9, 7.0, 7.3, 7.4], tone: "teal" as const },
-    { label: "Glucose", value: 92, suffix: "mg/dL", icon: Wallet, series: [108, 102, 98, 105, 96, 94, 92], tone: "teal" as const },
-    { label: "VO₂ max", value: 47.2, suffix: "", icon: Heart, series: [45.1, 45.4, 45.9, 46.3, 46.6, 47.0, 47.2], tone: "gold" as const },
-  ];
+  const gapAbs = Math.abs(MOCK_USER.retirementGap);
 
   return (
     <div className="max-w-6xl mx-auto space-y-10">
       {/* Hero */}
-      <section className="grid lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-7">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">Today · Day {MOCK_USER.season.day} of {MOCK_USER.season.total}</p>
-          <h1 className="font-display text-5xl sm:text-6xl text-balance">{greeting}, {MOCK_USER.firstName}.</h1>
-          <p className="text-muted-foreground mt-3">Your retirement readiness improved <span className="text-teal font-medium">+{MOCK_USER.lifeScoreDelta}</span> this week. Three capital actions below keep you on the optimized path. Your LifeScore blends wealth, risk, behavior, and vitality into one financial-readiness number.</p>
+      <header className="space-y-3">
+        <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold">Your Financial Life Forecast · Day {MOCK_USER.season.day}/{MOCK_USER.season.total}</p>
+        <h1 className="font-display text-5xl sm:text-6xl text-balance">{greeting}, {MOCK_USER.firstName}.</h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Five capital actions today close <span className="text-teal font-medium">$13,200</span> of your retirement gap. Your money is being optimized in real time.
+        </p>
+      </header>
 
-          <div className="grid grid-cols-3 gap-3 mt-8">
-            {[
-              { label: "Health", value: MOCK_USER.health, icon: Heart, series: [68, 70, 71, 72, 73, 74, 74] },
-              { label: "Wealth", value: MOCK_USER.wealth, icon: Wallet, series: [62, 64, 65, 66, 67, 67, 68] },
-              { label: "Mind", value: MOCK_USER.mind, icon: Brain, series: [76, 77, 78, 79, 80, 80, 81] },
-            ].map((s) => (
-              <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
-                <s.icon className="h-4 w-4 text-muted-foreground mb-3" />
-                <p className="text-xs text-muted-foreground">{s.label}</p>
-                <p className="font-display text-3xl tabular-nums">{s.value}</p>
-                <Sparkline values={s.series} className="mt-3" />
-              </div>
-            ))}
+      {/* 6 hero metrics */}
+      <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <MetricCard
+          tag="LifeScore"
+          tone="gold"
+          value={<><Counter to={MOCK_USER.lifeScore} />/1000</>}
+          delta={`+${MOCK_USER.lifeScoreDelta} this week`}
+          deltaTone="up"
+          hint="Wealth + risk + behavior + vitality"
+        />
+        <MetricCard
+          tag="Wealth Score"
+          tone="teal"
+          value={<><Counter to={MOCK_USER.wealthScore} />/100</>}
+          delta="+3 vs last month"
+          deltaTone="up"
+          hint="Savings rate, leakage, debt pressure"
+        />
+        <MetricCard
+          tag="Retirement Readiness"
+          tone="teal"
+          value={<><Counter to={MOCK_USER.retirementReadiness} />%</>}
+          delta="Target 85% by 67"
+          hint="Income replacement at 67"
+        />
+        <MetricCard
+          tag="Retirement Gap"
+          tone="coral"
+          value={<>-$<Counter to={Math.round(gapAbs / 1000)} />K</>}
+          delta="−$8.4K closed this quarter"
+          deltaTone="up"
+          hint="Projected shortfall at 67"
+        />
+        <MetricCard
+          tag="Auto-Saved This Month"
+          tone="teal"
+          value={<>$<Counter to={MOCK_USER.autoSavedThisMonth} /></>}
+          delta="+18% vs last month"
+          deltaTone="up"
+          hint="Routed to IRA & emergency fund"
+        />
+        <MetricCard
+          tag="Spending Leakage Reduced"
+          tone="gold"
+          value={<><Counter to={MOCK_USER.leakageReduced} />%</>}
+          delta="$187 in guardrail saves"
+          deltaTone="up"
+          hint="vs your baseline 90 days ago"
+        />
+      </section>
+
+      {/* Net worth trajectory */}
+      <section className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">Net Worth Forecast</p>
+            <h2 className="font-display text-3xl">Current path vs LONGEVA-optimized</h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              At 67: <span className="text-muted-foreground line-through">${(MOCK_USER.netWorthCurrent67/1000).toFixed(0)}K</span>{" "}
+              → <span className="text-teal font-medium">${(MOCK_USER.netWorthOptimized67/1000).toFixed(0)}K</span> with current rules active.
+            </p>
           </div>
+          <WhyThis data={{
+            summary: "Projected from your current savings rate, recurring obligations, guardrail savings, and historical investment returns. The optimized path assumes your 4 active rules continue.",
+            signals: [
+              { name: "Savings rate trajectory", weight: 0.36 },
+              { name: "Guardrail interventions", weight: 0.28 },
+              { name: "Auto-save rules", weight: 0.22 },
+              { name: "Income trajectory", weight: 0.14 },
+            ],
+            confidence: 0.83,
+            modelVersion: "Wealth Engine v1.4",
+          }} />
         </div>
-        <div className="lg:col-span-5 flex justify-center">
-          <LifeScoreOrb value={MOCK_USER.lifeScore} low={MOCK_USER.lifeScoreLow} high={MOCK_USER.lifeScoreHigh} size={300} />
+        <div className="h-[280px] -mx-2">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={RETIREMENT_DATA}>
+              <defs>
+                <linearGradient id="dash-longeva" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="var(--teal)" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="var(--teal)" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="2 4" stroke="var(--border)" opacity={0.5} />
+              <XAxis dataKey="age" stroke="var(--muted-foreground)" fontSize={11} />
+              <YAxis stroke="var(--muted-foreground)" fontSize={11} tickFormatter={(v) => `$${v}k`} />
+              <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 12, fontSize: 12 }} formatter={(v: number) => `$${v}k`} />
+              <ReferenceLine x={67} stroke="var(--gold)" strokeDasharray="4 4" label={{ value: "Retire", fill: "var(--gold)", fontSize: 10 }} />
+              <Area type="monotone" dataKey="base" stroke="var(--muted-foreground)" strokeWidth={2} fill="transparent" name="Default path" />
+              <Area type="monotone" dataKey="longeva" stroke="var(--teal)" strokeWidth={2.5} fill="url(#dash-longeva)" name="LONGEVA path" />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </section>
 
-      {/* Health signals */}
+      {/* Today's Financial Actions */}
       <section>
         <div className="flex items-end justify-between mb-4">
           <div>
-            <h2 className="font-display text-3xl">Health signals</h2>
-            <p className="text-sm text-muted-foreground">7-day trend, latest day highlighted.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {signals.map((s) => (
-            <div key={s.label} className="rounded-2xl border border-border bg-card p-5">
-              <div className="flex items-center justify-between mb-3">
-                <s.icon className="h-4 w-4 text-muted-foreground" />
-                <span className={`text-[10px] font-mono uppercase tracking-wider ${s.tone === "gold" ? "text-gold" : "text-teal"}`}>{s.label}</span>
-              </div>
-              <p className="font-display text-3xl tabular-nums">
-                {s.value}
-                <span className="text-sm text-muted-foreground ml-1 font-sans">{s.suffix}</span>
-              </p>
-              <Sparkline
-                values={s.series}
-                className="mt-4"
-                highlight={s.tone === "gold" ? "var(--gold)" : "var(--teal)"}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 3 actions */}
-      <section>
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <h2 className="font-display text-3xl">Your 3 capital actions today</h2>
-            <p className="text-sm text-muted-foreground">Each under 30 minutes. Each with measurable financial impact.</p>
+            <h2 className="font-display text-3xl">Today's financial actions</h2>
+            <p className="text-sm text-muted-foreground">Each one moves your retirement gap. Approve, dismiss, or auto-execute.</p>
           </div>
           <div className="text-right">
-            <p className="font-mono text-sm tabular-nums"><span className="text-teal">{doneCount}</span><span className="text-muted-foreground">/3 done</span></p>
+            <p className="font-mono text-sm tabular-nums"><span className="text-teal">{doneCount}</span><span className="text-muted-foreground">/{TODAY_ACTIONS.length} done</span></p>
             <div className="mt-1 h-1 w-24 bg-muted rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-teal"
-                animate={{ width: `${(doneCount / 3) * 100}%` }}
+                animate={{ width: `${(doneCount / TODAY_ACTIONS.length) * 100}%` }}
                 transition={{ type: "spring", stiffness: 200, damping: 22 }}
               />
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           {TODAY_ACTIONS.map((a, i) => (
-            <ActionCard key={a.id} a={a} delay={i * 0.08} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
+            <ActionCard key={a.id} a={a} delay={i * 0.06} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
           ))}
         </div>
       </section>
 
-      {/* Today at a glance */}
+      {/* At a glance */}
       <section className="grid md:grid-cols-3 gap-4">
-        <GlanceCard
-          icon={ShieldCheck}
-          tag="Guardrails"
-          headline="$87 saved today"
-          body="2 purchases blocked, 1 nudged."
-        />
-        <GlanceCard
-          icon={Receipt}
-          tag="Spending Impact"
-          headline={`${RECENT_TRANSACTIONS.filter((t) => t.impact === "good").length}/${RECENT_TRANSACTIONS.length} purchases scored well`}
-          body="Latest: Whole Foods +1.2 healthspan hrs"
-        />
-        <GlanceCard
-          icon={PiggyBank}
-          tag="Auto-Save"
-          headline="$47 → IRA"
-          body="Routed automatically this morning."
-        />
+        <GlanceCard icon={ShieldCheck} tag="Guardrails" headline="$87 saved today" body="2 purchases blocked, 1 nudged." to="/app/guardrails" />
+        <GlanceCard icon={Receipt} tag="Spending Impact" headline="22% leakage reduced" body="$186 flagged for review." to="/app/spending" />
+        <GlanceCard icon={PiggyBank} tag="Auto-Save" headline="$47 → IRA" body="Routed automatically this morning." to="/app/retirement" />
       </section>
 
-      {/* Retirement planner */}
-      <section>
-        <div className="mb-4">
-          <h2 className="font-display text-3xl">Retirement gap</h2>
-          <p className="text-sm text-muted-foreground">Move the sliders, watch your nest egg respond.</p>
-        </div>
-        <RetirementPlanner currentAge={MOCK_USER.realAge} />
+      {/* Wealth & Vitality split */}
+      <section className="grid md:grid-cols-2 gap-4">
+        <SplitCard
+          icon={Wallet}
+          tone="teal"
+          tag="Wealth"
+          headline="Open your full forecast"
+          body="Net worth at 67/75/85, savings rate, debt pressure, and a redirect simulator."
+          to="/app/wealth"
+        />
+        <SplitCard
+          icon={Activity}
+          tone="gold"
+          tag="Vitality Risk"
+          headline="Health → financial pressure"
+          body="How sleep, stress, and movement signals shape your future healthcare-cost forecast."
+          to="/app/vitality"
+        />
       </section>
+    </div>
+  );
+}
 
-      {/* Future Self teaser */}
-      <section className="rounded-3xl overflow-hidden border border-border bg-card p-6 sm:p-10 grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-2">Two financial trajectories</p>
-          <h2 className="font-display text-4xl mb-3">Two paths. Your choice.</h2>
-          <p className="text-muted-foreground mb-5">What you do with money today decides your net worth at 70.</p>
-          <a href="/app/trajectory" className="inline-flex items-center gap-1.5 text-sm text-teal hover:underline">
-            Open my forecast <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {[{ src: current70, tag: "Without changes", tone: "coral" }, { src: optimized70, tag: "With LONGEVA", tone: "teal" }].map((p) => (
-            <div key={p.tag} className="relative rounded-2xl overflow-hidden">
-              <img src={p.src} alt={p.tag} loading="lazy" className="w-full aspect-[4/5] object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent" />
-              <p className={`absolute bottom-3 left-3 text-xs font-mono ${p.tone === "teal" ? "text-teal" : "text-coral"}`}>{p.tag}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Recommended */}
-      <section>
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <h2 className="font-display text-3xl">Recommended for you</h2>
-            <p className="text-sm text-muted-foreground">Places that move your forecast forward.</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {RECOMMENDED_MERCHANTS.map((m) => (
-            <div key={m.id} className="rounded-2xl overflow-hidden border border-border bg-card group">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img src={m.image} alt={m.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              </div>
-              <div className="p-3">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{m.category}</p>
-                <p className="text-sm font-medium truncate">{m.name}</p>
-                <div className="flex items-center justify-between mt-2 text-xs">
-                  <span className="text-lime font-mono">+{m.impact}</span>
-                  <span className="text-muted-foreground">{m.distance}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+function MetricCard({
+  tag, value, delta, deltaTone, hint, tone,
+}: {
+  tag: string;
+  value: React.ReactNode;
+  delta?: string;
+  deltaTone?: "up" | "down";
+  hint?: string;
+  tone: "gold" | "teal" | "coral";
+}) {
+  const toneCls = tone === "gold" ? "text-gold" : tone === "teal" ? "text-teal" : "text-coral";
+  const Arrow = deltaTone === "up" ? TrendingUp : TrendingDown;
+  return (
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{tag}</p>
+      <p className={`font-display text-3xl tabular-nums mt-2 ${toneCls}`}>{value}</p>
+      {delta && (
+        <p className={`text-xs mt-2 flex items-center gap-1 ${deltaTone === "up" ? "text-teal" : "text-muted-foreground"}`}>
+          {deltaTone && <Arrow className="h-3 w-3" />}
+          {delta}
+        </p>
+      )}
+      {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
     </div>
   );
 }
@@ -208,17 +228,27 @@ function ActionCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
       className={`rounded-2xl border p-5 transition-all ${done ? "border-teal/60 bg-teal/5" : "border-border bg-card"}`}
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3">
         <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-muted">{a.category}</span>
         <span className="text-xs text-gold font-mono">+{a.longv} LONGV</span>
       </div>
       <p className={`font-medium leading-snug mb-2 ${done ? "line-through text-muted-foreground" : ""}`}>{a.title}</p>
       <p className="text-xs text-muted-foreground leading-relaxed mb-4">{a.outcome}</p>
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        <div className="rounded-lg bg-background border border-border p-2">
+          <p className="text-[9px] font-mono uppercase text-muted-foreground">Saved</p>
+          <p className="text-sm font-medium text-teal tabular-nums">${a.dollars}</p>
+        </div>
+        <div className="rounded-lg bg-background border border-border p-2">
+          <p className="text-[9px] font-mono uppercase text-muted-foreground">At 67</p>
+          <p className="text-sm font-medium text-gold tabular-nums">{a.retirementImpact ? `+$${a.retirementImpact.toLocaleString()}` : "—"}</p>
+        </div>
+      </div>
       <div className="flex items-center justify-between">
         <WhyThis data={a.why} label="Why?" />
         <button
@@ -235,46 +265,34 @@ function ActionCard({
   );
 }
 
-function GlanceCard({ icon: Icon, tag, headline, body }: { icon: React.ComponentType<{ className?: string }>; tag: string; headline: string; body: string }) {
+function GlanceCard({ icon: Icon, tag, headline, body, to }: { icon: React.ComponentType<{ className?: string }>; tag: string; headline: string; body: string; to: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <Link to={to} className="rounded-2xl border border-border bg-card p-5 hover:border-foreground/40 transition">
       <Icon className="h-4 w-4 text-gold mb-3" />
       <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">{tag}</p>
       <p className="font-display text-2xl mt-1">{headline}</p>
       <p className="text-xs text-muted-foreground mt-1">{body}</p>
-    </div>
+    </Link>
   );
 }
 
-function Sparkline({
-  values, className, highlight = "var(--teal)",
-}: { values: number[]; className?: string; highlight?: string }) {
-  const min = Math.min(...values);
-  const max = Math.max(...values);
-  const range = max - min || 1;
-  const w = 100;
-  const h = 28;
-  const barW = w / values.length;
+function SplitCard({ icon: Icon, tone, tag, headline, body, to }: {
+  icon: React.ComponentType<{ className?: string }>;
+  tone: "teal" | "gold";
+  tag: string; headline: string; body: string; to: string;
+}) {
+  const cls = tone === "teal" ? "text-teal" : "text-gold";
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className={`w-full h-7 ${className ?? ""}`} aria-hidden="true">
-      {values.map((v, i) => {
-        const bh = ((v - min) / range) * (h - 4) + 3;
-        const x = i * barW + barW * 0.18;
-        const y = h - bh;
-        const isLast = i === values.length - 1;
-        return (
-          <rect
-            key={i}
-            x={x}
-            y={y}
-            width={barW * 0.64}
-            height={bh}
-            rx={1}
-            fill={isLast ? highlight : "var(--muted-foreground)"}
-            opacity={isLast ? 1 : 0.35}
-          />
-        );
-      })}
-    </svg>
+    <Link to={to} className="rounded-3xl border border-border bg-gradient-to-br from-card to-card/50 p-6 hover:border-foreground/40 transition group">
+      <div className="flex items-start justify-between mb-3">
+        <div className={`h-10 w-10 rounded-xl bg-${tone}/15 grid place-items-center ${cls}`}>
+          <Icon className="h-4 w-4" />
+        </div>
+        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-1 transition" />
+      </div>
+      <p className={`text-[10px] font-mono uppercase tracking-wider ${cls}`}>{tag}</p>
+      <h3 className="font-display text-2xl mt-1 mb-2">{headline}</h3>
+      <p className="text-sm text-muted-foreground">{body}</p>
+    </Link>
   );
 }
