@@ -4,6 +4,7 @@ import {
   ArrowRight, Heart, Wallet, Brain, Shield, Activity, Sparkles, Check,
   Lock, Eye, Database, Smartphone, ChevronDown, TrendingDown, AlertCircle,
   CreditCard, Watch, ScanFace, CalendarDays, Target, Zap, Apple, Bell, Repeat, LineChart,
+  PiggyBank, TrendingUp, Banknote, Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LifeScoreOrb } from "@/components/LifeScoreOrb";
