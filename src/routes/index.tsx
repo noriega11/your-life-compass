@@ -599,10 +599,10 @@ function FutureSelf() {
     <section className="py-32 bg-card/40 border-y border-border overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-10 max-w-2xl mx-auto">
-          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">See your future self</p>
+          <p className="text-xs font-mono uppercase tracking-[0.25em] text-gold mb-3">Two financial trajectories</p>
           <h2 className="font-display text-5xl sm:text-6xl text-balance">Two paths. Your choice.</h2>
           <p className="text-muted-foreground mt-4">
-            What you do today decides who shows up at 70, 80, 90.
+            What you do with money today decides your net worth — and your options — at 70, 80, 90.
           </p>
         </div>
 
