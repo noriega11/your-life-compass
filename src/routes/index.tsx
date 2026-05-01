@@ -1330,9 +1330,9 @@ function Pricing() {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div className="max-w-md">
               <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-lime mb-2">How we make money</p>
-              <h3 className="font-display text-2xl mb-2">Incentives aligned with your healthspan.</h3>
+              <h3 className="font-display text-2xl mb-2">Incentives aligned with your net worth.</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                We earn only when you live longer and better. Four streams, all opt-in, all visible.
+                We earn only when your money compounds. Four streams, all opt-in, all visible.
               </p>
             </div>
             <div className="grid sm:grid-cols-2 gap-3 flex-1 max-w-xl">
