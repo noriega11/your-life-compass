@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from "recharts";
-import { Sparkles, TrendingUp, Check, ChevronDown } from "lucide-react";
+import { Sparkles, TrendingUp, Check, ChevronDown, Info } from "lucide-react";
 
 // Future-value of current savings + monthly contributions
 function projectNestEgg(savings: number, monthly: number, years: number, ratePct: number) {
@@ -12,15 +12,6 @@ function projectNestEgg(savings: number, monthly: number, years: number, ratePct
   const fvSavings = savings * Math.pow(1 + r, n);
   const fvMonthly = r === 0 ? monthly * n : monthly * ((Math.pow(1 + r, n) - 1) / r);
   return Math.round(fvSavings + fvMonthly);
-}
-
-function monthlyToReach(target: number, savings: number, years: number, ratePct: number) {
-  const r = ratePct / 100 / 12;
-  const n = years * 12;
-  const fvSavings = savings * Math.pow(1 + r, n);
-  const remaining = Math.max(0, target - fvSavings);
-  if (n === 0) return remaining;
-  return r === 0 ? remaining / n : remaining / ((Math.pow(1 + r, n) - 1) / r);
 }
 
 const fmt = (n: number) => {
@@ -34,57 +25,63 @@ interface Props {
   showChart?: boolean;
 }
 
-// Hicks Law: limit choices. Three friendly presets per question.
-const AGE_PRESETS = [
-  { label: "20s", value: 27, monthly: 600, savings: 8_000 },
-  { label: "30s", value: 35, monthly: 1_200, savings: 45_000 },
-  { label: "40s", value: 45, monthly: 1_800, savings: 120_000 },
-  { label: "50s+", value: 55, monthly: 2_400, savings: 220_000 },
-];
+// Spending habits presets. Higher impulse = bigger opportunity for LONGEVA to recover.
+const HABIT_PRESETS = [
+  {
+    label: "Mindful",
+    value: "low",
+    boost: 180,
+    description: "You rarely impulse-buy. LONGEVA fine-tunes the small leaks.",
+  },
+  {
+    label: "Average",
+    value: "mid",
+    boost: 380,
+    description: "A few impulse buys per week. LONGEVA quietly recovers them.",
+  },
+  {
+    label: "Impulsive",
+    value: "high",
+    boost: 620,
+    description: "Frequent impulse spending. LONGEVA blocks and redirects to savings.",
+  },
+] as const;
 
-const SAVE_PRESETS = [
-  { label: "A little", value: 400, hint: "$400 / mo" },
-  { label: "Steady", value: 1_200, hint: "$1,200 / mo" },
-  { label: "Aggressive", value: 2_500, hint: "$2,500 / mo" },
-];
+// Estimate starting savings from age (priming defaults so the slider feels alive).
+function estimateSavings(age: number) {
+  if (age < 30) return 8_000;
+  if (age < 40) return 45_000;
+  if (age < 50) return 120_000;
+  return 220_000;
+}
 
 export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) {
-  // Default to a sane preset based on prop currentAge (priming defaults).
-  const initialPreset =
-    AGE_PRESETS.find((p) => Math.abs(p.value - currentAge) <= 5) ?? AGE_PRESETS[1];
-
-  const [ageBucket, setAgeBucket] = useState(initialPreset);
-  const [savePreset, setSavePreset] = useState(SAVE_PRESETS[1]);
+  const [age, setAge] = useState(currentAge);
+  const [monthly, setMonthly] = useState(1_200);
+  const [habit, setHabit] = useState<(typeof HABIT_PRESETS)[number]>(HABIT_PRESETS[1]);
   const [advanced, setAdvanced] = useState(false);
   const [retireAge, setRetireAge] = useState(67);
   const [rate, setRate] = useState(6.5);
 
-  const savings = ageBucket.savings;
-  const monthly = savePreset.value;
-  const target = 2_000_000;
+  const savings = estimateSavings(age);
+  const years = Math.max(1, retireAge - age);
 
-  const years = Math.max(1, retireAge - ageBucket.value);
   const projected = useMemo(
     () => projectNestEgg(savings, monthly, years, rate),
     [savings, monthly, years, rate],
   );
-  const gap = projected - target;
-  const monthlyNeeded = useMemo(
-    () => monthlyToReach(target, savings, years, rate),
-    [savings, years, rate],
-  );
-  const extraPerMonth = Math.max(0, Math.round(monthlyNeeded - monthly));
-  const longevaBoost = 380; // Confirmation bias: typical guardrail savings reframed as a win.
-  const optimizedMonthly = monthly + longevaBoost;
-  const optimizedProjected = projectNestEgg(savings, optimizedMonthly, years, rate);
-  const optimizedGain = optimizedProjected - projected;
 
-  const onTrack = gap >= 0;
+  const optimizedMonthly = monthly + habit.boost;
+  const optimizedProjected = useMemo(
+    () => projectNestEgg(savings, optimizedMonthly, years, rate),
+    [savings, optimizedMonthly, years, rate],
+  );
+  const optimizedGain = optimizedProjected - projected;
 
   const chartData = useMemo(() => {
     const arr: { age: number; current: number; optimized: number }[] = [];
-    for (let a = ageBucket.value; a <= retireAge; a++) {
-      const yrs = a - ageBucket.value;
+    for (let a = age; a <= retireAge; a++) {
+      const yrs = a - age;
       arr.push({
         age: a,
         current: Math.round(projectNestEgg(savings, monthly, yrs, rate) / 1000),
@@ -92,69 +89,79 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
       });
     }
     return arr;
-  }, [savings, monthly, optimizedMonthly, rate, retireAge, ageBucket.value]);
+  }, [savings, monthly, optimizedMonthly, rate, retireAge, age]);
 
   return (
     <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 shadow-card">
-      {/* Header — primes user with the friendly framing */}
+      {/* Header */}
       <div className="text-center max-w-xl mx-auto mb-8">
         <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold/10 text-gold text-[11px] font-mono mb-4">
           <Sparkles className="h-3 w-3" /> 60-second forecast
         </span>
         <h3 className="font-display text-3xl sm:text-4xl mb-3">
-          Two questions. Your retirement number.
+          Move the sliders. See your future.
         </h3>
         <p className="text-sm text-muted-foreground">
-          No spreadsheets. No jargon. Just a clear picture of where you're heading.
+          Three inputs: your age, what you save each month, and your spending habits.
         </p>
       </div>
 
-      {/* Question 1: Age bucket — Hicks: 4 chips, not a slider */}
-      <div className="mb-6">
-        <p className="text-sm font-medium mb-3 text-center">
-          1. How old are you?
-        </p>
-        <div className="grid grid-cols-4 gap-2 max-w-md mx-auto">
-          {AGE_PRESETS.map((p) => (
-            <button
-              key={p.label}
-              onClick={() => setAgeBucket(p)}
-              className={`px-3 py-3 rounded-xl text-sm font-medium transition-all ${
-                ageBucket.label === p.label
-                  ? "bg-foreground text-background shadow-soft"
-                  : "bg-background border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              {p.label}
-            </button>
-          ))}
+      <div className="max-w-xl mx-auto space-y-6">
+        {/* Slider 1: Age */}
+        <SliderField
+          label="Your age today"
+          value={`${age} years`}
+          min={22}
+          max={65}
+          step={1}
+          v={age}
+          set={setAge}
+        />
+
+        {/* Slider 2: Monthly savings */}
+        <SliderField
+          label="What you save every month"
+          value={`$${monthly.toLocaleString()}`}
+          min={100}
+          max={5_000}
+          step={50}
+          v={monthly}
+          set={setMonthly}
+        />
+
+        {/* Spending habits  the third variable */}
+        <div>
+          <div className="flex items-baseline justify-between mb-2">
+            <label className="text-xs uppercase tracking-wider text-muted-foreground">
+              Your spending habits
+            </label>
+            <span className="font-mono text-sm tabular-nums text-teal">
+              +${habit.boost}/mo recovered
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {HABIT_PRESETS.map((p) => (
+              <button
+                key={p.value}
+                onClick={() => setHabit(p)}
+                className={`px-3 py-3 rounded-xl text-sm font-medium transition-all ${
+                  habit.value === p.value
+                    ? "bg-foreground text-background shadow-soft"
+                    : "bg-background border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground bg-background border border-border rounded-lg p-3">
+            <Info className="h-3.5 w-3.5 mt-0.5 flex-shrink-0 text-teal" />
+            <span>{habit.description}</span>
+          </div>
         </div>
       </div>
 
-      {/* Question 2: Saving style — Hicks: 3 chips, not a slider */}
-      <div className="mb-6">
-        <p className="text-sm font-medium mb-3 text-center">
-          2. How much do you save each month?
-        </p>
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
-          {SAVE_PRESETS.map((p) => (
-            <button
-              key={p.label}
-              onClick={() => setSavePreset(p)}
-              className={`px-3 py-3 rounded-xl text-sm font-medium transition-all ${
-                savePreset.label === p.label
-                  ? "bg-foreground text-background shadow-soft"
-                  : "bg-background border border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
-              }`}
-            >
-              <div>{p.label}</div>
-              <div className="text-[10px] font-mono mt-0.5 opacity-70">{p.hint}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Headline result — confirmation bias: positive framing */}
+      {/* Headline result */}
       <motion.div
         key={`${projected}-${optimizedProjected}`}
         initial={{ opacity: 0, y: 8 }}
@@ -175,14 +182,13 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
           <span className="text-muted-foreground">than your current path</span>
         </div>
         <p className="text-xs text-muted-foreground mt-4 max-w-sm mx-auto leading-relaxed">
-          {onTrack
-            ? "You're already on track. LONGEVA helps you stay there and add a comfortable buffer."
-            : `LONGEVA typically frees up ~$${longevaBoost}/month from impulse spending and quietly invests it for you.`}
+          LONGEVA reads your spending habits and quietly recovers ${habit.boost}/month
+          from impulse purchases, then invests it for you automatically.
         </p>
       </motion.div>
 
-      {/* Two simple confirmation chips, not a wall of numbers */}
-      <div className="grid grid-cols-2 gap-3 mt-4 max-w-md mx-auto">
+      {/* Two-column comparison */}
+      <div className="grid grid-cols-2 gap-3 mt-4 max-w-xl mx-auto">
         <div className="rounded-xl border border-border bg-background p-3 text-center">
           <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
             Your path today
@@ -197,8 +203,8 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
         </div>
       </div>
 
-      {/* Advanced — collapsed by default to reduce cognitive load */}
-      <div className="mt-6 max-w-md mx-auto">
+      {/* Advanced */}
+      <div className="mt-6 max-w-xl mx-auto">
         <button
           onClick={() => setAdvanced((v) => !v)}
           className="w-full flex items-center justify-center gap-1.5 text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground transition"
@@ -216,7 +222,7 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
             className="overflow-hidden"
           >
             <div className="mt-4 grid sm:grid-cols-2 gap-4 p-4 rounded-xl border border-border bg-background">
-              <SliderRow
+              <SliderField
                 label="Retire at age"
                 value={`${retireAge}`}
                 min={55}
@@ -225,7 +231,7 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
                 v={retireAge}
                 set={setRetireAge}
               />
-              <SliderRow
+              <SliderField
                 label="Expected return"
                 value={`${rate.toFixed(1)}%`}
                 min={3}
@@ -239,7 +245,7 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
         )}
       </div>
 
-      {/* Chart — only render when there's enough range */}
+      {/* Chart */}
       {showChart && years > 2 && (
         <div className="mt-10 pt-8 border-t border-border">
           <div className="text-center mb-5">
@@ -247,7 +253,7 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
               Your savings, year by year
             </p>
             <p className="font-display text-lg mt-1">
-              Watch the gap close from age {ageBucket.value} to {retireAge}
+              Watch the gap close from age {age} to {retireAge}
             </p>
           </div>
           <div className="h-[220px]">
@@ -297,7 +303,7 @@ export function RetirementPlanner({ currentAge = 35, showChart = true }: Props) 
   );
 }
 
-function SliderRow({
+function SliderField({
   label, value, min, max, step, v, set,
 }: { label: string; value: string; min: number; max: number; step: number; v: number; set: (n: number) => void }) {
   return (
