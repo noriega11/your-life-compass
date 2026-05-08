@@ -2,15 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
-  ArrowRight, Check, Shield, PiggyBank, TrendingUp, Sparkles, Wallet,
+  ArrowRight, Check, Shield, PiggyBank, TrendingUp, Sparkles, Wallet, PartyPopper,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
 } from "recharts";
+import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Counter } from "@/components/Counter";
 import { Progress } from "@/components/ui/progress";
+import { WhyThis } from "@/components/WhyThis";
 import { MOCK_USER, TODAY_ACTIONS, RETIREMENT_DATA } from "@/lib/mockData";
 
 export const Route = createFileRoute("/app/")({ component: Today });
@@ -37,10 +39,31 @@ function Today() {
     return "Good evening";
   })();
 
+  // Heuristic 3 (User control & freedom): every "done" tap can be undone
+  // for 6 seconds via a toast — no destructive action without an exit.
   const toggleDone = (id: string) =>
     setDoneIds((s) => {
       const next = new Set(s);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      const wasDone = next.has(id);
+      if (wasDone) {
+        next.delete(id);
+      } else {
+        next.add(id);
+        const action = TODAY_ACTIONS.find((a) => a.id === id);
+        toast.success(`Marked done${action ? `: ${action.title}` : ""}`, {
+          description: action ? `+$${action.dollars} added to today's progress` : undefined,
+          action: {
+            label: "Undo",
+            onClick: () =>
+              setDoneIds((cur) => {
+                const undone = new Set(cur);
+                undone.delete(id);
+                return undone;
+              }),
+          },
+          duration: 6000,
+        });
+      }
       return next;
     });
 
@@ -107,6 +130,24 @@ function Today() {
               You have <span className="text-foreground font-medium">3 small actions</span> today that move your retirement forecast by{" "}
               <span className="text-teal font-medium">+$13,200</span>.
             </p>
+            {/* Heuristic 11: Explainable AI — every AI claim links to its reasoning. */}
+            <div className="mt-3">
+              <WhyThis
+                label="Why $13,200?"
+                data={{
+                  summary:
+                    "Each of today's 3 actions reduces leakage or routes more cash into your IRA. Compounded to age 67 at a 6.2% real return, the combined lift is roughly $13,200 in retirement-equivalent dollars.",
+                  signals: [
+                    { name: "Compounded IRA contribution", weight: 0.46 },
+                    { name: "Avoided subscription leakage", weight: 0.27 },
+                    { name: "Reduced impulse spend variance", weight: 0.18 },
+                    { name: "Tax-deferred growth assumption", weight: 0.09 },
+                  ],
+                  confidence: 0.82,
+                  modelVersion: "longeva-forecast v0.6.2",
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -192,21 +233,45 @@ function Today() {
         </div>
       </section>
 
-      {/* Today's actions, simplified */}
+      {/* Today's actions, simplified. Heuristic 9: friendly empty state when complete. */}
       <section id="actions">
         <div className="flex items-end justify-between mb-4">
           <div>
             <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Step 2</p>
             <h2 className="font-display text-2xl">Today's actions</h2>
           </div>
-          <p className="text-xs text-muted-foreground">Tap to mark done</p>
+          <p className="text-xs text-muted-foreground">Tap to mark done · Undo within 6s</p>
         </div>
-        <div className="space-y-3">
-          {TODAY_ACTIONS.slice(0, 3).map((a, i) => (
-            <ActionRow key={a.id} a={a} delay={i * 0.05} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
-          ))}
-        </div>
+        {doneCount >= 3 ? (
+          <div className="rounded-2xl border border-teal/40 bg-teal/5 p-6 sm:p-8 text-center">
+            <PartyPopper className="h-8 w-8 text-teal mx-auto mb-3" aria-hidden="true" />
+            <p className="font-display text-2xl">All three done. Nice work, {profile.first}.</p>
+            <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
+              You just moved your retirement forecast forward. Tomorrow's actions arrive at 7am.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center mt-5">
+              <Link to="/app/wealth" className="text-xs font-medium px-4 py-2 rounded-full border border-border bg-card hover:border-foreground/40 transition">
+                See updated forecast
+              </Link>
+              <Link to="/app/guardrails" className="text-xs font-medium px-4 py-2 rounded-full bg-teal text-background hover:opacity-90 transition">
+                Set a new guardrail
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {TODAY_ACTIONS.slice(0, 3).map((a, i) => (
+              <ActionRow key={a.id} a={a} delay={i * 0.05} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
+            ))}
+          </div>
+        )}
       </section>
+
+      {/* Heuristic 10: contextual help footer. Always visible escape hatch. */}
+      <footer className="text-center text-xs text-muted-foreground border-t border-border pt-6">
+        Need a hand? Tap the <span className="text-foreground">?</span> icon in the top bar for FAQ, or{" "}
+        <Link to="/app/coach" className="text-lime hover:underline">ask the coach</Link>.
+      </footer>
     </div>
   );
 }
