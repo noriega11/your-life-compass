@@ -233,21 +233,45 @@ function Today() {
         </div>
       </section>
 
-      {/* Today's actions, simplified */}
+      {/* Today's actions, simplified. Heuristic 9: friendly empty state when complete. */}
       <section id="actions">
         <div className="flex items-end justify-between mb-4">
           <div>
             <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">Step 2</p>
             <h2 className="font-display text-2xl">Today's actions</h2>
           </div>
-          <p className="text-xs text-muted-foreground">Tap to mark done</p>
+          <p className="text-xs text-muted-foreground">Tap to mark done · Undo within 6s</p>
         </div>
-        <div className="space-y-3">
-          {TODAY_ACTIONS.slice(0, 3).map((a, i) => (
-            <ActionRow key={a.id} a={a} delay={i * 0.05} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
-          ))}
-        </div>
+        {doneCount >= 3 ? (
+          <div className="rounded-2xl border border-teal/40 bg-teal/5 p-6 sm:p-8 text-center">
+            <PartyPopper className="h-8 w-8 text-teal mx-auto mb-3" aria-hidden="true" />
+            <p className="font-display text-2xl">All three done. Nice work, {profile.first}.</p>
+            <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
+              You just moved your retirement forecast forward. Tomorrow's actions arrive at 7am.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center mt-5">
+              <Link to="/app/wealth" className="text-xs font-medium px-4 py-2 rounded-full border border-border bg-card hover:border-foreground/40 transition">
+                See updated forecast
+              </Link>
+              <Link to="/app/guardrails" className="text-xs font-medium px-4 py-2 rounded-full bg-teal text-background hover:opacity-90 transition">
+                Set a new guardrail
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {TODAY_ACTIONS.slice(0, 3).map((a, i) => (
+              <ActionRow key={a.id} a={a} delay={i * 0.05} done={doneIds.has(a.id)} onToggle={() => toggleDone(a.id)} />
+            ))}
+          </div>
+        )}
       </section>
+
+      {/* Heuristic 10: contextual help footer. Always visible escape hatch. */}
+      <footer className="text-center text-xs text-muted-foreground border-t border-border pt-6">
+        Need a hand? Tap the <span className="text-foreground">?</span> icon in the top bar for FAQ, or{" "}
+        <Link to="/app/coach" className="text-lime hover:underline">ask the coach</Link>.
+      </footer>
     </div>
   );
 }
