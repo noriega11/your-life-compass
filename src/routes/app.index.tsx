@@ -130,8 +130,24 @@ function Today() {
               You have <span className="text-foreground font-medium">3 small actions</span> today that move your retirement forecast by{" "}
               <span className="text-teal font-medium">+$13,200</span>.
             </p>
-          </div>
-        </div>
+            {/* Heuristic 11: Explainable AI — every AI claim links to its reasoning. */}
+            <div className="mt-3">
+              <WhyThis
+                label="Why $13,200?"
+                data={{
+                  summary:
+                    "Each of today's 3 actions reduces leakage or routes more cash into your IRA. Compounded to age 67 at a 6.2% real return, the combined lift is roughly $13,200 in retirement-equivalent dollars.",
+                  signals: [
+                    { name: "Compounded IRA contribution", weight: 0.46 },
+                    { name: "Avoided subscription leakage", weight: 0.27 },
+                    { name: "Reduced impulse spend variance", weight: 0.18 },
+                    { name: "Tax-deferred growth assumption", weight: 0.09 },
+                  ],
+                  confidence: 0.82,
+                  modelVersion: "longeva-forecast v0.6.2",
+                }}
+              />
+            </div>
 
         {/* One progress bar so the user always knows where they are. */}
         <div className="mt-6">
