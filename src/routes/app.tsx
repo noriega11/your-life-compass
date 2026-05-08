@@ -140,24 +140,36 @@ function AppLayout() {
       <div className="flex-1 min-w-0 flex flex-col">
         {/* Top bar */}
         <header className="sticky top-0 z-20 backdrop-blur-xl bg-background/70 border-b border-border">
-          <div className="px-5 lg:px-8 h-14 flex items-center justify-between">
-            <div className="flex lg:hidden">
-              <Logo size="sm" to="/app" />
-            </div>
-            <div className="hidden lg:block" />
-            <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs">
-                <Flame className="h-3.5 w-3.5 text-warning" />
-                <span className="font-mono">{MOCK_USER.streak}</span>
+          <div className="px-5 lg:px-8 h-14 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex lg:hidden">
+                <Logo size="sm" to="/app" />
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full border border-lime/30 bg-lime/10 text-xs">
+              {/* Heuristic 1 + 6: visible "you are here" breadcrumb */}
+              <nav aria-label="Breadcrumb" className="hidden lg:flex items-center gap-1.5 text-sm text-muted-foreground">
+                <Link to="/app" className="hover:text-foreground transition">Longeva</Link>
+                <ChevronRight className="h-3.5 w-3.5" />
+                <span className="text-foreground font-medium">{currentPage}</span>
+              </nav>
+            </div>
+            <div className="flex items-center gap-2">
+              {/* Heuristic 7: Quick Actions for frequent tasks */}
+              <QuickActions />
+              {/* Heuristic 10: Help & Documentation, contextual, no leaving the page */}
+              <HelpDrawer page={currentPage} />
+
+              <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-card text-xs">
+                <Flame className="h-3.5 w-3.5 text-warning" />
+                <span className="font-mono" aria-label={`${MOCK_USER.streak} day streak`}>{MOCK_USER.streak}</span>
+              </div>
+              <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full border border-lime/30 bg-lime/10 text-xs">
                 <span className="font-mono text-lime">{MOCK_USER.longvBalance.toLocaleString()} LONGV</span>
               </div>
               <Button variant="ghost" size="icon" aria-label="Notifications">
                 <Bell className="h-4 w-4" />
               </Button>
               <ThemeToggle />
-              <Link to="/app/settings" aria-label="Profile" className="shrink-0">
+              <Link to="/app/settings" aria-label="Profile and settings" className="shrink-0">
                 <Avatar className="h-8 w-8 ring-2 ring-border hover:ring-gold transition">
                   <AvatarImage src={profile.avatarUrl} alt={profile.display} />
                   <AvatarFallback className="bg-gold/20 text-gold text-[10px]">{profile.initials}</AvatarFallback>
