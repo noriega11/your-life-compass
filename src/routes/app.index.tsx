@@ -2,15 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import {
-  ArrowRight, Check, Shield, PiggyBank, TrendingUp, Sparkles, Wallet,
+  ArrowRight, Check, Shield, PiggyBank, TrendingUp, Sparkles, Wallet, PartyPopper,
 } from "lucide-react";
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
 } from "recharts";
+import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Counter } from "@/components/Counter";
 import { Progress } from "@/components/ui/progress";
+import { WhyThis } from "@/components/WhyThis";
 import { MOCK_USER, TODAY_ACTIONS, RETIREMENT_DATA } from "@/lib/mockData";
 
 export const Route = createFileRoute("/app/")({ component: Today });
