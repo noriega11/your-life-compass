@@ -39,10 +39,31 @@ function Today() {
     return "Good evening";
   })();
 
+  // Heuristic 3 (User control & freedom): every "done" tap can be undone
+  // for 6 seconds via a toast — no destructive action without an exit.
   const toggleDone = (id: string) =>
     setDoneIds((s) => {
       const next = new Set(s);
-      if (next.has(id)) next.delete(id); else next.add(id);
+      const wasDone = next.has(id);
+      if (wasDone) {
+        next.delete(id);
+      } else {
+        next.add(id);
+        const action = TODAY_ACTIONS.find((a) => a.id === id);
+        toast.success(`Marked done${action ? `: ${action.title}` : ""}`, {
+          description: action ? `+$${action.dollars} added to today's progress` : undefined,
+          action: {
+            label: "Undo",
+            onClick: () =>
+              setDoneIds((cur) => {
+                const undone = new Set(cur);
+                undone.delete(id);
+                return undone;
+              }),
+          },
+          duration: 6000,
+        });
+      }
       return next;
     });
 
