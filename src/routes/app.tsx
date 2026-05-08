@@ -204,3 +204,139 @@ function AppLayout() {
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// QuickActions: Hick's Law-friendly menu of the 4 most frequent shortcuts.
+// Heuristic 7 (Flexibility & efficiency).
+// ---------------------------------------------------------------------------
+function QuickActions() {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="hidden sm:inline-flex gap-1.5 h-8">
+          <Zap className="h-3.5 w-3.5 text-gold" />
+          <span className="text-xs">Quick action</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuLabel className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
+          Frequent shortcuts
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/app/retirement" className="cursor-pointer">
+            <PiggyBank className="h-4 w-4 mr-2 text-teal" /> Boost retirement
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/app/guardrails" className="cursor-pointer">
+            <Shield className="h-4 w-4 mr-2 text-coral" /> Add a guardrail
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/app/coach" className="cursor-pointer">
+            <Sparkles className="h-4 w-4 mr-2 text-gold" /> Ask the coach
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/app/wealth" className="cursor-pointer">
+            <TrendingUp className="h-4 w-4 mr-2 text-lime" /> Run a forecast
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// HelpDrawer: contextual FAQ that opens in a side sheet, never leaves the page.
+// Heuristic 9 (recovery) + Heuristic 10 (help & docs).
+// ---------------------------------------------------------------------------
+const FAQ: { q: string; a: string; tags: string[] }[] = [
+  {
+    q: "How does Longeva forecast my retirement?",
+    a: "We project your current savings rate, expected returns and spending patterns 30+ years forward. The 'Optimized' line shows what happens when guardrails and auto-save are active.",
+    tags: ["forecast", "retirement", "home"],
+  },
+  {
+    q: "What are 'guardrails'?",
+    a: "Rules you set once that quietly prevent overspending — like capping food delivery to $200/mo. They run in the background; you can pause them anytime.",
+    tags: ["guardrails", "rules"],
+  },
+  {
+    q: "Is my financial data safe?",
+    a: "Bank connections use read-only tokens via our partner. We never store credentials. You can disconnect any source from Settings → Data Vault.",
+    tags: ["security", "data", "vault"],
+  },
+  {
+    q: "Why does the coach recommend a specific action?",
+    a: "Tap 'Why this?' next to any AI suggestion to see the top signals, weights, model version and confidence behind the call.",
+    tags: ["coach", "ai", "explainability"],
+  },
+  {
+    q: "Can I undo an action I just approved?",
+    a: "Yes. Every action shows an Undo toast for 6 seconds, and the activity log on Settings lets you reverse anything from the last 30 days.",
+    tags: ["undo", "control"],
+  },
+];
+
+function HelpDrawer({ page }: { page: string }) {
+  const [q, setQ] = useState("");
+  const filtered = useMemo(() => {
+    const term = q.trim().toLowerCase();
+    if (!term) return FAQ;
+    return FAQ.filter(
+      (f) => f.q.toLowerCase().includes(term) || f.a.toLowerCase().includes(term) || f.tags.some((t) => t.includes(term)),
+    );
+  }, [q]);
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label="Help and FAQ">
+          <HelpCircle className="h-4 w-4" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="sm:max-w-md overflow-y-auto">
+        <SheetHeader className="text-left">
+          <p className="text-[10px] font-mono uppercase tracking-wider text-lime mb-1">Help · {page}</p>
+          <SheetTitle className="font-display text-2xl">How can we help?</SheetTitle>
+          <SheetDescription>Search the FAQ or browse common questions. You won't lose your place.</SheetDescription>
+        </SheetHeader>
+        <div className="relative mt-5">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search help…"
+            className="pl-9 h-10"
+            aria-label="Search help"
+          />
+        </div>
+        <div className="mt-5 space-y-3">
+          {filtered.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border p-5 text-center">
+              <p className="text-sm font-medium">No results for "{q}"</p>
+              <p className="text-xs text-muted-foreground mt-1">Try a different keyword or ask the coach.</p>
+              <Button asChild variant="lime" size="sm" className="mt-3">
+                <Link to="/app/coach">Ask the coach</Link>
+              </Button>
+            </div>
+          ) : (
+            filtered.map((f) => (
+              <details key={f.q} className="group rounded-xl border border-border bg-card p-4 open:bg-card">
+                <summary className="cursor-pointer list-none flex items-start justify-between gap-3 text-sm font-medium">
+                  <span>{f.q}</span>
+                  <ChevronRight className="h-4 w-4 mt-0.5 shrink-0 text-muted-foreground transition group-open:rotate-90" />
+                </summary>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{f.a}</p>
+              </details>
+            ))
+          )}
+        </div>
+        <p className="text-[11px] text-muted-foreground mt-6">
+          Still stuck? Email <a className="text-lime hover:underline" href="mailto:hello@longeva.app">hello@longeva.app</a>.
+        </p>
+      </SheetContent>
+    </Sheet>
+  );
+}
