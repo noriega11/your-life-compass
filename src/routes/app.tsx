@@ -1,8 +1,8 @@
-import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import {
   Home, TrendingUp, Shield, Sparkles, PiggyBank, Settings,
-  Bell, Flame, LogOut, MoreHorizontal,
+  Bell, Flame, LogOut, MoreHorizontal, HelpCircle, Zap, Search, ChevronRight,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -10,6 +10,9 @@ import { Logo } from "@/components/Logo";
 import { MOCK_USER } from "@/lib/mockData";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetDescription } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const Route = createFileRoute("/app")({ component: AppLayout });
 
