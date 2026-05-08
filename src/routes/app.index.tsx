@@ -148,6 +148,8 @@ function Today() {
                 }}
               />
             </div>
+          </div>
+        </div>
 
         {/* One progress bar so the user always knows where they are. */}
         <div className="mt-6">
