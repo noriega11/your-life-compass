@@ -61,6 +61,16 @@ function AppLayout() {
     return { display, email, initials, avatarUrl };
   }, [user]);
 
+  // Heuristic 1: visibility of system status — show user where they are.
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const currentPage = useMemo(() => {
+    const all = [...PRIMARY_NAV, ...SECONDARY_NAV.map((n) => ({ ...n, icon: undefined as any }))];
+    const match = all
+      .filter((n) => (n.to === "/app" ? pathname === "/app" : pathname.startsWith(n.to)))
+      .sort((a, b) => b.to.length - a.to.length)[0];
+    return match?.label ?? "Home";
+  }, [pathname]);
+
   if (loading || !user) {
     return <div className="min-h-screen grid place-items-center bg-background text-muted-foreground text-sm">Loading…</div>;
   }
